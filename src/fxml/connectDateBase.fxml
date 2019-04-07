@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="paFacelConnect" maxHeight="-Infinity" maxWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="268.0" prefWidth="397.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConnectDateBaseController">
+    
+    <top>
+        <HBox alignment="CENTER" prefHeight="69.0" prefWidth="397.0" BorderPane.alignment="CENTER">
+            <children>
+                <ComboBox fx:id="coDate_Type" prefHeight="25.0" prefWidth="259.0" promptText="%connectDateBase.CompoBox.prompet.typeDataBase" />
+            </children>
+        </HBox>
+    </top>
+    <left>
+        <VBox alignment="TOP_CENTER" prefHeight="245.0" prefWidth="397.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="397.0">
+                    <children>
+                        <TextField fx:id="thAddressDB" prefHeight="25.0" prefWidth="211.0" promptText="%connectDateBase.TextField.prompet.Address">
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </TextField>
+                        <Label minHeight="-Infinity" minWidth="-Infinity" text="%connectDateBase.Spanner.port" />
+                        <Spinner fx:id="thPortDB" editable="true" prefHeight="25.0" prefWidth="108.0">
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </Spinner>
+                    </children>
+                </HBox>
+                <HBox prefHeight="34.0" prefWidth="397.0">
+                    <children>
+                        <TextField fx:id="thNameDB" prefHeight="25.0" prefWidth="212.0" promptText="%connectDateBase.TextField.prompet.NameDateBase">
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </TextField>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="397.0">
+                    <children>
+                        <TextField fx:id="thUserDB" prefHeight="25.0" prefWidth="175.0" promptText="%connectDateBase.TextField.prompet.user_name">
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </TextField>
+                  <PasswordField fx:id="thPasswordDB" promptText="%connectDateBase.TextField.prompet.password">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </PasswordField>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="397.0">
+                    <children>
+                        <Button fx:id="botTest" mnemonicParsing="false" onAction="#onActionBotTest" prefHeight="25.0" prefWidth="115.0" text="%connectDateBase.Button.Test">
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Label fx:id="laTest" minHeight="-Infinity" minWidth="-Infinity" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="48.0" prefWidth="397.0">
+                    <children>
+                        <Button fx:id="botOpen" disable="true" mnemonicParsing="false" onAction="#onActionBotOpen" prefHeight="25.0" prefWidth="206.0" text="%connectDateBase.Button.Connect" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </left>
+</BorderPane>
