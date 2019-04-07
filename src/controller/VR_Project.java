@@ -110,6 +110,10 @@ public class VR_Project extends Application {
         setResLang(ResourceBundle.getBundle("lang.Arebic_WorkBench", Locale.ROOT));
         classTools = new Tools(getResLang().getString("FaceWelcome.label.class_room"));
         PATHPARENT = getClassTools().getPath(getClassTools().getNameSystem(), "VR_Project");
+        /**
+         * hallo
+         */
+        
     }
     
     @Override
