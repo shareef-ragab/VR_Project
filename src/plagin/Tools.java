@@ -113,12 +113,12 @@ public class Tools {
     private String path(String nameProgramm, String namePart) throws IOException {
         //<editor-fold defaultstate="collapsed" desc="statment">
         File temp = File.createTempFile(nameProgramm, ".tmp");
-        setFile(new File(temp.getParent() + "\\" + nameProgramm + "\\" + namePart + "\\temp"));
+        setFile(new File(temp.getParent() + "\\" + nameProgramm + "\\" + namePart + "\\temp\\APP"));
         if (!getFile().exists()) {
             getFile().mkdirs();
         }
         temp.delete();
-        return temp.getParent() + "\\" + nameProgramm + "\\" + namePart + "\\temp";
+        return temp.getParent() + "\\" + nameProgramm + "\\" + namePart + "\\temp\\APP";
 //</editor-fold>
     }
 

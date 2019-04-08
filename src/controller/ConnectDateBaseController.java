@@ -104,7 +104,7 @@ public class ConnectDateBaseController implements Initializable {
     public ConnectDateBaseController(DateBase db) throws SQLException, IOException {
         this();
         //<editor-fold defaultstate="collapsed" desc="statment">
-        File filedb = new File(PATHPARENT + "/APP/table.sql");
+        File filedb = new File(getPATHPARENT() + "/table.sql");
         if (!filedb.exists()) {
             try (FileWriter weite = new FileWriter(filedb)) {
                 String codedb = "CREATE TABLE info_conn_database (\n"
@@ -293,12 +293,12 @@ public class ConnectDateBaseController implements Initializable {
             setClassDB(new DateBase(getLocal(), getUrl(), getNameDateBase(), getHostName(), getPort(), getUserName(), getPassword()));
             laTest.setText(getResLang().getString("secsessfel"));
             botOpen.setDisable(false);
-        }catch (ClassNotFoundException | SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             laTest.setText(getResLang().getString("fail_connect"));
             getClassTools().MadicException(ex, "0x102960275^0001", getLOG(), null, null, true);
         }
 //</editor-fold>
-        
+
 //</editor-fold>
     }
 
