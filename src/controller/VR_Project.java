@@ -35,6 +35,10 @@ public class VR_Project extends Application {
     private static Face face;
     //<editor-fold defaultstate="collapsed" desc="set & get">
 
+    private static void setFace(Face face) {
+        VR_Project.face = face;
+    }
+
     public static URL getPathFace() {
         return pathFace;
     }
@@ -115,6 +119,11 @@ public class VR_Project extends Application {
     }
 
 //</editor-fold>
+    public static void setPageView(Face face, Stage stage) throws Exception {
+        setFace(face);
+        new VR_Project().start(stage);
+    }
+
     @Override
     public void init() throws Exception {
         classDB = new DateBase();
