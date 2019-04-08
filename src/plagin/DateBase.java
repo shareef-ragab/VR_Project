@@ -93,6 +93,19 @@ public class DateBase {
         open(local, url, user, password);
     }
 
+    /**
+     *
+     * @param local
+     * @param url
+     * @param user
+     * @param password
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public DateBase( final String url, final String user, final String password) throws ClassNotFoundException, SQLException {
+        open(url, user, password);
+    }
+
     //<editor-fold defaultstate="collapsed" desc="set && get">
     /**
      * @return the local

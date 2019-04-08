@@ -24,6 +24,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import plagin.DateBase;
+import plagin.Face;
 
 /**
  * FXML Controller class
@@ -255,13 +256,7 @@ public class ConnectDateBaseController implements Initializable {
             getClassTempDB().getPst().setString(6, getUserName());
             getClassTempDB().getPst().setString(7, getPassword());
             getClassTempDB().getPst().execute();
-            /*if (getClassDB().setCrouser("select * from " + WorkBenchDateBase.getNameTableInfo_user_pers())) {
-            getStage().close();
-            setView_Page(PAGE_LOG_IN, new Stage());
-            } else {
-            getStage().close();
-            setView_Page(PAGE_SETUP, new Stage());
-            }*/
+            setPageView(Face.FaceWelcome);
         } catch (SQLException ex) {
             getClassTools().MadicException(ex, "0x102640244^0001", getLOG(), getClassDB(), null, true);
         } catch (Exception ex) {
@@ -291,10 +286,10 @@ public class ConnectDateBaseController implements Initializable {
             setUrl(getCode() + "://" + getHostName() + ":" + getPort() + "/" + getNameDateBase());
             setUserName(thUserDB.getText());
             setClassDB(new DateBase(getLocal(), getUrl(), getNameDateBase(), getHostName(), getPort(), getUserName(), getPassword()));
-            laTest.setText(getResLang().getString("secsessfel"));
+            laTest.setText(getResLang().getString("Massega.label.secsessfel.connect"));
             botOpen.setDisable(false);
         } catch (ClassNotFoundException | SQLException ex) {
-            laTest.setText(getResLang().getString("fail_connect"));
+            laTest.setText(getResLang().getString("Massega.label.fail.connect"));
             getClassTools().MadicException(ex, "0x102960275^0001", getLOG(), null, null, true);
         }
 //</editor-fold>

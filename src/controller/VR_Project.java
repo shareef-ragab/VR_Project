@@ -23,8 +23,9 @@ import plagin.Tools;
  * @author shareef_ragab
  */
 public class VR_Project extends Application {
-    
+
     private static DateBase classDB, classTempDB;
+    private static VR_Project classVR_Project;
     private static String PATHPARENT;
     private static Tools classTools;
     private static ResourceBundle resLang;
@@ -33,48 +34,56 @@ public class VR_Project extends Application {
     private static Stage stage;
     private static URL pathFace;
     private static Face face;
+
     //<editor-fold defaultstate="collapsed" desc="set & get">
+    public static VR_Project getClassVR_Project() {
+        return classVR_Project;
+    }
+
+    private static void setClassVR_Project(VR_Project classVR_Project) {
+        VR_Project.classVR_Project = classVR_Project;
+    }
 
     private static void setFace(Face face) {
         VR_Project.face = face;
     }
-    
+
     public static URL getPathFace() {
         return pathFace;
     }
-    
+
     public static void setPathFace(URL pathFace) {
         VR_Project.pathFace = pathFace;
     }
-    
+
     public static Parent getRoot() {
         return root;
     }
-    
+
     public static void setRoot(Parent root) {
         VR_Project.root = root;
     }
-    
+
     public static Scene getScene() {
         return scene;
     }
-    
+
     public static void setScene(Scene scene) {
         VR_Project.scene = scene;
     }
-    
+
     public static Stage getStage() {
         return stage;
     }
-    
+
     public static void setStage(Stage stage) {
         VR_Project.stage = stage;
     }
-    
+
     public static Tools getClassTools() {
         return classTools;
     }
-    
+
     public static void setClassTools(Tools classTools) {
         VR_Project.classTools = classTools;
     }
@@ -85,53 +94,70 @@ public class VR_Project extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
     public static DateBase getClassDB() {
         return classDB;
     }
-    
+
     public static void setClassDB(DateBase classDB) {
         VR_Project.classDB = classDB;
     }
-    
+
     public static DateBase getClassTempDB() {
         return classTempDB;
     }
-    
+
     public static void setClassTempDB(DateBase classTempDB) {
         VR_Project.classTempDB = classTempDB;
     }
-    
+
     public static ResourceBundle getResLang() {
         return resLang;
     }
-    
+
     public static void setResLang(ResourceBundle aResLang) {
         resLang = aResLang;
     }
-    
+
     public static String getPATHPARENT() {
         return PATHPARENT;
     }
-    
+
     public static Face getFace() {
         return face;
     }
 
 //</editor-fold>
-    public static void setPageView(Face face, Stage stage) throws Exception {
+    public static void setPageView(Face face) throws Exception {
         setFace(face);
-        new VR_Project().start(stage);
+        if (getStage() != null) {
+            getStage().close();
+        }
+        switch (getFace()) {
+            case FaceWelcome:
+                getClassVR_Project().setPathFace(getClassVR_Project().getClass().getResource("/fxml/FaceWelcome.fxml"));
+                break;
+            case ConnectDateBase:
+                getClassVR_Project().setPathFace(getClassVR_Project().getClass().getResource("/fxml/connectDateBase.fxml"));
+                break;
+            case PageCenter:
+                getClassVR_Project().setPathFace(getClassVR_Project().getClass().getResource("/fxml/PageCenter.fxml"));
+                break;
+            case workbench:
+                getClassVR_Project().setPathFace(getClassVR_Project().getClass().getResource("/fxml/workbench.fxml"));
+                break;
+        }
     }
-    
+
     @Override
     public void init() throws Exception {
+        setClassVR_Project(this);
         classDB = new DateBase();
-        face = Face.ConnectDateBase;
+        face = Face.FaceWelcome;
         setResLang(ResourceBundle.getBundle("lang.Arebic_WorkBench", Locale.ROOT));
         classTools = new Tools(getResLang().getString("FaceWelcome.label.class_room"));
         PATHPARENT = getClassTools().getPath(getClassTools().getNameSystem(), "VR_Project");
-        setClassTempDB(new DateBase("", "jdbc:derby:" + getPATHPARENT() + "/APP;create=true", "", ""));
+        setClassTempDB(new DateBase("jdbc:derby:" + getPATHPARENT() + "/APP;create=true", "", ""));
         if (new File(getPATHPARENT() + "/table.sql").exists()) {
             if (getClassTempDB().setCuroser("select * from info_conn_database")) {
                 setClassDB(new DateBase(getClassTempDB().getRs().getString("local"),
@@ -140,16 +166,16 @@ public class VR_Project extends Application {
                         getClassTempDB().getRs().getString("Port"), getClassTempDB().getRs().getString("userName_DB"),
                         getClassTempDB().getRs().getString("Password_DB")));
             } else {
-                
+                setPageView(Face.ConnectDateBase);
             }
         } else {
-            
+            setPageView(Face.ConnectDateBase);
         }
     }
-    
+
     @Override
     public void start(Stage stage) throws Exception {
-        switch (face) {
+        switch (getFace()) {
             case FaceWelcome:
                 setPathFace(getClass().getResource("/fxml/FaceWelcome.fxml"));
                 break;
@@ -163,12 +189,12 @@ public class VR_Project extends Application {
                 setPathFace(getClass().getResource("/fxml/workbench.fxml"));
                 break;
         }
-        
+
         setRoot(FXMLLoader.load(getPathFace(), getResLang()));
         setScene(new Scene(getRoot()));
         setStage(stage);
-        getStage().setScene(scene);
+        getStage().setScene(getScene());
         getStage().show();
     }
-    
+
 }
