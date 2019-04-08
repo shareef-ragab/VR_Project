@@ -745,6 +745,7 @@ public class Tools {
     public void setFile(Window parent, FileChooser chooserImage, String description, String title, String... extensions) throws FileNotFoundException {
         chooser(parent, chooserImage, description, title, extensions);
     }
+
     //<editor-fold defaultstate="collapsed" desc="set & get">
     /**
      * @return the input

@@ -27,578 +27,578 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" fx:id="paFaceWorkBench" maxHeight="-Infinity" maxWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="725.0" prefWidth="1352.0" styleClass="mainFxmlClass" stylesheets="@../../../war/src/com/zeroSystem/javefx/StyleSheet/workbench.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zeroSystem.javefx.Controller.WorkBenchController">
-   <children>
-      <BorderPane layoutY="24.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="709.0" prefWidth="305.0" stylesheets="@../../../war/src/com/zeroSystem/javefx/StyleSheet/workbench.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1058.0" AnchorPane.topAnchor="24.0">
-         <center>
-            <ImageView fx:id="laUserImage" fitHeight="150.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-               <image>
-                  <Image url="@../drawble/User.jpg" />
-               </image>
-               <viewport>
-                  <Rectangle2D height="100.0" minX="5.0" minY="5.0" />
-               </viewport>
-               <BorderPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </BorderPane.margin>
-            </ImageView>
-         </center>
-         <bottom>
-            <Accordion fx:id="viewPlag" prefHeight="479.0" prefWidth="274.0" stylesheets="@../../../war/src/com/zeroSystem/javefx/StyleSheet/workbench.css" BorderPane.alignment="CENTER">
-               <panes>
-                  <TitledPane animated="false" text="%info_Job">
-                     <content>
-                        <GridPane nodeOrientation="LEFT_TO_RIGHT">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-                                 <children>
-                                    <Label alignment="CENTER" text="%id_Job">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label fx:id="laID_Employee" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <children>
-                                    <Label alignment="CENTER" text="%sure_name">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
-                                 <children>
-                                    <Label fx:id="laSureName" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                                 <children>
-                                    <Label alignment="CENTER" text="%time_Job" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
-                                 <children>
-                                    <Label fx:id="laUserTimeJob" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" textAlignment="JUSTIFY" wrapText="true" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
-                                 <children>
-                                    <Label fx:id="laUserJob" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <children>
-                                    <Label alignment="CENTER" text="%date_job" textAlignment="JUSTIFY">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
-                                 <children>
-                                    <Label fx:id="laDateHare" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </GridPane>
-                     </content>
-                  </TitledPane>
-                  <TitledPane animated="false" text="%info_pers">
-                     <content>
-                        <GridPane nodeOrientation="LEFT_TO_RIGHT">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <children>
-                                    <Label alignment="CENTER" text="%id_number" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <children>
-                                    <Label alignment="CENTER" text="الإسم" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                 <children>
-                                    <Label alignment="CENTER" text="%age" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
-                                 <children>
-                                    <Label fx:id="laUserNumberId" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
-                                 <children>
-                                    <Label fx:id="laUserName" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
-                                 <children>
-                                    <Label fx:id="laUserAge" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                 <children>
-                                    <Label alignment="CENTER" text="%dateBarth" textAlignment="JUSTIFY" wrapText="true">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
-                                 <children>
-                                    <Label fx:id="laDateBarth" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                                 <children>
-                                    <Label alignment="CENTER" text="%gender" textAlignment="JUSTIFY" wrapText="true">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
-                                 <children>
-                                    <Label fx:id="laGender" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                                 <children>
-                                    <Label alignment="CENTER" text="%state_User">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="132.0" GridPane.rowIndex="6">
-                                 <children>
-                                    <Label fx:id="laStateComnuty" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-                                 <children>
-                                    <Label minHeight="-Infinity" minWidth="-Infinity" text="%id_user_s" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label fx:id="laId_User" minHeight="-Infinity" minWidth="-Infinity" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </GridPane>
-                     </content>
-                  </TitledPane>
-                  <TitledPane animated="false" text="%info_conn">
-                     <content>
-                        <GridPane>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
-                                 <children>
-                                    <Label fx:id="laEmail" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" textAlignment="JUSTIFY" wrapText="true" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="52.0" prefWidth="229.0" GridPane.columnSpan="2">
-                                 <children>
-                                    <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%email" textAlignment="JUSTIFY" wrapText="true">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <children>
-                                    <Label fx:id="laTel" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" wrapText="true">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
-                                 <children>
-                                    <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%tel" textAlignment="JUSTIFY" wrapText="true">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
-                                 <children>
-                                    <Label minHeight="-Infinity" minWidth="-Infinity" text="%address" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="6">
-                                 <children>
-                                    <Label fx:id="laAddress" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" textAlignment="JUSTIFY" wrapText="true">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
-                                 <children>
-                                    <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%mobile" textAlignment="JUSTIFY" wrapText="true">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                 <children>
-                                    <Label fx:id="laPhoneNum" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" textAlignment="JUSTIFY" wrapText="true">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
-                                 <children>
-                                    <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%password" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" stylesheets="@../css/workbench.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                 <children>
-                                    <Hyperlink fx:id="linekRePassword" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#onActionLiinkrePassword" stylesheets="@../css/workbench.css" text="%link.rePassword" textAlignment="JUSTIFY" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </GridPane>
-                     </content>
-                  </TitledPane>
-                  <TitledPane fx:id="titActive" animated="false" text="%activte">
-                     <content>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0">
-                           <center>
-                              <ListView fx:id="listIcon" onMouseClicked="#OnMouseClickedListUserActive" prefHeight="283.0" prefWidth="257.0" BorderPane.alignment="CENTER">
-                                 <BorderPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </BorderPane.margin>
-                              </ListView>
-                           </center>
-                           <top>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="267.0" BorderPane.alignment="CENTER_RIGHT">
-                                 <children>
-                                    <Button fx:id="botRefresh" mnemonicParsing="false" onAction="#onActionbotRefresh" prefHeight="11.0" prefWidth="34.0" rotate="180.0">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" />
-                                       </HBox.margin>
-                                       <tooltip>
-                                          <Tooltip text="إضغط لتحديث القائمة" textAlignment="JUSTIFY" wrapText="true" />
-                                       </tooltip>
-                                       <graphic>
-                                          <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
-                                             <image>
-                                                <Image url="@../drawble/refresh_Icon.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
-                                 </children>
-                                 <BorderPane.margin>
-                                    <Insets />
-                                 </BorderPane.margin>
-                              </HBox>
-                           </top>
-                        </BorderPane>
-                     </content>
-                  </TitledPane>
-                  <TitledPane fx:id="titListChat" animated="false" text="%Massege">
-                     <content>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0">
-                           <center>
-                              <ListView fx:id="listChat" onMouseClicked="#onMouseClickedListChat" prefHeight="280.0" prefWidth="267.0" BorderPane.alignment="CENTER" />
-                           </center>
-                           <top>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="31.0" prefWidth="267.0" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <Button fx:id="botRefreshListMasse" mnemonicParsing="false" onAction="#onActionBotRefreshListMasse" prefHeight="25.0" prefWidth="0.0" rotate="180.0">
-                                       <HBox.margin>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" />
-                                       </HBox.margin>
-                                       <tooltip>
-                                          <Tooltip text="إضغط لتحديث القائمة" textAlignment="JUSTIFY" wrapText="true" />
-                                       </tooltip>
-                                       <graphic>
-                                          <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
-                                             <image>
-                                                <Image url="@../drawble/refresh_Icon.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
-                                 </children>
-                                 <BorderPane.margin>
-                                    <Insets />
-                                 </BorderPane.margin>
-                              </HBox>
-                           </top>
-                        </BorderPane>
-                     </content>
-                  </TitledPane>
-                  <TitledPane fx:id="titChat" animated="false" text="%chat">
-                     <content>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0">
-                           <top>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="287.0" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <Label fx:id="laUserActiveDest" prefHeight="17.0" prefWidth="317.0" textAlignment="JUSTIFY" wrapText="true">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                       <graphic>
-                                          <ImageView fx:id="imgUserChar" fitHeight="39.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../drawble/User.jpg" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Label>
-                                    <Button fx:id="botRefeshMasseg" mnemonicParsing="false" onAction="#onActionBotRefreshMasseg" rotate="180.0">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="2.0" right="5.0" />
-                                       </HBox.margin>
-                                       <graphic>
-                                          <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
-                                             <image>
-                                                <Image url="@../drawble/refresh_Icon.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                           </top>
-                           <bottom>
-                              <HBox alignment="CENTER" prefHeight="27.0" prefWidth="287.0" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <TextField fx:id="thSendMasseg" prefHeight="25.0" prefWidth="231.0" promptText="%text.sendMassege">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                    <Button fx:id="botSendMassegebotSendMassege" mnemonicParsing="false" onAction="#OnActionBotSendMassegebotSendMassege" prefHeight="25.0" prefWidth="106.0" text="%bottom.sendMassege">
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                           </bottom>
-                           <center>
-                              <ListView fx:id="listViewMassege" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-                           </center>
-                        </BorderPane>
-                     </content>
-                  </TitledPane>
-               </panes>
-               <BorderPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </BorderPane.margin>
-            </Accordion>
-         </bottom>
-         <top>
-            <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="379.0" stylesheets="@../../../war/src/com/zeroSystem/javefx/StyleSheet/workbench.css" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="botSerch" alignment="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#botSerchActionPerformed" prefHeight="25.0" prefWidth="49.0" text="%serch">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </Button>
-                  <TextField fx:id="thSearch" alignment="CENTER" prefHeight="25.0" prefWidth="175.0" promptText="%serch">
-                     <HBox.margin>
+    <children>
+        <BorderPane layoutY="24.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="709.0" prefWidth="305.0" stylesheets="@../../../war/src/com/zeroSystem/javefx/StyleSheet/workbench.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1058.0" AnchorPane.topAnchor="24.0">
+            <center>
+                <ImageView fx:id="laUserImage" fitHeight="150.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                    <image>
+                        <Image url="@../drawble/User.jpg" />
+                    </image>
+                    <viewport>
+                        <Rectangle2D height="100.0" minX="5.0" minY="5.0" />
+                    </viewport>
+                    <BorderPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <Label alignment="CENTER" prefHeight="32.0" prefWidth="47.0" text="%serch">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-               <BorderPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </BorderPane.margin>
-            </HBox>
-         </top>
-      </BorderPane>
-      <BorderPane fx:id="paFace" layoutY="24.0" prefHeight="709.0" prefWidth="1050.0" styleClass="mainFxmlClass" stylesheets="@../../../war/src/com/zeroSystem/javefx/StyleSheet/workbench.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="313.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
-         <bottom>
-            <HBox alignment="CENTER_LEFT" prefHeight="260.0" prefWidth="993.0" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </BorderPane.margin>
-               <children>
-                  <TitledPane alignment="CENTER" collapsible="false" prefHeight="259.0" prefWidth="1090.0" text="%state_programme" textAlignment="CENTER">
-                     <content>
-                        <VBox prefHeight="223.0" prefWidth="756.0">
-                           <children>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="977.0">
-                                 <children>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="560.0">
-                                       <children>
-                                          <Button fx:id="printInfo" mnemonicParsing="false" onAction="#onActionPrintInfo" prefHeight="25.0" prefWidth="150.0" text="%printer">
-                                             <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                       </children>
-                                    </HBox>
-                                    <Button fx:id="botSave" mnemonicParsing="false" onAction="#OnActionBotSave" prefHeight="25.0" prefWidth="204.0" text="%save">
-                                       <HBox.margin>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Button fx:id="botNew" mnemonicParsing="false" onAction="#botNewActionPerformed" prefHeight="25.0" prefWidth="196.0" text="%new">
-                                       <HBox.margin>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                              <TextArea fx:id="thState" editable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="108.0" prefWidth="769.0" text="run:" wrapText="true">
-                                 <tooltip>
-                                    <Tooltip text="يستعرض حالة النظام وما يقوم به من مهام" textAlignment="CENTER" wrapText="true" />
-                                 </tooltip>
-                              </TextArea>
-                              <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="19.0" prefWidth="798.0">
-                                 <children>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="474.0">
-                                       <children>
-                                          <Text fx:id="laTime" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="180.13671875">
-                                             <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </HBox.margin>
-                                          </Text>
-                                          <Label fx:id="laData" alignment="CENTER" contentDisplay="CENTER">
-                                             <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="523.0">
-                                       <children>
-                                          <ProgressBar fx:id="proTrace" prefHeight="18.0" prefWidth="203.0" progress="0.0">
-                                             <HBox.margin>
+                    </BorderPane.margin>
+                </ImageView>
+            </center>
+            <bottom>
+                <Accordion fx:id="viewPlag" prefHeight="479.0" prefWidth="274.0" stylesheets="@../../../war/src/com/zeroSystem/javefx/StyleSheet/workbench.css" BorderPane.alignment="CENTER">
+                    <panes>
+                        <TitledPane animated="false" text="%info_Job">
+                            <content>
+                                <GridPane nodeOrientation="LEFT_TO_RIGHT">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                            <children>
+                                                <Label alignment="CENTER" text="%id_Job">
+                                                    <HBox.margin>
+                                                        <Insets />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label fx:id="laID_Employee" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <children>
+                                                <Label alignment="CENTER" text="%sure_name">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                            <children>
+                                                <Label fx:id="laSureName" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                            <children>
+                                                <Label alignment="CENTER" text="%time_Job" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                                            <children>
+                                                <Label fx:id="laUserTimeJob" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" textAlignment="JUSTIFY" wrapText="true" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                                            <children>
+                                                <Label fx:id="laUserJob" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                            <children>
+                                                <Label alignment="CENTER" text="%date_job" textAlignment="JUSTIFY">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                            <children>
+                                                <Label fx:id="laDateHare" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="%info_pers">
+                            <content>
+                                <GridPane nodeOrientation="LEFT_TO_RIGHT">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <children>
+                                                <Label alignment="CENTER" text="%id_number" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                            <children>
+                                                <Label alignment="CENTER" text="الإسم" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                            <children>
+                                                <Label alignment="CENTER" text="%age" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                            <children>
+                                                <Label fx:id="laUserNumberId" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                            <children>
+                                                <Label fx:id="laUserName" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                                            <children>
+                                                <Label fx:id="laUserAge" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                            <children>
+                                                <Label alignment="CENTER" text="%dateBarth" textAlignment="JUSTIFY" wrapText="true">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+                                            <children>
+                                                <Label fx:id="laDateBarth" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                            <children>
+                                                <Label alignment="CENTER" text="%gender" textAlignment="JUSTIFY" wrapText="true">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
+                                            <children>
+                                                <Label fx:id="laGender" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                            <children>
+                                                <Label alignment="CENTER" text="%state_User">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="132.0" GridPane.rowIndex="6">
+                                            <children>
+                                                <Label fx:id="laStateComnuty" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                            <children>
+                                                <Label minHeight="-Infinity" minWidth="-Infinity" text="%id_user_s" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                            <children>
+                                                <Label fx:id="laId_User" minHeight="-Infinity" minWidth="-Infinity" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="%info_conn">
+                            <content>
+                                <GridPane>
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                            <children>
+                                                <Label fx:id="laEmail" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" textAlignment="JUSTIFY" wrapText="true" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="52.0" prefWidth="229.0" GridPane.columnSpan="2">
+                                            <children>
+                                                <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%email" textAlignment="JUSTIFY" wrapText="true">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                            <children>
+                                                <Label fx:id="laTel" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" wrapText="true">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                            <children>
+                                                <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%tel" textAlignment="JUSTIFY" wrapText="true">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                                            <children>
+                                                <Label minHeight="-Infinity" minWidth="-Infinity" text="%address" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                                            <children>
+                                                <Label fx:id="laAddress" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" textAlignment="JUSTIFY" wrapText="true">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                                            <children>
+                                                <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%mobile" textAlignment="JUSTIFY" wrapText="true">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                            <children>
+                                                <Label fx:id="laPhoneNum" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" textAlignment="JUSTIFY" wrapText="true">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+                                            <children>
+                                                <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%password" />
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" stylesheets="@../css/workbench.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                            <children>
+                                                <Hyperlink fx:id="linekRePassword" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#onActionLiinkrePassword" stylesheets="@../css/workbench.css" text="%link.rePassword" textAlignment="JUSTIFY" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </GridPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane fx:id="titActive" animated="false" text="%activte">
+                            <content>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                        <ListView fx:id="listIcon" onMouseClicked="#OnMouseClickedListUserActive" prefHeight="283.0" prefWidth="257.0" BorderPane.alignment="CENTER">
+                                            <BorderPane.margin>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </HBox.margin>
-                                          </ProgressBar>
-                                          <Button fx:id="botExit" alignment="CENTER" mnemonicParsing="false" onAction="#onActionbotExst" prefHeight="25.0" prefWidth="153.0" text="%Exsit">
-                                             <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                          <Button fx:id="botPrevesMenuCenter" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#onActionBotPrevesMenuCenter" prefHeight="25.0" prefWidth="145.0" text="%back_to_Mneu" wrapText="true">
-                                             <HBox.margin>
-                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="5.0" />
-                                       </padding>
-                                    </HBox>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </content>
-                     <padding>
+                                            </BorderPane.margin>
+                                        </ListView>
+                                    </center>
+                                    <top>
+                                        <HBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="267.0" BorderPane.alignment="CENTER_RIGHT">
+                                            <children>
+                                                <Button fx:id="botRefresh" mnemonicParsing="false" onAction="#onActionbotRefresh" prefHeight="11.0" prefWidth="34.0" rotate="180.0">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                                                    </HBox.margin>
+                                                    <tooltip>
+                                                        <Tooltip text="إضغط لتحديث القائمة" textAlignment="JUSTIFY" wrapText="true" />
+                                                    </tooltip>
+                                                    <graphic>
+                                                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+                                                            <image>
+                                                                <Image url="@../drawble/refresh_Icon.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                            <BorderPane.margin>
+                                                <Insets />
+                                            </BorderPane.margin>
+                                        </HBox>
+                                    </top>
+                                </BorderPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane fx:id="titListChat" animated="false" text="%Massege">
+                            <content>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                        <ListView fx:id="listChat" onMouseClicked="#onMouseClickedListChat" prefHeight="280.0" prefWidth="267.0" BorderPane.alignment="CENTER" />
+                                    </center>
+                                    <top>
+                                        <HBox alignment="CENTER_RIGHT" prefHeight="31.0" prefWidth="267.0" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <Button fx:id="botRefreshListMasse" mnemonicParsing="false" onAction="#onActionBotRefreshListMasse" prefHeight="25.0" prefWidth="0.0" rotate="180.0">
+                                                    <HBox.margin>
+                                                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                                                    </HBox.margin>
+                                                    <tooltip>
+                                                        <Tooltip text="إضغط لتحديث القائمة" textAlignment="JUSTIFY" wrapText="true" />
+                                                    </tooltip>
+                                                    <graphic>
+                                                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+                                                            <image>
+                                                                <Image url="@../drawble/refresh_Icon.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                            <BorderPane.margin>
+                                                <Insets />
+                                            </BorderPane.margin>
+                                        </HBox>
+                                    </top>
+                                </BorderPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane fx:id="titChat" animated="false" text="%chat">
+                            <content>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <top>
+                                        <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="287.0" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <Label fx:id="laUserActiveDest" prefHeight="17.0" prefWidth="317.0" textAlignment="JUSTIFY" wrapText="true">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                    <graphic>
+                                                        <ImageView fx:id="imgUserChar" fitHeight="39.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../drawble/User.jpg" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Label>
+                                                <Button fx:id="botRefeshMasseg" mnemonicParsing="false" onAction="#onActionBotRefreshMasseg" rotate="180.0">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="2.0" right="5.0" />
+                                                    </HBox.margin>
+                                                    <graphic>
+                                                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+                                                            <image>
+                                                                <Image url="@../drawble/refresh_Icon.png" />
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                    </top>
+                                    <bottom>
+                                        <HBox alignment="CENTER" prefHeight="27.0" prefWidth="287.0" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <TextField fx:id="thSendMasseg" prefHeight="25.0" prefWidth="231.0" promptText="%text.sendMassege">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </TextField>
+                                                <Button fx:id="botSendMassegebotSendMassege" mnemonicParsing="false" onAction="#OnActionBotSendMassegebotSendMassege" prefHeight="25.0" prefWidth="106.0" text="%bottom.sendMassege">
+                                                    <HBox.margin>
+                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                    </HBox.margin>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                    </bottom>
+                                    <center>
+                                        <ListView fx:id="listViewMassege" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                                    </center>
+                                </BorderPane>
+                            </content>
+                        </TitledPane>
+                    </panes>
+                    <BorderPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </BorderPane.margin>
+                </Accordion>
+            </bottom>
+            <top>
+                <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="379.0" stylesheets="@../../../war/src/com/zeroSystem/javefx/StyleSheet/workbench.css" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="botSerch" alignment="CENTER" minWidth="-Infinity" mnemonicParsing="false" onAction="#botSerchActionPerformed" prefHeight="25.0" prefWidth="49.0" text="%serch">
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </HBox.margin>
+                        </Button>
+                        <TextField fx:id="thSearch" alignment="CENTER" prefHeight="25.0" prefWidth="175.0" promptText="%serch">
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </TextField>
+                        <Label alignment="CENTER" prefHeight="32.0" prefWidth="47.0" text="%serch">
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <BorderPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </TitledPane>
-               </children>
-            </HBox>
-         </bottom>
-      </BorderPane>
-      <MenuBar prefHeight="25.0" prefWidth="1363.0" stylesheets="@../../../war/src/com/zeroSystem/javefx/StyleSheet/workbench.css">
-         <menus>
-            <Menu mnemonicParsing="false" text="%itemMnue.File">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="%Exsit" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="%itemMnue.Help">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="%itemMnue.About" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-   </children>
+                    </BorderPane.margin>
+                </HBox>
+            </top>
+        </BorderPane>
+        <BorderPane fx:id="paFace" layoutY="24.0" prefHeight="709.0" prefWidth="1050.0" styleClass="mainFxmlClass" stylesheets="@../../../war/src/com/zeroSystem/javefx/StyleSheet/workbench.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="313.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+            <bottom>
+                <HBox alignment="CENTER_LEFT" prefHeight="260.0" prefWidth="993.0" BorderPane.alignment="CENTER">
+                    <BorderPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </BorderPane.margin>
+                    <children>
+                        <TitledPane alignment="CENTER" collapsible="false" prefHeight="259.0" prefWidth="1090.0" text="%state_programme" textAlignment="CENTER">
+                            <content>
+                                <VBox prefHeight="223.0" prefWidth="756.0">
+                                    <children>
+                                        <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="977.0">
+                                            <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="560.0">
+                                                    <children>
+                                                        <Button fx:id="printInfo" mnemonicParsing="false" onAction="#onActionPrintInfo" prefHeight="25.0" prefWidth="150.0" text="%printer">
+                                                            <HBox.margin>
+                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                            </HBox.margin>
+                                                        </Button>
+                                                    </children>
+                                                </HBox>
+                                                <Button fx:id="botSave" mnemonicParsing="false" onAction="#OnActionBotSave" prefHeight="25.0" prefWidth="204.0" text="%save">
+                                                    <HBox.margin>
+                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                    </HBox.margin>
+                                                </Button>
+                                                <Button fx:id="botNew" mnemonicParsing="false" onAction="#botNewActionPerformed" prefHeight="25.0" prefWidth="196.0" text="%new">
+                                                    <HBox.margin>
+                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                    </HBox.margin>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                        <TextArea fx:id="thState" editable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="108.0" prefWidth="769.0" text="run:" wrapText="true">
+                                            <tooltip>
+                                                <Tooltip text="يستعرض حالة النظام وما يقوم به من مهام" textAlignment="CENTER" wrapText="true" />
+                                            </tooltip>
+                                        </TextArea>
+                                        <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="19.0" prefWidth="798.0">
+                                            <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="474.0">
+                                                    <children>
+                                                        <Text fx:id="laTime" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="180.13671875">
+                                                            <HBox.margin>
+                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                            </HBox.margin>
+                                                        </Text>
+                                                        <Label fx:id="laData" alignment="CENTER" contentDisplay="CENTER">
+                                                            <HBox.margin>
+                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="523.0">
+                                                    <children>
+                                                        <ProgressBar fx:id="proTrace" prefHeight="18.0" prefWidth="203.0" progress="0.0">
+                                                            <HBox.margin>
+                                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                            </HBox.margin>
+                                                        </ProgressBar>
+                                                        <Button fx:id="botExit" alignment="CENTER" mnemonicParsing="false" onAction="#onActionbotExst" prefHeight="25.0" prefWidth="153.0" text="%Exsit">
+                                                            <HBox.margin>
+                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                            </HBox.margin>
+                                                        </Button>
+                                                        <Button fx:id="botPrevesMenuCenter" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#onActionBotPrevesMenuCenter" prefHeight="25.0" prefWidth="145.0" text="%back_to_Mneu" wrapText="true">
+                                                            <HBox.margin>
+                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                            </HBox.margin>
+                                                        </Button>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="5.0" />
+                                                    </padding>
+                                                </HBox>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                            </content>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                        </TitledPane>
+                    </children>
+                </HBox>
+            </bottom>
+        </BorderPane>
+        <MenuBar prefHeight="25.0" prefWidth="1363.0" stylesheets="@../../../war/src/com/zeroSystem/javefx/StyleSheet/workbench.css">
+            <menus>
+                <Menu mnemonicParsing="false" text="%itemMnue.File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="%Exsit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%itemMnue.Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="%itemMnue.About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </children>
 </AnchorPane>
