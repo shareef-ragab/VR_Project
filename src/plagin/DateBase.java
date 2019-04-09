@@ -102,7 +102,7 @@ public class DateBase {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public DateBase( final String url, final String user, final String password) throws ClassNotFoundException, SQLException {
+    public DateBase(final String url, final String user, final String password) throws ClassNotFoundException, SQLException {
         open(url, user, password);
     }
 

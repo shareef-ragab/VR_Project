@@ -256,7 +256,7 @@ public class ConnectDateBaseController implements Initializable {
             getClassTempDB().getPst().setString(6, getUserName());
             getClassTempDB().getPst().setString(7, getPassword());
             getClassTempDB().getPst().execute();
-            setPageView(Face.FaceWelcome);
+            setPageView(Face.FaceWelcome, true);
         } catch (SQLException ex) {
             getClassTools().MadicException(ex, "0x102640244^0001", getLOG(), getClassDB(), null, true);
         } catch (Exception ex) {

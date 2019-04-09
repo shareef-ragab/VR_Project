@@ -24,6 +24,7 @@ import javafx.scene.control.ToggleGroup;
  * @author shareef_ragab
  */
 public class FaceWelcomeController implements Initializable {
+    //<editor-fold defaultstate="collapsed" desc="varible">
 
     @FXML
     private PasswordField text_password;
@@ -48,6 +49,7 @@ public class FaceWelcomeController implements Initializable {
 
     @FXML
     private ToggleGroup KIndACCOUNT;
+//</editor-fold>
 
     @FXML
     private void onActionBtn_register(ActionEvent event) {
@@ -61,6 +63,7 @@ public class FaceWelcomeController implements Initializable {
 
     @FXML
     void initialize() {
+        //<editor-fold defaultstate="collapsed" desc="statment">
         assert text_password != null : "fx:id=\"text_password\" was not injected: check your FXML file 'FaceWelcome.fxml'.";
         assert text_username != null : "fx:id=\"text_username\" was not injected: check your FXML file 'FaceWelcome.fxml'.";
         assert check_Remmber != null : "fx:id=\"check_Remmber\" was not injected: check your FXML file 'FaceWelcome.fxml'.";
@@ -75,7 +78,7 @@ public class FaceWelcomeController implements Initializable {
         assert redi_student != null : "fx:id=\"redi_student\" was not injected: check your FXML file 'FaceWelcome.fxml'.";
         assert KIndACCOUNT != null : "fx:id=\"KIndACCOUNT\" was not injected: check your FXML file 'FaceWelcome.fxml'.";
         assert radi_techer != null : "fx:id=\"radi_techer\" was not injected: check your FXML file 'FaceWelcome.fxml'.";
-
+//</editor-fold>
     }
 
     @Override

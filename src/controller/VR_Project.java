@@ -128,9 +128,10 @@ public class VR_Project extends Application {
     }
 
 //</editor-fold>
-    public static void setPageView(Face face) throws Exception {
+    public static void setPageView(Face face, final boolean isOutshow) throws Exception {
+        //<editor-fold defaultstate="collapsed" desc="statment">
         setFace(face);
-        if (getStage() != null) {
+        if (getStage() != null && isOutshow) {
             getStage().close();
         }
         switch (getFace()) {
@@ -147,16 +148,24 @@ public class VR_Project extends Application {
                 getClassVR_Project().setPathFace(getClassVR_Project().getClass().getResource("/fxml/workbench.fxml"));
                 break;
         }
+        setRoot(FXMLLoader.load(getPathFace(), getResLang()));
+        if (isOutshow) {
+            setScene(new Scene(getRoot()));
+            getStage().setScene(getScene());
+            getStage().show();
+        }
+//</editor-fold>
     }
 
     @Override
     public void init() throws Exception {
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        setResLang(ResourceBundle.getBundle("lang.VR_porject", Locale.ROOT));
+        classTools = new Tools(getResLang().getString("FaceWelcome.label.class_room"));
+        PATHPARENT = getClassTools().getPath(getClassTools().getNameSystem(), "VR_Project");
         setClassVR_Project(this);
         classDB = new DateBase();
         face = Face.FaceWelcome;
-        setResLang(ResourceBundle.getBundle("lang.Arebic_WorkBench", Locale.ROOT));
-        classTools = new Tools(getResLang().getString("FaceWelcome.label.class_room"));
-        PATHPARENT = getClassTools().getPath(getClassTools().getNameSystem(), "VR_Project");
         setClassTempDB(new DateBase("jdbc:derby:" + getPATHPARENT() + "/APP;create=true", "", ""));
         if (new File(getPATHPARENT() + "/table.sql").exists()) {
             if (getClassTempDB().setCuroser("select * from info_conn_database")) {
@@ -166,11 +175,12 @@ public class VR_Project extends Application {
                         getClassTempDB().getRs().getString("Port"), getClassTempDB().getRs().getString("userName_DB"),
                         getClassTempDB().getRs().getString("Password_DB")));
             } else {
-                setPageView(Face.ConnectDateBase);
+                setPageView(Face.ConnectDateBase, false);
             }
         } else {
-            setPageView(Face.ConnectDateBase);
+            setPageView(Face.ConnectDateBase, false);
         }
+//</editor-fold>
     }
 
     @Override
