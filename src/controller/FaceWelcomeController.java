@@ -5,8 +5,12 @@
  */
 package controller;
 
+import static controller.VR_Project.*;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,7 +31,7 @@ public class FaceWelcomeController implements Initializable {
     //<editor-fold defaultstate="collapsed" desc="varible">
 
     @FXML
-    private PasswordField text_password;
+    private PasswordField text_password, text_password_regster;
 
     @FXML
     private TextField text_username, text_user_regster, text_email, text_NumPhone;
@@ -53,7 +57,18 @@ public class FaceWelcomeController implements Initializable {
 
     @FXML
     private void onActionBtn_register(ActionEvent event) {
-
+        try {
+            getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL `add_user`(?, ?, ?, ? ?, ?);"));
+            getClassDB().getPst().setString(1, text_user_regster.getText());
+            getClassDB().getPst().setString(2, text_password_regster.getText());
+            getClassDB().getPst().setString(3, text_email.getText());
+            getClassDB().getPst().setString(4, text_NumPhone.getText());
+            getClassTools().getSelect(radi_techer, redi_student, getClassDB().getPst(), 5);
+            getClassTools().getSelect(radi_Male, radio_Female, getClassDB().getPst(), 6);
+            getClassDB().getPst().execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(FaceWelcomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -78,6 +93,7 @@ public class FaceWelcomeController implements Initializable {
         assert redi_student != null : "fx:id=\"redi_student\" was not injected: check your FXML file 'FaceWelcome.fxml'.";
         assert KIndACCOUNT != null : "fx:id=\"KIndACCOUNT\" was not injected: check your FXML file 'FaceWelcome.fxml'.";
         assert radi_techer != null : "fx:id=\"radi_techer\" was not injected: check your FXML file 'FaceWelcome.fxml'.";
+        assert text_password_regster != null : "fx:id=\"text_password_regster\" was not injected: check your FXML file 'FaceWelcome.fxml'.";
 //</editor-fold>
     }
 

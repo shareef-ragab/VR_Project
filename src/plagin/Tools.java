@@ -150,12 +150,12 @@ public class Tools {
 
     }
 
-    private void select(RadioButton tere1, RadioButton tere2, PreparedStatement pst, int parameterIndex, String tere1True, String tere2True) throws SQLException {
+    private void select(RadioButton tere1, RadioButton tere2, PreparedStatement pst, int parameterIndex) throws SQLException {
         //<editor-fold defaultstate="collapsed" desc="statment">
         if (tere1.isSelected()) {
-            pst.setString(parameterIndex, tere1True);
+            pst.setString(parameterIndex, tere1.getText());
         } else if (tere2.isSelected()) {
-            pst.setString(parameterIndex, tere2True);
+            pst.setString(parameterIndex, tere2.getText());
         } else {
             throw new SQLException("No Select");
         }
@@ -691,8 +691,8 @@ public class Tools {
      * @param tere2True
      * @throws SQLException
      */
-    public void getSelect(RadioButton tere1, RadioButton tere2, PreparedStatement pst, int parameterIndex, String tere1True, String tere2True) throws SQLException {
-        select(tere1, tere2, pst, parameterIndex, tere1True, tere2True);
+    public void getSelect(RadioButton tere1, RadioButton tere2, PreparedStatement pst, int parameterIndex) throws SQLException {
+        select(tere1, tere2, pst, parameterIndex);
     }
 
     /**

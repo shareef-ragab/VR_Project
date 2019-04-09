@@ -71,7 +71,7 @@
                                     </children>
                                 </Pane>
                                 <Button layoutX="14.0" layoutY="199.0" mnemonicParsing="false" onAction="#onActionBtn_register" prefHeight="25.0" prefWidth="118.0" text="%FaceWelcome.Button.register" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="235.0" />
-                                <PasswordField layoutX="14.0" layoutY="58.0" promptText="%FaceWelcome.TextField.prompet.password" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="75.0" />
+                                <PasswordField fx:id="text_password_regster" layoutX="14.0" layoutY="58.0" promptText="%FaceWelcome.TextField.prompet.password" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="75.0" />
                             </children>
                         </AnchorPane>
                     </center>

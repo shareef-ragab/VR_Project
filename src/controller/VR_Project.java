@@ -187,6 +187,7 @@ public class VR_Project extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        //<editor-fold defaultstate="collapsed" desc="statment">
         switch (getFace()) {
             case FaceWelcome:
                 setPathFace(getClass().getResource("/fxml/FaceWelcome.fxml"));
@@ -207,6 +208,7 @@ public class VR_Project extends Application {
         setStage(stage);
         getStage().setScene(getScene());
         getStage().show();
+//</editor-fold>
     }
     
 }
