@@ -13,6 +13,6 @@ public class connectDateBase {
 
     public static class Info_user {
 
-        private static String nameDateBase,colID_USER, coluser_name, colpassword, colnum_phone, coltype_Account, colgender, colstate_log;
+        private static String nameDateBase, colID_USER, coluser_name, colpassword, colnum_phone, coltype_Account, colgender, colstate_log;
     }
 }

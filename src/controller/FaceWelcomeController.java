@@ -6,14 +6,20 @@
 package controller;
 
 import static controller.VR_Project.*;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -21,6 +27,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import plagin.Face;
 
 /**
  * FXML Controller class
@@ -30,6 +37,7 @@ import javafx.scene.control.ToggleGroup;
 public class FaceWelcomeController implements Initializable {
     //<editor-fold defaultstate="collapsed" desc="varible">
 
+    private int count_fail = 0;
     @FXML
     private PasswordField text_password, text_password_regster;
 
@@ -57,8 +65,9 @@ public class FaceWelcomeController implements Initializable {
 
     @FXML
     private void onActionBtn_register(ActionEvent event) {
+        //<editor-fold defaultstate="collapsed" desc="statment">
         try {
-            getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL `add_user`(?, ?, ?, ? ?, ?);"));
+            getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL `add_user`(?, ?, ?, ? ,?, ?);"));
             getClassDB().getPst().setString(1, text_user_regster.getText());
             getClassDB().getPst().setString(2, text_password_regster.getText());
             getClassDB().getPst().setString(3, text_email.getText());
@@ -69,11 +78,63 @@ public class FaceWelcomeController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(FaceWelcomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
+//</editor-fold>
     }
 
     @FXML
-    private void onActionBut_login(ActionEvent event) {
+    private void onActionBut_login(ActionEvent event) throws Exception {
+        try {
+            if (!text_password.getText().isEmpty() && !text_username.getText().isEmpty()) {
+                Scanner pass = new Scanner(text_password.getText());
+                Scanner user = new Scanner(text_username.getText());
+                String enPassword = pass.next();
+                String enUserName = user.next();
+                do {
+                    if (getClassTempDB().setCuroser("Select * from ")) {
+                        getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL `add_log`(?, ?, ?, ?);"));
+                        getClassDB().getPst().setString(1, getClassDB().getRs().getString("ID_user"));
+                        getClassDB().getPst().setString(2, enUserName);
+                        getClassDB().getPst().setString(3, enPassword);
+                        getClassDB().getPst().setString(4, getClassTools().getInfoNetworkInterface(NetworkInterface.getByInetAddress(InetAddress.getLocalHost())));
+                        getClassDB().getPst().execute();
+                        setID_SEISSION(getClassDB().getRs().getString("ID_user"));
+                        setPageView(Face.PageCenter, true);
+                    } else if (getClassDB().setCuroser("Select * from show_info_log where email='" + enUserName + "' and password='" + enPassword + "' and state_log=0 ;")) {
+                        getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL `add_log`(?, ?, ?, ?);"));
+                        getClassDB().getPst().setString(1, getClassDB().getRs().getString("ID_user"));
+                        getClassDB().getPst().setString(2, enUserName);
+                        getClassDB().getPst().setString(3, enPassword);
+                        getClassDB().getPst().setString(4, getClassTools().getInfoNetworkInterface(NetworkInterface.getByInetAddress(InetAddress.getLocalHost())));
+                        getClassDB().getPst().execute();
+                        setID_SEISSION(getClassDB().getRs().getString("ID_user"));
+                        setPageView(Face.PageCenter, true);
+                    } else {
+                        count_fail++;
+                        switch (count_fail) {
+                            case 1:
+                                getClassTools().showMasseg(Alert.AlertType.INFORMATION, getResLang().getString("Massega.show.text.error_password") + " " + getResLang().getString("Massega.show.text.try_agin"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"));
+                                text_username.setText(null);
+                                text_password.setText(null);
+                                break;
+                            case 2:
+                                getClassTools().showMasseg(Alert.AlertType.INFORMATION, getResLang().getString("Massega.show.text.error_password") + " " + getResLang().getString("Massega.show.text.try_agin"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"));
+                                text_username.setText(null);
+                                text_password.setText(null);
+                                break;
+                            default:
+                                getClassTools().showMasseg(Alert.AlertType.INFORMATION, getResLang().getString("Massega.show.text.error_password") + " " + getResLang().getString("Massega.show.text.try_agin") + " " + getResLang().getString("Massega.show.text.goBy"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"));
+                                System.exit(0);
+                                break;
+                        }
+                    }
 
+                } while (count_fail < 3 && pass.hasNext());
+            } else {
+                getClassTools().showMasseg(Alert.AlertType.INFORMATION, getResLang().getString("Massega.show.no_date"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"));
+            }
+        } catch (SQLException | UnknownHostException | SocketException ex) {
+            Logger.getLogger(FaceWelcomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

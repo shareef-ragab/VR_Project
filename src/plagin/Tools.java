@@ -501,7 +501,9 @@ public class Tools {
         String info = "";
         info = "Index :" + face.getIndex() + " ,\n";
         info += "DisplayName :" + face.getDisplayName() + " ,\n";
-        info += "MAC Address :" + MacAddress(face.getHardwareAddress()) + " ,\n";
+        if (face.getHardwareAddress() != null) {
+            info += "MAC Address :" + MacAddress(face.getHardwareAddress()) + " ,\n";
+        }
         info += "InterfaceAddresses :" + face.getInterfaceAddresses() + " ,\n";
         info += "Name :" + face.getName() + " ,\n";
         Enumeration<InetAddress> intre = face.getInetAddresses();
@@ -514,6 +516,16 @@ public class Tools {
         }
         return info;
 //</editor-fold>
+    }
+
+    /**
+     *
+     * @param face
+     * @return
+     * @throws SocketException
+     */
+    public String getInfoNetworkInterface(NetworkInterface face) throws SocketException {
+        return infoNetworkInterface(face);
     }
 
     /**

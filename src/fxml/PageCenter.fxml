@@ -20,30 +20,30 @@
     <left>
         <AnchorPane prefHeight="600.0" prefWidth="454.0" BorderPane.alignment="CENTER">
             <children>
-                <MediaView fitHeight="400.0" fitWidth="500.0" layoutX="110.0" layoutY="33.0" nodeOrientation="INHERIT" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                <MediaView fx:id="showViedo" fitHeight="400.0" fitWidth="500.0" layoutX="110.0" layoutY="33.0" nodeOrientation="INHERIT" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                 <ButtonBar buttonOrder="" layoutX="38.0" layoutY="546.0" prefHeight="40.0" prefWidth="394.0">
                     <buttons>
-                        <Button fx:id="btn_Prev">
+                        <Button fx:id="btn_Prev" onAction="#onActionBtn_Prev">
                             <graphic>
                                 <ImageView fitHeight="19.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" />
                             </graphic>
                         </Button>
-                        <Button fx:id="btn_seekPrev" mnemonicParsing="false">
+                        <Button fx:id="btn_seekPrev" mnemonicParsing="false" onAction="#onActionBtnSeelPrev">
                             <graphic>
                                 <ImageView fitHeight="19.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" />
                             </graphic>
                         </Button>
-                        <ToggleButton fx:id="togle_run" mnemonicParsing="false">
+                        <ToggleButton fx:id="togle_run" mnemonicParsing="false" onAction="#onActionTogle_Run">
                             <graphic>
                                 <ImageView fitHeight="19.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" />
                             </graphic>
                         </ToggleButton>
-                        <Button fx:id="btn_seeknext" mnemonicParsing="false">
+                        <Button fx:id="btn_seeknext" mnemonicParsing="false" onAction="#onActionBtn_seekNext">
                             <graphic>
                                 <ImageView fitHeight="19.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" />
                             </graphic>
                         </Button>
-                        <Button fx:id="btn_nextViedo" mnemonicParsing="false">
+                        <Button fx:id="btn_nextViedo" mnemonicParsing="false" onAction="#onActionBtn_nextViedo">
                             <graphic>
                                 <ImageView fitHeight="19.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" />
                             </graphic>
