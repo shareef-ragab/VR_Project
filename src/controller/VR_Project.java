@@ -149,7 +149,6 @@ public class VR_Project extends Application {
         switch (getFace()) {
             case FaceWelcome:
                 VR_Project.setPathFace(getClassVR_Project().getClass().getResource("/fxml/FaceWelcome.fxml"));
-
                 break;
             case ConnectDateBase:
                 VR_Project.setPathFace(getClassVR_Project().getClass().getResource("/fxml/connectDateBase.fxml"));
@@ -163,9 +162,9 @@ public class VR_Project extends Application {
         }
         setRoot(FXMLLoader.load(getPathFace(), getResLang()));
         if (isOutshow) {
-            if (getStage() == null) {
-                setStage(new Stage());
-            }
+            /*if (getStage() == null) {
+            setStage(new Stage());
+            }*/
             setScene(new Scene(getRoot()));
             getStage().setScene(getScene());
             getStage().show();
@@ -213,8 +212,8 @@ public class VR_Project extends Application {
                     getClassDB().getPst().setString(4, getClassTools().getInfoNetworkInterface(NetworkInterface.getByInetAddress(InetAddress.getLocalHost())));
                     getClassDB().getPst().execute();
                     setID_SEISSION(getClassTempDB().getRs().getString("ID_user"));
+                    setStage(stage);
                     setPageView(Face.PageCenter, true);
-
                 }
                 break;
             case ConnectDateBase:

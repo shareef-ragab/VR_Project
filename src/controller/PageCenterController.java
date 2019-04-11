@@ -44,75 +44,87 @@ public class PageCenterController implements Initializable {
     private ArrayList<classStudy> viedoStudy;
     private boolean stopRequested = false;
     private Duration duration;
-
+    
     @FXML
     private ImageView img_togleRun;
-
+    
     @FXML
     private WebView view_Deiscreption;
-
+    
     @FXML
     private MediaView showViedo;
-
+    
     @FXML
     private Button btn_Prev, btn_seekPrev, btn_seeknext, btn_nextViedo;
-
+    
     @FXML
     private ToggleButton togle_run;
-
+    
     @FXML
     private Slider spVolViedo, spSoundViedo;
-
+    
     @FXML
     private Label laNameViedo;
 //</editor-fold>
 
     @FXML
     void onActionBtnSeelPrev(ActionEvent event) {
-
+        
     }
-
+    
     @FXML
     void onActionBtn_Prev(ActionEvent event) {
-
+        
     }
-
+    
     @FXML
     void onActionBtn_nextViedo(ActionEvent event) {
-
+        
     }
-
+    
     @FXML
     void onActionBtn_seekNext(ActionEvent event) {
-
+        
     }
-
+    
     @FXML
     void onActionTogle_Run(ActionEvent event) {
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        MediaPlayer.Status status = mediaPlayer.getStatus();
+        if (status == MediaPlayer.Status.UNKNOWN || status == MediaPlayer.Status.HALTED) {
+            System.out.println("Player is in a bad or unknown state, can't play.");
+            return;
+        }
         if (togle_run.isSelected()) {
             img_togleRun.setImage(new Image(getClass().getResourceAsStream("/drawble/pausebutton.png")));
+            if (status == MediaPlayer.Status.PAUSED || status == MediaPlayer.Status.STOPPED || status == MediaPlayer.Status.READY) {
+                mediaPlayer.play();
+            }
         } else {
             img_togleRun.setImage(new Image(getClass().getResourceAsStream("/drawble/playbutton.png")));
+            if (status == MediaPlayer.Status.PLAYING || status == MediaPlayer.Status.READY) {
+                mediaPlayer.pause();
+            }
         }
-    }
+//</editor-fold>
 
+    }
+    
     protected void updateValues() {
         if (spVolViedo != null && spSoundViedo != null && duration != null) {
-            Platform.runLater(new Runnable() {
-                public void run() {
-                    Duration currentTime = mediaPlayer.getCurrentTime();
-                    spVolViedo.setDisable(duration.isUnknown());
-                    if (!spVolViedo.isDisabled() && duration.greaterThan(Duration.ZERO) && !spVolViedo.isValueChanging()) {
-                        spVolViedo.setValue(currentTime.divide(duration).toMillis() * 100.0);
-                    }
-                    if (!spSoundViedo.isValueChanging()) {
-                        spSoundViedo.setValue((int) Math.round(mediaPlayer.getVolume() * 100));
-                    }
+            Platform.runLater(() -> {
+                Duration currentTime = mediaPlayer.getCurrentTime();
+                spVolViedo.setDisable(duration.isUnknown());
+                if (!spVolViedo.isDisabled() && duration.greaterThan(Duration.ZERO) && !spVolViedo.isValueChanging()) {
+                    spVolViedo.setValue(currentTime.divide(duration).toMillis() * 100.0);
+                }
+                if (!spSoundViedo.isValueChanging()) {
+                    spSoundViedo.setValue((int) Math.round(mediaPlayer.getVolume() * 100));
                 }
             });
         }
     }
-
+    
     @FXML
     void initialize() {
         //<editor-fold defaultstate="collapsed" desc="statment">
@@ -151,7 +163,7 @@ public class PageCenterController implements Initializable {
             }
             if (getClassDB().setCuroser("select * from show_info_viedo ")) {
                 do {
-                    if (indexwatch.contains(getClassDB().getRs().getString("ID"))) {
+                    if (!indexwatch.contains(getClassDB().getRs().getString("ID"))) {
                         viedoStudy.add(new classStudy(getClassDB().getRs().getString("pathViedo"),
                                 getClassDB().getRs().getString("DescreptionViedo"),
                                 getClassDB().getRs().getString("nameViedo"),
@@ -161,7 +173,9 @@ public class PageCenterController implements Initializable {
                 } while (getClassDB().getRs().next());
             }
             mediaPlayer = new MediaPlayer(new Media(new File(viedoStudy.get(0).getPathVeido()).toURI().toString()));
-            mediaPlayer.setAutoPlay(true);
+            showViedo.setMediaPlayer(mediaPlayer);
+            view_Deiscreption.getEngine().load(new File(viedoStudy.get(0).getPathDiscrption()).toURI().toString());
+            laNameViedo.setText(viedoStudy.get(0).getNameVeido() + "\n" + viedoStudy.get(0).getNameAuther());
             mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
                 @Override
                 public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
@@ -188,5 +202,5 @@ public class PageCenterController implements Initializable {
         }
 //</editor-fold>
     }
-
+    
 }
