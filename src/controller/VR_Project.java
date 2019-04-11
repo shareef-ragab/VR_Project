@@ -6,6 +6,8 @@
 package controller;
 
 import java.io.File;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -147,6 +149,7 @@ public class VR_Project extends Application {
         switch (getFace()) {
             case FaceWelcome:
                 VR_Project.setPathFace(getClassVR_Project().getClass().getResource("/fxml/FaceWelcome.fxml"));
+
                 break;
             case ConnectDateBase:
                 VR_Project.setPathFace(getClassVR_Project().getClass().getResource("/fxml/connectDateBase.fxml"));
@@ -160,6 +163,9 @@ public class VR_Project extends Application {
         }
         setRoot(FXMLLoader.load(getPathFace(), getResLang()));
         if (isOutshow) {
+            if (getStage() == null) {
+                setStage(new Stage());
+            }
             setScene(new Scene(getRoot()));
             getStage().setScene(getScene());
             getStage().show();
@@ -199,6 +205,17 @@ public class VR_Project extends Application {
         switch (getFace()) {
             case FaceWelcome:
                 setPathFace(getClass().getResource("/fxml/FaceWelcome.fxml"));
+                if (getClassTempDB().setCuroser("SELECT * FROM info_log")) {
+                    getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL `add_log`(?, ?, ?, ?);"));
+                    getClassDB().getPst().setString(1, getClassTempDB().getRs().getString("ID_user"));
+                    getClassDB().getPst().setString(2, getClassTempDB().getRs().getString("email"));
+                    getClassDB().getPst().setString(3, getClassTempDB().getRs().getString("password"));
+                    getClassDB().getPst().setString(4, getClassTools().getInfoNetworkInterface(NetworkInterface.getByInetAddress(InetAddress.getLocalHost())));
+                    getClassDB().getPst().execute();
+                    setID_SEISSION(getClassTempDB().getRs().getString("ID_user"));
+                    setPageView(Face.PageCenter, true);
+
+                }
                 break;
             case ConnectDateBase:
                 setPathFace(getClass().getResource("/fxml/connectDateBase.fxml"));

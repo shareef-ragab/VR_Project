@@ -5,16 +5,17 @@
  */
 package controller;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import static controller.VR_Project.*;
+import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,9 +23,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.web.WebView;
+import javafx.util.Duration;
 import modeltion.classStudy;
 
 /**
@@ -37,6 +42,11 @@ public class PageCenterController implements Initializable {
     //<editor-fold defaultstate="collapsed" desc="varible">
     private MediaPlayer mediaPlayer;
     private ArrayList<classStudy> viedoStudy;
+    private boolean stopRequested = false;
+    private Duration duration;
+
+    @FXML
+    private ImageView img_togleRun;
 
     @FXML
     private WebView view_Deiscreption;
@@ -79,7 +89,28 @@ public class PageCenterController implements Initializable {
 
     @FXML
     void onActionTogle_Run(ActionEvent event) {
+        if (togle_run.isSelected()) {
+            img_togleRun.setImage(new Image(getClass().getResourceAsStream("/drawble/pausebutton.png")));
+        } else {
+            img_togleRun.setImage(new Image(getClass().getResourceAsStream("/drawble/playbutton.png")));
+        }
+    }
 
+    protected void updateValues() {
+        if (spVolViedo != null && spSoundViedo != null && duration != null) {
+            Platform.runLater(new Runnable() {
+                public void run() {
+                    Duration currentTime = mediaPlayer.getCurrentTime();
+                    spVolViedo.setDisable(duration.isUnknown());
+                    if (!spVolViedo.isDisabled() && duration.greaterThan(Duration.ZERO) && !spVolViedo.isValueChanging()) {
+                        spVolViedo.setValue(currentTime.divide(duration).toMillis() * 100.0);
+                    }
+                    if (!spSoundViedo.isValueChanging()) {
+                        spSoundViedo.setValue((int) Math.round(mediaPlayer.getVolume() * 100));
+                    }
+                }
+            });
+        }
     }
 
     @FXML
@@ -106,8 +137,10 @@ public class PageCenterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //<editor-fold defaultstate="collapsed" desc="statment">
         try {
             // TODO
+
             ArrayList<String> indexwatch = new ArrayList<String>();
             viedoStudy = new ArrayList<>();
             if (getClassDB().setCuroser("select * from listfinsh where ID_USER='" + getID_SEISSION() + "';")) {
@@ -127,9 +160,33 @@ public class PageCenterController implements Initializable {
                     }
                 } while (getClassDB().getRs().next());
             }
+            mediaPlayer = new MediaPlayer(new Media(new File(viedoStudy.get(0).getPathVeido()).toURI().toString()));
+            mediaPlayer.setAutoPlay(true);
+            mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+                @Override
+                public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+                    updateValues();
+                }
+            });
+            mediaPlayer.setOnPlaying(() -> {
+                if (stopRequested) {
+                    mediaPlayer.pause();
+                    stopRequested = false;
+                } else {
+                    img_togleRun.setImage(new Image(getClass().getResourceAsStream("/drawble/pausebutton.png")));
+                }
+            });
+            mediaPlayer.setOnPaused(() -> {
+                img_togleRun.setImage(new Image(getClass().getResourceAsStream("/drawble/playbutton.png")));
+            });
+            mediaPlayer.setOnReady(() -> {
+                duration = mediaPlayer.getMedia().getDuration();
+                updateValues();
+            });
         } catch (SQLException ex) {
             Logger.getLogger(PageCenterController.class.getName()).log(Level.SEVERE, null, ex);
         }
+//</editor-fold>
     }
 
 }

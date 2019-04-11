@@ -115,11 +115,15 @@ public class ConnectDateBaseController implements Initializable {
                         + "  codeData varchar(45) NOT NULL,\n"
                         + "  nameDataBase varchar(45) NOT NULL,\n"
                         + "  userName_DB varchar(45) DEFAULT NULL,\n"
-                        + "  Password_DB varchar(45) DEFAULT NULL);"
-                        + "  CREATE TABLE info_log (\n"
+                        + "  Password_DB varchar(45) DEFAULT NULL)";
+                weite.append(codedb);
+                db.setPst(db.getConn().prepareStatement(codedb));
+                db.getPst().execute();
+                weite.flush();
+                codedb = "  CREATE TABLE info_log (\n"
                         + "  ID_user varchar(45) NOT NULL,\n"
                         + "  email varchar(45) NOT NULL,\n"
-                        + "  password varchar(45) DEFAULT NULL);";
+                        + "  password varchar(45) DEFAULT NULL)";
                 weite.append(codedb);
                 db.setPst(db.getConn().prepareStatement(codedb));
                 db.getPst().execute();

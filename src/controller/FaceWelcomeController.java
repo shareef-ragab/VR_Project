@@ -90,23 +90,21 @@ public class FaceWelcomeController implements Initializable {
                 String enPassword = pass.next();
                 String enUserName = user.next();
                 do {
-                    if (getClassTempDB().setCuroser("Select * from ")) {
+                    if (getClassDB().setCuroser("Select * from show_info_log where email='" + enUserName + "' and password='" + enPassword + "' and state_log=0 ;")) {
+                        setID_SEISSION(getClassDB().getRs().getString("ID_user"));
                         getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL `add_log`(?, ?, ?, ?);"));
-                        getClassDB().getPst().setString(1, getClassDB().getRs().getString("ID_user"));
+                        getClassDB().getPst().setString(1, getID_SEISSION());
                         getClassDB().getPst().setString(2, enUserName);
                         getClassDB().getPst().setString(3, enPassword);
                         getClassDB().getPst().setString(4, getClassTools().getInfoNetworkInterface(NetworkInterface.getByInetAddress(InetAddress.getLocalHost())));
                         getClassDB().getPst().execute();
-                        setID_SEISSION(getClassDB().getRs().getString("ID_user"));
-                        setPageView(Face.PageCenter, true);
-                    } else if (getClassDB().setCuroser("Select * from show_info_log where email='" + enUserName + "' and password='" + enPassword + "' and state_log=0 ;")) {
-                        getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL `add_log`(?, ?, ?, ?);"));
-                        getClassDB().getPst().setString(1, getClassDB().getRs().getString("ID_user"));
-                        getClassDB().getPst().setString(2, enUserName);
-                        getClassDB().getPst().setString(3, enPassword);
-                        getClassDB().getPst().setString(4, getClassTools().getInfoNetworkInterface(NetworkInterface.getByInetAddress(InetAddress.getLocalHost())));
-                        getClassDB().getPst().execute();
-                        setID_SEISSION(getClassDB().getRs().getString("ID_user"));
+                        if (check_Remmber.isSelected()) {
+                            getClassTempDB().setPst(getClassTempDB().getConn().prepareStatement("INSERT INTO info_log (ID_user,email,password)VALUES(?,?,?) "));
+                            getClassTempDB().getPst().setString(1, getID_SEISSION());
+                            getClassTempDB().getPst().setString(2, enUserName);
+                            getClassTempDB().getPst().setString(3, enPassword);
+                            getClassTempDB().getPst().execute();
+                        }
                         setPageView(Face.PageCenter, true);
                     } else {
                         count_fail++;
@@ -160,7 +158,7 @@ public class FaceWelcomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+       
     }
 
 }
