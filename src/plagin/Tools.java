@@ -518,6 +518,22 @@ public class Tools {
 //</editor-fold>
     }
 
+    private boolean copy(String pathFrom, String pathTo) throws FileNotFoundException, IOException {
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        byte[] buf = new byte[1024];
+        File file = new File(pathFrom);
+        FileInputStream in = new FileInputStream(file);
+        FileOutputStream out = new FileOutputStream(pathTo);
+        int len;
+        while ((len = in.read(buf)) > 0) {
+            out.write(buf, 0, len);
+        }
+        out.flush();
+        out.close();
+        return true; 
+//</editor-fold>
+    }
+
     /**
      *
      * @param face
@@ -756,6 +772,10 @@ public class Tools {
      */
     public void setFile(Window parent, FileChooser chooserImage, String description, String title, String... extensions) throws FileNotFoundException {
         chooser(parent, chooserImage, description, title, extensions);
+    }
+
+    public boolean copyFile(String pathFrom, String pathTo) throws FileNotFoundException, IOException {
+        return copy(pathFrom, pathTo);
     }
 
     //<editor-fold defaultstate="collapsed" desc="set & get">

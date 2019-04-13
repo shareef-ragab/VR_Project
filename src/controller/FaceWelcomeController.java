@@ -27,7 +27,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import plagin.Face;
+import modeltion.Face;
 
 /**
  * FXML Controller class

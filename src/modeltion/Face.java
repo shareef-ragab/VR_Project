@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package plagin;
+package modeltion;
 
 /**
  *
  * @author shareef_ragab
  */
 public enum Face {
-    FaceWelcome, PageCenter, ConnectDateBase, workbench;
+    FaceWelcome, PageCenter, ConnectDateBase, workbench,uploadViedo;
 
     public static Face getFaceWelcome() {
         return FaceWelcome;

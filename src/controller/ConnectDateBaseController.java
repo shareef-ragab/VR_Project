@@ -24,7 +24,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import plagin.DateBase;
-import plagin.Face;
+import modeltion.Face;
 
 /**
  * FXML Controller class

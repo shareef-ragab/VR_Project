@@ -25,6 +25,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -44,6 +45,8 @@ public class PageCenterController implements Initializable {
     private ArrayList<classStudy> viedoStudy;
     private boolean stopRequested = false;
     private Duration duration;
+    private MediaPlayer.Status status;
+    private int sleedVideo;
     
     @FXML
     private ImageView img_togleRun;
@@ -69,28 +72,49 @@ public class PageCenterController implements Initializable {
 
     @FXML
     void onActionBtnSeelPrev(ActionEvent event) {
-        
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        status = mediaPlayer.getStatus();
+        if (status == MediaPlayer.Status.PLAYING || status == MediaPlayer.Status.READY) {
+            mediaPlayer.seek(mediaPlayer.getCurrentTime().subtract(Duration.millis(500)));
+        }
+//</editor-fold>
     }
     
     @FXML
     void onActionBtn_Prev(ActionEvent event) {
-        
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        if (sleedVideo >= 1) {
+            sleedVideo--;
+            runMedi(sleedVideo);
+        }
+//</editor-fold>
     }
     
     @FXML
     void onActionBtn_nextViedo(ActionEvent event) {
-        
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        if (sleedVideo < viedoStudy.size() - 1) {
+            sleedVideo++;
+            runMedi(sleedVideo);
+        }
+//</editor-fold>
     }
     
     @FXML
     void onActionBtn_seekNext(ActionEvent event) {
-        
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        status = mediaPlayer.getStatus();
+        if (status == MediaPlayer.Status.PLAYING || status == MediaPlayer.Status.READY) {
+            
+            mediaPlayer.seek(mediaPlayer.getCurrentTime().add(Duration.millis(500)));
+        }
+//</editor-fold>
     }
     
     @FXML
     void onActionTogle_Run(ActionEvent event) {
         //<editor-fold defaultstate="collapsed" desc="statment">
-        MediaPlayer.Status status = mediaPlayer.getStatus();
+        status = mediaPlayer.getStatus();
         if (status == MediaPlayer.Status.UNKNOWN || status == MediaPlayer.Status.HALTED) {
             System.out.println("Player is in a bad or unknown state, can't play.");
             return;
@@ -125,6 +149,15 @@ public class PageCenterController implements Initializable {
         }
     }
     
+    public void runMedi(int sleedVideo) {
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        mediaPlayer = new MediaPlayer(new Media(new File(viedoStudy.get(sleedVideo).getPathVeido()).toURI().toString()));
+        showViedo.setMediaPlayer(mediaPlayer);
+        view_Deiscreption.getEngine().load(new File(viedoStudy.get(sleedVideo).getPathDiscrption()).toURI().toString());
+        laNameViedo.setText(viedoStudy.get(0).getNameVeido() + "\n" + viedoStudy.get(sleedVideo).getNameAuther());
+//</editor-fold>
+    }
+    
     @FXML
     void initialize() {
         //<editor-fold defaultstate="collapsed" desc="statment">
@@ -152,7 +185,7 @@ public class PageCenterController implements Initializable {
         //<editor-fold defaultstate="collapsed" desc="statment">
         try {
             // TODO
-
+            sleedVideo = 0;
             ArrayList<String> indexwatch = new ArrayList<String>();
             viedoStudy = new ArrayList<>();
             if (getClassDB().setCuroser("select * from listfinsh where ID_USER='" + getID_SEISSION() + "';")) {
@@ -172,15 +205,9 @@ public class PageCenterController implements Initializable {
                     }
                 } while (getClassDB().getRs().next());
             }
-            mediaPlayer = new MediaPlayer(new Media(new File(viedoStudy.get(0).getPathVeido()).toURI().toString()));
-            showViedo.setMediaPlayer(mediaPlayer);
-            view_Deiscreption.getEngine().load(new File(viedoStudy.get(0).getPathDiscrption()).toURI().toString());
-            laNameViedo.setText(viedoStudy.get(0).getNameVeido() + "\n" + viedoStudy.get(0).getNameAuther());
-            mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
-                @Override
-                public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
-                    updateValues();
-                }
+            runMedi(sleedVideo);
+            mediaPlayer.currentTimeProperty().addListener((ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) -> {
+                updateValues();
             });
             mediaPlayer.setOnPlaying(() -> {
                 if (stopRequested) {
@@ -196,6 +223,11 @@ public class PageCenterController implements Initializable {
             mediaPlayer.setOnReady(() -> {
                 duration = mediaPlayer.getMedia().getDuration();
                 updateValues();
+            });
+            spSoundViedo.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+                if (spSoundViedo.isValueChanging()) {
+                    mediaPlayer.setVolume(newValue.doubleValue() / 100.0);
+                }
             });
         } catch (SQLException ex) {
             Logger.getLogger(PageCenterController.class.getName()).log(Level.SEVERE, null, ex);

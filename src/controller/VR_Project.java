@@ -17,7 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import plagin.DateBase;
-import plagin.Face;
+import modeltion.Face;
 import plagin.Tools;
 
 /**
@@ -159,6 +159,9 @@ public class VR_Project extends Application {
             case workbench:
                 VR_Project.setPathFace(getClassVR_Project().getClass().getResource("/fxml/workbench.fxml"));
                 break;
+            case uploadViedo:
+                VR_Project.setPathFace(getClassVR_Project().getClass().getResource("/fxml/uploadViedo.fxml"));
+                break;
         }
         setRoot(FXMLLoader.load(getPathFace(), getResLang()));
         if (isOutshow) {
@@ -213,7 +216,7 @@ public class VR_Project extends Application {
                     getClassDB().getPst().execute();
                     setID_SEISSION(getClassTempDB().getRs().getString("ID_user"));
                     setStage(stage);
-                    setPageView(Face.PageCenter, true);
+                    setPageView(Face.uploadViedo, true);
                 }
                 break;
             case ConnectDateBase:
@@ -224,6 +227,9 @@ public class VR_Project extends Application {
                 break;
             case workbench:
                 setPathFace(getClass().getResource("/fxml/workbench.fxml"));
+                break;
+            case uploadViedo:
+                setPathFace(getClass().getResource("/fxml/uploadViedo.fxml"));
                 break;
         }
 
