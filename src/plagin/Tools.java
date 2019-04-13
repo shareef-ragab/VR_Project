@@ -41,6 +41,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -518,19 +519,22 @@ public class Tools {
 //</editor-fold>
     }
 
-    private boolean copy(String pathFrom, String pathTo) throws FileNotFoundException, IOException {
+    private boolean copy(String pathFrom, String pathTo, ProgressBar progres) throws FileNotFoundException, IOException {
         //<editor-fold defaultstate="collapsed" desc="statment">
         byte[] buf = new byte[1024];
         File file = new File(pathFrom);
         FileInputStream in = new FileInputStream(file);
-        FileOutputStream out = new FileOutputStream(pathTo);
+        File fileout = new File(pathTo);
+        fileout.mkdirs();
+        FileOutputStream out = new FileOutputStream(fileout + "\\" + file.getName());
         int len;
         while ((len = in.read(buf)) > 0) {
             out.write(buf, 0, len);
+            progres.setProgress(len * 0.1);
         }
         out.flush();
         out.close();
-        return true; 
+        return true;
 //</editor-fold>
     }
 
@@ -774,8 +778,8 @@ public class Tools {
         chooser(parent, chooserImage, description, title, extensions);
     }
 
-    public boolean copyFile(String pathFrom, String pathTo) throws FileNotFoundException, IOException {
-        return copy(pathFrom, pathTo);
+    public boolean copyFile(String pathFrom, String pathTo, ProgressBar progres) throws FileNotFoundException, IOException {
+        return copy(pathFrom, pathTo, progres);
     }
 
     //<editor-fold defaultstate="collapsed" desc="set & get">

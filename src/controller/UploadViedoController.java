@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
@@ -29,16 +30,21 @@ public class UploadViedoController implements Initializable {
     @FXML
     private TextField text_nameViedo, text_path_viedo, text_path_discrption;
 
+     @FXML
+    private ProgressBar progresPathviedo, progresPathDicrptionViedo;
+
     @FXML
     private Label laStateUploadPathViedo, laStatePathDecrption;
     private FileChooser chooser;
 
     @FXML
     void onActionUploadPathviedo(ActionEvent event) {
+        //<editor-fold defaultstate="collapsed" desc="statmrent">
         try {
-            getClassTools().setFile(getStage(), chooser, getResLang().getString("Massega.chooser.Discrption.viedo"), getResLang().getString("Massega.chooser.title"), "*.MP4", "*.3GP");
+            chooser = new FileChooser();
+            getClassTools().setFile(null, chooser, getResLang().getString("Massega.chooser.Discrption.viedo"), getResLang().getString("Massega.chooser.title"), "*.MP4", "*.3GP");
             if(getClassTools().getFile()!=null){
-                getClassTools().copyFile(getClassTools().getFile().getPath(), getPATHPARENT()+"\\fileViedo\\"+text_nameViedo.getText()+".mp4");
+                getClassTools().copyFile(getClassTools().getFile().getPath(), getPATHPARENT()+"\\fileViedo",progresPathviedo);
                 text_path_viedo.setText(getClassTools().getFile().getPath());
             }
         } catch (FileNotFoundException ex) {
@@ -46,11 +52,25 @@ public class UploadViedoController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(UploadViedoController.class.getName()).log(Level.SEVERE, null, ex);
         }
+//</editor-fold>
     }
 
     @FXML
     void onActionpath_Descrption(ActionEvent event) {
-
+        //<editor-fold defaultstate="collapsed" desc="statmrent">
+        try {
+            chooser = new FileChooser();
+            getClassTools().setFile(null, chooser, getResLang().getString("Massega.chooser.Discrption.webDicrption_viedo"), getResLang().getString("Massega.chooser.title"), "*.htm", "*.html");
+            if(getClassTools().getFile()!=null){
+                getClassTools().copyFile(getClassTools().getFile().getPath(), getPATHPARENT()+"\\fileDicrotionViedo",progresPathDicrptionViedo);
+                text_path_discrption.setText(getClassTools().getFile().getPath());
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(UploadViedoController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(UploadViedoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//</editor-fold>
     }
 
     @FXML
@@ -73,7 +93,7 @@ public class UploadViedoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        chooser = new FileChooser();
+        
     }
 
 }
