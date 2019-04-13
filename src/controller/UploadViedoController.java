@@ -6,6 +6,7 @@
 package controller;
 
 import static controller.VR_Project.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +31,7 @@ public class UploadViedoController implements Initializable {
     @FXML
     private TextField text_nameViedo, text_path_viedo, text_path_discrption;
 
-     @FXML
+    @FXML
     private ProgressBar progresPathviedo, progresPathDicrptionViedo;
 
     @FXML
@@ -43,8 +44,8 @@ public class UploadViedoController implements Initializable {
         try {
             chooser = new FileChooser();
             getClassTools().setFile(null, chooser, getResLang().getString("Massega.chooser.Discrption.viedo"), getResLang().getString("Massega.chooser.title"), "*.MP4", "*.3GP");
-            if(getClassTools().getFile()!=null){
-                getClassTools().copyFile(getClassTools().getFile().getPath(), getPATHPARENT()+"\\fileViedo",progresPathviedo);
+            if (getClassTools().getFile() != null) {
+                getClassTools().copyFile(getClassTools().getFile().getPath(), getPATHPARENT() + "\\fileViedo", progresPathviedo);
                 text_path_viedo.setText(getClassTools().getFile().getPath());
             }
         } catch (FileNotFoundException ex) {
@@ -61,8 +62,8 @@ public class UploadViedoController implements Initializable {
         try {
             chooser = new FileChooser();
             getClassTools().setFile(null, chooser, getResLang().getString("Massega.chooser.Discrption.webDicrption_viedo"), getResLang().getString("Massega.chooser.title"), "*.htm", "*.html");
-            if(getClassTools().getFile()!=null){
-                getClassTools().copyFile(getClassTools().getFile().getPath(), getPATHPARENT()+"\\fileDicrotionViedo",progresPathDicrptionViedo);
+            if (getClassTools().getFile() != null) {
+                getClassTools().copyFile(getClassTools().getFile().getPath(), getPATHPARENT() + "\\fileDicrotionViedo", progresPathDicrptionViedo);
                 text_path_discrption.setText(getClassTools().getFile().getPath());
             }
         } catch (FileNotFoundException ex) {
@@ -71,6 +72,15 @@ public class UploadViedoController implements Initializable {
             Logger.getLogger(UploadViedoController.class.getName()).log(Level.SEVERE, null, ex);
         }
 //</editor-fold>
+    }
+
+    @FXML
+    void onActionfinsh(ActionEvent event) {
+        String[] text=new String[]{text_path_viedo.getText(),text_path_discrption.getText()};
+        for(String in:text){
+           // new File(in).renameTo(dest);
+           //File.
+        }
     }
 
     @FXML
@@ -93,7 +103,7 @@ public class UploadViedoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
+
     }
 
 }
