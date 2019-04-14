@@ -519,14 +519,14 @@ public class Tools {
 //</editor-fold>
     }
 
-    private boolean copy(String pathFrom, String pathTo, ProgressBar progres) throws FileNotFoundException, IOException {
+    private String copy(String pathFrom, String pathTo, ProgressBar progres) throws FileNotFoundException, IOException {
         //<editor-fold defaultstate="collapsed" desc="statment">
         byte[] buf = new byte[1024];
         File file = new File(pathFrom);
         FileInputStream in = new FileInputStream(file);
         File fileout = new File(pathTo);
         fileout.mkdirs();
-        FileOutputStream out = new FileOutputStream(fileout + "\\" + file.getName());
+        FileOutputStream out = new FileOutputStream(fileout.getPath() + File.separatorChar + file.getName());
         int len;
         while ((len = in.read(buf)) > 0) {
             out.write(buf, 0, len);
@@ -534,7 +534,7 @@ public class Tools {
         }
         out.flush();
         out.close();
-        return true;
+        return fileout.getPath();
 //</editor-fold>
     }
 
@@ -778,7 +778,7 @@ public class Tools {
         chooser(parent, chooserImage, description, title, extensions);
     }
 
-    public boolean copyFile(String pathFrom, String pathTo, ProgressBar progres) throws FileNotFoundException, IOException {
+    public String copyFile(String pathFrom, String pathTo, ProgressBar progres) throws FileNotFoundException, IOException {
         return copy(pathFrom, pathTo, progres);
     }
 
