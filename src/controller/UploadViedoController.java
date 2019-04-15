@@ -28,17 +28,17 @@ import javafx.stage.FileChooser;
  * @author shareef_ragab
  */
 public class UploadViedoController implements Initializable {
-
+    
     @FXML
     private TextField text_nameViedo, text_path_viedo, text_path_discrption;
-
+    
     @FXML
     private ProgressBar progresPathviedo, progresPathDicrptionViedo;
-
+    
     @FXML
     private Label laStateUploadPathViedo, laStatePathDecrption;
     private FileChooser chooser;
-
+    
     @FXML
     void onActionUploadPathviedo(ActionEvent event) {
         //<editor-fold defaultstate="collapsed" desc="statmrent">
@@ -56,7 +56,7 @@ public class UploadViedoController implements Initializable {
         }
 //</editor-fold>
     }
-
+    
     @FXML
     void onActionpath_Descrption(ActionEvent event) {
         //<editor-fold defaultstate="collapsed" desc="statmrent">
@@ -74,16 +74,19 @@ public class UploadViedoController implements Initializable {
         }
 //</editor-fold>
     }
-
+    
     @FXML
     void onActionfinsh(ActionEvent event) {
+        //<editor-fold defaultstate="collapsed" desc="statment">
         try {
             TextField[] text = new TextField[]{text_nameViedo, text_path_viedo, text_path_discrption};
             for (TextField in : text) {
                 if (in.getText().isEmpty()) {
                     throw new Exception(getResLang().getString("Massega.show.text.empity_text"));
-
                 }
+            }
+            if (getClassDB().setCuroser("SELECT * FROM listviedo where nameViedo='"+text_nameViedo.getText()+"';")) {
+                throw new Exception(getResLang().getString("Massega.show.text.Duplict"));
             }
             if (text_nameViedo.getText().matches("[a-zA-Z]*")) {
                 text = new TextField[]{text_path_viedo, text_path_discrption};
@@ -96,8 +99,9 @@ public class UploadViedoController implements Initializable {
         } catch (Exception ex) {
             getClassTools().showMasseg(Alert.AlertType.WARNING, ex.getMessage(), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"));
         }
+//</editor-fold>
     }
-
+    
     @FXML
     void initialize() {
         //<editor-fold defaultstate="collapsed" desc="statment">
@@ -120,5 +124,5 @@ public class UploadViedoController implements Initializable {
         // TODO
 
     }
-
+    
 }
