@@ -44,12 +44,12 @@
                                     <children>
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                             <children>
-                                                <Label alignment="CENTER" text="الإسم" />
+                                                <Label alignment="CENTER" text="%Worlbench.label.text.name_user" />
                                             </children>
                                         </HBox>
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                             <children>
-                                                <Label alignment="CENTER" text="%age" />
+                                                <Label alignment="CENTER" text="%Worlbench.label.text.age" />
                                             </children>
                                         </HBox>
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -64,7 +64,7 @@
                                         </HBox>
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                             <children>
-                                                <Label alignment="CENTER" text="%dateBarth" textAlignment="JUSTIFY" wrapText="true">
+                                                <Label alignment="CENTER" text="%Worlbench.label.text.data_birth" textAlignment="JUSTIFY" wrapText="true">
                                                     <HBox.margin>
                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                     </HBox.margin>
@@ -82,7 +82,7 @@
                                         </HBox>
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                             <children>
-                                                <Label alignment="CENTER" text="%gender" textAlignment="JUSTIFY" wrapText="true">
+                                                <Label alignment="CENTER" text="%Worlbench.label.text.gender" textAlignment="JUSTIFY" wrapText="true">
                                                     <HBox.margin>
                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                     </HBox.margin>
@@ -100,7 +100,7 @@
                                         </HBox>
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                                             <children>
-                                                <Label minHeight="-Infinity" minWidth="-Infinity" text="%id_user_s" />
+                                                <Label minHeight="-Infinity" minWidth="-Infinity" text="%Worlbench.label.text.id_user" />
                                             </children>
                                         </HBox>
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -126,7 +126,6 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
@@ -136,37 +135,19 @@
                                         </HBox>
                                         <HBox alignment="CENTER" prefHeight="52.0" prefWidth="229.0" GridPane.columnSpan="2">
                                             <children>
-                                                <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%email" textAlignment="JUSTIFY" wrapText="true">
+                                                <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%Worlbench.label.text.email" textAlignment="JUSTIFY" wrapText="true">
                                                     <HBox.margin>
                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                     </HBox.margin>
                                                 </Label>
                                             </children>
                                         </HBox>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
                                             <children>
-                                                <Label fx:id="laTel" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" wrapText="true">
-                                                    <HBox.margin>
-                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                    </HBox.margin>
-                                                </Label>
-                                            </children>
-                                        </HBox>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
-                                            <children>
-                                                <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%tel" textAlignment="JUSTIFY" wrapText="true">
-                                                    <HBox.margin>
-                                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                    </HBox.margin>
-                                                </Label>
+                                                <Label minHeight="-Infinity" minWidth="-Infinity" text="%Worlbench.label.text.address" />
                                             </children>
                                         </HBox>
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
-                                            <children>
-                                                <Label minHeight="-Infinity" minWidth="-Infinity" text="%address" />
-                                            </children>
-                                        </HBox>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="6">
                                             <children>
                                                 <Label fx:id="laAddress" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" textAlignment="JUSTIFY" wrapText="true">
                                                     <HBox.margin>
@@ -175,16 +156,16 @@
                                                 </Label>
                                             </children>
                                         </HBox>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                                             <children>
-                                                <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%mobile" textAlignment="JUSTIFY" wrapText="true">
+                                                <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%Worlbench.label.text.mobile" textAlignment="JUSTIFY" wrapText="true">
                                                     <HBox.margin>
                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                     </HBox.margin>
                                                 </Label>
                                             </children>
                                         </HBox>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                             <children>
                                                 <Label fx:id="laPhoneNum" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" textAlignment="JUSTIFY" wrapText="true">
                                                     <HBox.margin>
@@ -193,14 +174,14 @@
                                                 </Label>
                                             </children>
                                         </HBox>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                                             <children>
-                                                <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%password" />
+                                                <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="%Worlbench.label.text.password" />
                                             </children>
                                         </HBox>
-                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" stylesheets="@../css/workbench.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" stylesheets="@../css/workbench.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                             <children>
-                                                <Hyperlink fx:id="linekRePassword" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#onActionLiinkrePassword" stylesheets="@../css/workbench.css" text="%link.rePassword" textAlignment="JUSTIFY" />
+                                                <Hyperlink fx:id="linekRePassword" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#onActionLiinkrePassword" stylesheets="@../css/workbench.css" text="%Worlbench.link.text.rePassword" textAlignment="JUSTIFY" />
                                             </children>
                                         </HBox>
                                     </children>
@@ -346,16 +327,11 @@
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </HBox.margin>
                         </Button>
-                        <TextField fx:id="thSearch" alignment="CENTER" prefHeight="25.0" prefWidth="175.0" promptText="%Worlbench.TextFiled.prompt.text.serch">
+                        <TextField fx:id="thSearch" alignment="CENTER" prefHeight="25.0" prefWidth="214.0" promptText="%Worlbench.TextFiled.prompt.text.serch">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </HBox.margin>
                         </TextField>
-                        <Label alignment="CENTER" prefHeight="32.0" prefWidth="47.0" text="%Worlbench.label.text.serch">
-                            <HBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                            </HBox.margin>
-                        </Label>
                     </children>
                     <BorderPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -368,12 +344,8 @@
             <menus>
                 <Menu mnemonicParsing="false" text="%Worlbench.MenuBar.itemMenu.text.File">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="%Exsit" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="%Worlbench.MenuBar.itemMenu.text.help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="%itemMnue.About" />
+                        <MenuItem mnemonicParsing="false" text="%Worlbench.MenuBar.itemMenu.item.text.about" />
+                        <MenuItem mnemonicParsing="false" text="%Worlbench.MenuBar.itemMenu.item.text.exsit" />
                     </items>
                 </Menu>
             </menus>
