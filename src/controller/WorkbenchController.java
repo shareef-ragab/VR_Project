@@ -7,7 +7,6 @@ package controller;
 
 import static controller.VR_Project.*;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -32,10 +31,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import plagin.DateBase;
+import com.wolf.javaFx.DateBase;
+import modeltion.VR_DataBase.Chat;
 
 /**
  * FXML Controller class
@@ -66,16 +65,13 @@ public class WorkbenchController implements Initializable {
     private ListView<?> listIcon;
 
     @FXML
-    private Button botRefresh;
+    private Button botRefresh, botRefreshListMasse, botSendMassegebotSendMassege, botSerch, botRefeshMasseg;
 
     @FXML
     private TitledPane titListChat;
 
     @FXML
     private ListView<?> listChat;
-
-    @FXML
-    private Button botRefreshListMasse;
 
     @FXML
     private TitledPane titChat;
@@ -87,73 +83,63 @@ public class WorkbenchController implements Initializable {
     private ImageView imgUserChar;
 
     @FXML
-    private Button botRefeshMasseg;
-
-    @FXML
-    private TextField thSendMasseg;
-
-    @FXML
-    private Button botSendMassegebotSendMassege;
+    private TextField thSendMasseg, thSearch;
 
     @FXML
     private ListView<?> listViewMassege;
 
     @FXML
-    private Button botSerch;
-
-    @FXML
-    private TextField thSearch;
-
-    @FXML
     private BorderPane paFace;
 //</editor-fold>
 
-    /*private void reListChat(ListView<Label> listview) throws SQLException, ClassNotFoundException, IOException {
-    //<editor-fold defaultstate="collapsed" desc="statment">
-    ObservableList<Label> ItemLiset = FXCollections.observableArrayList();
-    getClassDB().setRs(getClassDB().getStat().executeQuery("SELECT distinct " + Chat.getID_chat() + " FROM " + Chat.getNameTable() + "  where " + Chat.getID_chat() + " like '" + getViId() + "_%' or " + Chat.getID_chat() + " like '%_" + getViId() + "'  order by " + Chat.getDateSend() + " desc  ;"));
-    while (getClassDB().getRs().next()) {
-    String idCh = getClassDB().getRs().getString(Chat.getID_chat());
-    classDBChat.setCrouser("SELECT * FROM view_chat where " + Chat.getID_chat() + "='" + idCh + "' ;");
-    String nameSend = "أنت";
-    String nameChat = classDBChat.getRs().getString("user_Name_ar_dest");
-    getClassTools().openZip(getClassDB().getRs().getBinaryStream("Imge_Dest"), getPATHPARENT());
-    ImageView img = new ImageView(new Image(getClassTools().getInput(), 18, 18, true, true));
-    String nameJob = classDBChat.getRs().getString("NAME_JOB_Dest");
-    if (classDBChat.getRs().getString("ID_DestChat").equals(getID_SEISSION())) {
-    nameChat = classDBChat.getRs().getString("user_Name_ar_sours");
-    getClassTools().openZip(getClassDB().getRs().getBinaryStream("imge_sorce"), PATHPARENT);
-    img = new ImageView(new Image(getClassTools().getInput(), 18, 18, true, true));
-    nameJob = classDBChat.getRs().getString("NAME_JOB_sourse");
+    private void reListChat(ListView<Label> listview) throws SQLException, ClassNotFoundException, IOException {
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        ObservableList<Label> ItemLiset = FXCollections.observableArrayList();
+        if (getClassDB().setCuroser("SELECT distinct " + Chat.getID_chat() + " FROM " + Chat.getNameTable() + "  where " + Chat.getID_chat() + " like '" + getID_SEISSION() + "_%' or " + Chat.getID_chat() + " like '%_" + getID_SEISSION() + "'  order by " + Chat.getDateSend() + " desc  ;")) {
+            do {
+                String idCh = getClassDB().getRs().getString(Chat.getID_chat());
+                classDBChat.setCuroser("SELECT * FROM view_chat where " + Chat.getID_chat() + "='" + idCh + "' ;");
+                String nameSend = "أنت";
+                String nameChat = classDBChat.getRs().getString("user_Name_ar_dest");
+                getClassTools().setInput(getClass().getResourceAsStream("/drawble/User.jpg"));
+                ImageView img = new ImageView(new Image(getClassTools().getInput(), 18, 18, true, true));
+                String nameJob = classDBChat.getRs().getString("NAME_JOB_Dest");
+                if (classDBChat.getRs().getString("ID_DestChat").equals(getID_SEISSION())) {
+                    nameChat = classDBChat.getRs().getString("user_Name_ar_sours");
+                    getClassTools().setInput(getClass().getResourceAsStream("/drawble/User.jpg"));
+                    img = new ImageView(new Image(getClassTools().getInput(), 18, 18, true, true));
+                    nameJob = classDBChat.getRs().getString("NAME_JOB_sourse");
+                }
+                VBox con = new VBox();
+                Label laNameJob = new Label(nameJob);
+                laNameJob.setFont(new Font(8));
+                laNameJob.setPrefSize(235, 8);
+                laNameJob.setAlignment(Pos.CENTER_RIGHT);
+                con.getChildren().add(0, laNameJob);
+                Label laAbove = new Label(nameChat, img);
+                laAbove.setAlignment(Pos.CENTER_LEFT);
+                con.getChildren().add(1, laAbove);
+                Label read = new Label((!classDBChat.getRs().getBoolean(Chat.getReadChat())) ? "غير مقروءة" : "مقروء");
+                read.setFont(new Font(8));
+                read.setAlignment(Pos.CENTER_LEFT);
+                Label laDown = new Label(nameSend + " :" + classDBChat.getRs().getString(Chat.getTextSender()), read);
+                laDown.setContentDisplay(ContentDisplay.RIGHT);
+                laDown.setAlignment(Pos.CENTER_LEFT);
+                laDown.setPrefWidth(155);
+                Label labelDown = new Label(classDBChat.getRs().getString(Chat.getDateSend()).trim(), laDown);
+                labelDown.setWrapText(true);
+                labelDown.setAlignment(Pos.CENTER_RIGHT);
+                labelDown.setFont(new Font(8));
+                labelDown.setPadding(new Insets(5, 0, 5, 0));
+                con.getChildren().add(2, labelDown);
+                ItemLiset.add(getClassTools().List("", con, classDBChat.getRs().getString(Chat.getID_chat()), NodeOrientation.INHERIT, Pos.CENTER));
+            } while (getClassDB().getRs().next());
+        }
+        listview.setItems(ItemLiset);
+        //</editor-fold>
     }
-    VBox con = new VBox();
-    Label laNameJob = new Label(nameJob);
-    laNameJob.setFont(new Font(8));
-    laNameJob.setPrefSize(235, 8);
-    laNameJob.setAlignment(Pos.CENTER_RIGHT);
-    con.getChildren().add(0, laNameJob);
-    Label laAbove = new Label(nameChat, img);
-    laAbove.setAlignment(Pos.CENTER_LEFT);
-    con.getChildren().add(1, laAbove);
-    Label read = new Label((!classDBChat.getRs().getBoolean(Chat.getReadChat())) ? "غير مقروءة" : "مقروء");
-    read.setFont(new Font(8));
-    read.setAlignment(Pos.CENTER_LEFT);
-    Label laDown = new Label(nameSend + " :" + classDBChat.getRs().getString(Chat.getTextSender()), read);
-    laDown.setContentDisplay(ContentDisplay.RIGHT);
-    laDown.setAlignment(Pos.CENTER_LEFT);
-    laDown.setPrefWidth(155);
-    Label labelDown = new Label(classDBChat.getRs().getString(Chat.getDateSend()).trim(), laDown);
-    labelDown.setWrapText(true);
-    labelDown.setAlignment(Pos.CENTER_RIGHT);
-    labelDown.setFont(new Font(8));
-    labelDown.setPadding(new Insets(5, 0, 5, 0));
-    con.getChildren().add(2, labelDown);
-    ItemLiset.add(getClassTools().setList("", con, classDBChat.getRs().getString(Chat.getID_chat()), NodeOrientation.INHERIT, Pos.CENTER));
-    }
-    listview.setItems(ItemLiset);
-    //</editor-fold>
-    }
-    
+
+    /*
     private void reListImage(ListView<Label> listview) throws SQLException, URISyntaxException, IOException {
     //<editor-fold defaultstate="collapsed" desc="statment">
     ObservableList<Label> Item = FXCollections.observableArrayList();
@@ -351,6 +337,7 @@ public class WorkbenchController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        classDBChat = new DateBase();
     }
 
 }

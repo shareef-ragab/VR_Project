@@ -25,6 +25,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import modeltion.Face;
@@ -61,6 +62,9 @@ public class FaceWelcomeController implements Initializable {
 
     @FXML
     private ToggleGroup KIndACCOUNT;
+
+    @FXML
+    private TextArea text_adress;
 //</editor-fold>
 
     @FXML
@@ -72,8 +76,8 @@ public class FaceWelcomeController implements Initializable {
             getClassDB().getPst().setString(2, text_password_regster.getText());
             getClassDB().getPst().setString(3, text_email.getText());
             getClassDB().getPst().setString(4, text_NumPhone.getText());
-            getClassTools().getSelect(radi_techer, redi_student, getClassDB().getPst(), 5);
-            getClassTools().getSelect(radi_Male, radio_Female, getClassDB().getPst(), 6);
+            getClassTools().select(radi_techer, redi_student, getClassDB().getPst(), 5);
+            getClassTools().select(radi_Male, radio_Female, getClassDB().getPst(), 6);
             getClassDB().getPst().execute();
         } catch (SQLException ex) {
             Logger.getLogger(FaceWelcomeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -158,7 +162,7 @@ public class FaceWelcomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+
     }
 
 }

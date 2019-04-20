@@ -5,6 +5,7 @@
  */
 package controller;
 
+import com.wolf.java.ConnectDateBase;
 import java.io.File;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -16,9 +17,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import plagin.DateBase;
 import modeltion.Face;
-import plagin.Tools;
+import com.wolf.javaFx.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
 
 /**
  *
@@ -37,6 +40,7 @@ public class VR_Project extends Application {
     private static Stage stage;
     private static URL pathFace;
     private static Face face;
+    private static ConnectDateBase conn;
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="set & get">
 
@@ -143,7 +147,7 @@ public class VR_Project extends Application {
     public static void setPageView(Face face, final boolean isOutshow) throws Exception {
         //<editor-fold defaultstate="collapsed" desc="statment">
         setFace(face);
-        if (getStage() != null && isOutshow) {
+        if ((getStage() != null && isOutshow) && conn.isVisible()) {
             getStage().close();
         }
         switch (getFace()) {
@@ -151,7 +155,7 @@ public class VR_Project extends Application {
                 VR_Project.setPathFace(getClassVR_Project().getClass().getResource("/fxml/FaceWelcome.fxml"));
                 break;
             case ConnectDateBase:
-                VR_Project.setPathFace(getClassVR_Project().getClass().getResource("/fxml/connectDateBase.fxml"));
+                conn.setVisible(true);
                 break;
             case PageCenter:
                 VR_Project.setPathFace(getClassVR_Project().getClass().getResource("/fxml/PageCenter.fxml"));
@@ -163,14 +167,13 @@ public class VR_Project extends Application {
                 VR_Project.setPathFace(getClassVR_Project().getClass().getResource("/fxml/uploadViedo.fxml"));
                 break;
         }
-        setRoot(FXMLLoader.load(getPathFace(), getResLang()));
-        if (isOutshow) {
-            /*if (getStage() == null) {
-            setStage(new Stage());
-            }*/
-            setScene(new Scene(getRoot()));
-            getStage().setScene(getScene());
-            getStage().show();
+        if (!conn.isVisible()) {
+            setRoot(FXMLLoader.load(getPathFace(), getResLang()));
+            if (isOutshow) {
+                setScene(new Scene(getRoot()));
+                getStage().setScene(getScene());
+                getStage().show();
+            }
         }
 //</editor-fold>
     }
@@ -184,8 +187,22 @@ public class VR_Project extends Application {
         setClassVR_Project(this);
         classDB = new DateBase();
         face = Face.FaceWelcome;
-        setClassTempDB(new DateBase("jdbc:derby:" + getPATHPARENT() + "/APP;create=true", "", ""));
-        if (new File(getPATHPARENT() + "/table.sql").exists()) {
+        conn = new ConnectDateBase() {
+            @Override
+            public void codeAfterOpen() {
+                    this.setVisible(false);
+                    Platform.runLater(() -> {
+                        try {
+                            setPageView(Face.FaceWelcome, true);
+                        } catch (Exception ex) {
+                            Logger.getLogger(VR_Project.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    });
+                
+            }
+        };
+        setClassTempDB(conn.getClassDB());
+        if (conn.getFiledb().exists()) {
             if (getClassTempDB().setCuroser("select * from info_conn_database")) {
                 setClassDB(new DateBase(getClassTempDB().getRs().getString("local"),
                         getClassTempDB().getRs().getString("codeData") + "://" + getClassTempDB().getRs().getString("hostName") + ":" + getClassTempDB().getRs().getString("Port") + "/" + getClassTempDB().getRs().getString("nameDataBase"),
@@ -193,10 +210,10 @@ public class VR_Project extends Application {
                         getClassTempDB().getRs().getString("Port"), getClassTempDB().getRs().getString("userName_DB"),
                         getClassTempDB().getRs().getString("Password_DB")));
             } else {
-                setPageView(Face.ConnectDateBase, false);
+                face = Face.ConnectDateBase;
             }
         } else {
-            setPageView(Face.ConnectDateBase, false);
+            face = Face.ConnectDateBase;
         }
 //</editor-fold>
     }
@@ -204,6 +221,7 @@ public class VR_Project extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //<editor-fold defaultstate="collapsed" desc="statment">
+        setStage(stage);
         switch (getFace()) {
             case FaceWelcome:
                 setPathFace(getClass().getResource("/fxml/FaceWelcome.fxml"));
@@ -215,12 +233,12 @@ public class VR_Project extends Application {
                     getClassDB().getPst().setString(4, getClassTools().getInfoNetworkInterface(NetworkInterface.getByInetAddress(InetAddress.getLocalHost())));
                     getClassDB().getPst().execute();
                     setID_SEISSION(getClassTempDB().getRs().getString("ID_user"));
-                    setStage(stage);
                     setPageView(Face.uploadViedo, true);
                 }
                 break;
             case ConnectDateBase:
-                setPathFace(getClass().getResource("/fxml/connectDateBase.fxml"));
+
+                conn.setVisible(true);
                 break;
             case PageCenter:
                 setPathFace(getClass().getResource("/fxml/PageCenter.fxml"));
@@ -233,11 +251,13 @@ public class VR_Project extends Application {
                 break;
         }
 
-        setRoot(FXMLLoader.load(getPathFace(), getResLang()));
-        setScene(new Scene(getRoot()));
-        setStage(stage);
-        getStage().setScene(getScene());
-        getStage().show();
+        if (!conn.isVisible()) {
+            setRoot(FXMLLoader.load(getPathFace(), getResLang()));
+            setScene(new Scene(getRoot()));
+            setStage(stage);
+            getStage().setScene(getScene());
+            getStage().show();
+        }
 //</editor-fold>
     }
 

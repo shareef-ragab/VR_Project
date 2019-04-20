@@ -46,7 +46,7 @@ public class UploadViedoController implements Initializable {
             chooser = new FileChooser();
             getClassTools().setFile(null, chooser, getResLang().getString("Massega.chooser.Discrption.viedo"), getResLang().getString("Massega.chooser.title"), "*.MP4", "*.3GP");
             if (getClassTools().getFile() != null) {
-                text_path_viedo.setUserData(getClassTools().copyFile(getClassTools().getFile().getPath(), getPATHPARENT() + "\\fileViedo", progresPathviedo));
+                text_path_viedo.setUserData(getClassTools().copy(getClassTools().getFile().getPath(), getPATHPARENT() + "\\fileViedo", progresPathviedo));
                 text_path_viedo.setText(getClassTools().getFile().getPath());
             }
         } catch (FileNotFoundException ex) {
@@ -64,7 +64,7 @@ public class UploadViedoController implements Initializable {
             chooser = new FileChooser();
             getClassTools().setFile(null, chooser, getResLang().getString("Massega.chooser.Discrption.webDicrption_viedo"), getResLang().getString("Massega.chooser.title"), "*.htm", "*.html");
             if (getClassTools().getFile() != null) {
-                text_path_discrption.setUserData(getClassTools().copyFile(getClassTools().getFile().getPath(), getPATHPARENT() + "\\fileDicrotionViedo", progresPathDicrptionViedo));
+                text_path_discrption.setUserData(getClassTools().copy(getClassTools().getFile().getPath(), getPATHPARENT() + "\\fileDicrotionViedo", progresPathDicrptionViedo));
                 text_path_discrption.setText(getClassTools().getFile().getPath());
             }
         } catch (FileNotFoundException ex) {
