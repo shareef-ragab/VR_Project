@@ -15,6 +15,7 @@ import com.wolf.javaFx.DateBase;
 public class VR_DataBase {
 
     public VR_DataBase() {
+        //<editor-fold defaultstate="collapsed" desc="set date">
         Info_user.setNameTable("Info_user");
         Info_user.setCol_ID_user("ID_user");
         Info_user.setCol_address("address_user");
@@ -41,6 +42,7 @@ public class VR_DataBase {
         Chat.setNameTable("Chat");
         Chat.setReadChat("ReadChat");
         Chat.setTextSender("TextSender");
+//</editor-fold>
     }
 
     public VR_DataBase(DateBase db) throws SQLException {
