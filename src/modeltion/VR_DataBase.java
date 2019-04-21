@@ -93,6 +93,16 @@ public class VR_DataBase {
             db.getPst().execute();
         }
         //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="create table listfinsh">
+        if (!db.setCuroser("show tables  from  " + db.getNameDataBase() + " like 'listfinsh';")) {
+            db.setPst(db.getConn().prepareStatement("CREATE TABLE `listfinsh` (\n"
+                    + Info_user.getCol_ID_user() + "   int(11) NOT NULL,\n"
+                    + "  `listFinsh` text,\n"
+                    + "  PRIMARY KEY ("+Info_user.getCol_ID_user()+")\n"
+                    + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;"));
+            db.getPst().execute();
+        }
+        //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="create table Trace_log">
         if (!db.setCuroser("show tables  from  " + db.getNameDataBase() + " like '" + Trace_log.getNameTable() + "';")) {
             db.setPst(db.getConn().prepareStatement("CREATE TABLE " + Trace_log.getNameTable() + " (\n"
@@ -246,7 +256,7 @@ public class VR_DataBase {
         }
 
         //</editor-fold>
-        //<editor-fold defaultstate="collapsed" desc="create Procedure add_user ">
+        //<editor-fold defaultstate="collapsed" desc="create Procedure add_viedo ">
         if (db.setCuroser(" show   procedure status like 'add_viedo'")) {
             do {
                 if (db.getRs().getString("Db").equals(db.getNameDataBase())) {
@@ -261,8 +271,8 @@ public class VR_DataBase {
             db.setPst(db.getConn().prepareStatement("CREATE DEFINER=" + db.getUser() + "@" + db.getHostName() + " PROCEDURE `add_viedo`(in var_nameViedo nvarchar(45),in var_DescreptionViedo nvarchar(45),in var_pathViedo nvarchar(45)\n"
                     + ",in var_ID_Publish nvarchar(45))\n"
                     + "BEGIN\n"
-                    + "INSERT INTO "+listviedo.getNameTable()
-                    + "("+listviedo.getCol_nameViedo()+","+listviedo.getCol_pathDiscrption()+","+listviedo.getCol_pathViedo()+","+listviedo.getCol_ID_Publish()+","+listviedo.getID_dateCreate()+")\n"
+                    + "INSERT INTO " + listviedo.getNameTable()
+                    + "(" + listviedo.getCol_nameViedo() + "," + listviedo.getCol_pathDiscrption() + "," + listviedo.getCol_pathViedo() + "," + listviedo.getCol_ID_Publish() + "," + listviedo.getID_dateCreate() + ")\n"
                     + "VALUES\n"
                     + "(var_nameViedo,var_DescreptionViedo,var_pathViedo,var_ID_Publish,sysdate());\n"
                     + "END;"));
