@@ -6,7 +6,6 @@
 package controller;
 
 import com.wolf.java.ConnectDateBase;
-import java.io.File;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.URL;
