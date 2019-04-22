@@ -267,7 +267,6 @@ public class VR_Project extends Application {
             getStage().setScene(getScene());
             getStage().show();
         }
-        super.stop();
 //</editor-fold>
     }
 

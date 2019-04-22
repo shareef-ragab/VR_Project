@@ -191,7 +191,7 @@ public class WorkbenchController implements Initializable {
             Label laMas = new Label(classDBChat.getRs().getString(Chat.getTextSender()), new Label((classDBChat.getRs().getString(Chat.getID_Sender()).equals(getID_SEISSION())) ? "أنا : " : " : " + name));
             laMas.setPrefWidth(245);
             con.getChildren().add(0, laMas);
-            Button bot = new Button(null, new ImageView(new Image(getClass().getClassLoader().getResource("/drawble/rabsh.jpg").toURI().toString(), 10, 10, true, true)));
+            Button bot = new Button(null, new ImageView(new Image(getClass().getClassLoader().getResource("/drawble/trash.png").toURI().toString(), 10, 10, true, true)));
             bot.setPrefSize(10, 10);
             if (!cond) {
                 bot.setVisible(false);

@@ -209,10 +209,10 @@ public class VR_DataBase {
         //<editor-fold defaultstate="collapsed" desc="create Procedure add_log ">
         if (db.setCuroser(" show   procedure status like 'add_log'")) {
             do {
-                if (db.getRs().getString("Db").equals(db.getNameDataBase())) {
-                    traceView = false;
-                } else {
+                if (!db.getRs().getString("Db").equals(db.getNameDataBase())) {
                     traceView = true;
+                } else {
+                    traceView = false;
                 }
             } while (db.getRs().next());
         }
