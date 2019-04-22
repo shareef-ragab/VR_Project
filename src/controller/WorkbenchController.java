@@ -34,7 +34,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import com.wolf.javaFx.DateBase;
-import modeltion.VR_DataBase.Chat;
+import java.net.URISyntaxException;
+import javafx.scene.layout.HBox;
+import modeltion.VR_DataBase.*;
 
 /**
  * FXML Controller class
@@ -139,122 +141,114 @@ public class WorkbenchController implements Initializable {
         //</editor-fold>
     }
 
-    /*
     private void reListImage(ListView<Label> listview) throws SQLException, URISyntaxException, IOException {
-    //<editor-fold defaultstate="collapsed" desc="statment">
-    ObservableList<Label> Item = FXCollections.observableArrayList();
-    getClassDB().setRs(getClassDB().getStat().executeQuery("select  distinct Full_Name_ar,Full_Name_en," + Info_user.getFile_Image() + "," + Info_user.getID_User() + " from viewallinfo where " + Log_in.getState_Log() + "='1';"));
-    while (getClassDB().getRs().next()) {
-    getClassTools().openZip(getClassDB().getRs().getBinaryStream(Info_user.getFile_Image()), PATHPARENT);
-    HBox con = new HBox();
-    String name = "";
-    switch (getLang()) {
-    case plagin.AREBIC:
-    name = getClassDB().getRs().getString("Full_Name_ar");
-    break;
-    case plagin.ENGLISH:
-    name = getClassDB().getRs().getString("Full_Name_en");
-    break;
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        ObservableList<Label> Item = FXCollections.observableArrayList();
+        getClassDB().setRs(getClassDB().getStat().executeQuery("select  distinct Full_Name," + Info_user.getCol_ID_user() + " from show_info where " + Info_user.getCol_state_log() + "='1';"));
+        while (getClassDB().getRs().next()) {
+            getClassTools().setInput(getClass().getResourceAsStream("/drawble/User.jpg"));
+            HBox con = new HBox();
+            String name = getClassDB().getRs().getString("Full_Name");
+
+            Label laImage = new Label(name, new ImageView(new Image(getClassTools().getInput(), 18, 18, true, true)));
+            laImage.setPrefWidth(200);
+            con.getChildren().add(0, laImage);
+            String id = getClassDB().getRs().getString(Info_user.getCol_ID_user());
+            classDBChat.setCuroser("SELECT count(" + Chat.getReadChat() + ") as'NotRead' FROM " + Chat.getNameTable() + " where " + Chat.getReadChat() + "=0  and " + Chat.getID_SenderChat() + "='" + id + "' and " + Chat.getID_DestChat() + "='" + getID_SEISSION() + "';");
+            Label laIcon = new Label((classDBChat.getRs().getString("NotRead").equals("0") ? " " : classDBChat.getRs().getString("NotRead")), new ImageView(new Image(getClass().getClassLoader().getResource("com/zeroSystem/javefx/Drwable/notfiction.png").toURI().toString(), 18, 18, true, true)));
+            laIcon.setContentDisplay(ContentDisplay.RIGHT);
+            con.getChildren().add(1, laIcon);
+            Item.add(getClassTools().List("", con, id, NodeOrientation.INHERIT, Pos.CENTER));
+        }
+        listview.setItems(Item);
+        //</editor-fold>
     }
-    Label laImage = new Label(name, new ImageView(new Image(getClassTools().getInput(), 18, 18, true, true)));
-    laImage.setPrefWidth(200);
-    con.getChildren().add(0, laImage);
-    String id = getClassDB().getRs().getString(Info_user.getID_User());
-    classDBChat.setCrouser("SELECT count(" + Chat.getReadChat() + ") as'NotRead' FROM " + Chat.getNameTable() + " where " + Chat.getReadChat() + "=0  and " + Chat.getID_SenderChat() + "='" + id + "' and " + Chat.getID_DestChat() + "='" + getViId() + "';");
-    Label laIcon = new Label((classDBChat.getRs().getString("NotRead").equals("0") ? " " : classDBChat.getRs().getString("NotRead")), new ImageView(new Image(getClass().getClassLoader().getResource("com/zeroSystem/javefx/Drwable/notfiction.png").toURI().toString(), 18, 18, true, true)));
-    laIcon.setContentDisplay(ContentDisplay.RIGHT);
-    con.getChildren().add(1, laIcon);
-    Item.add(getClassTools().setList("", con, id, NodeOrientation.INHERIT, Pos.CENTER));
-    }
-    listview.setItems(Item);
-    //</editor-fold>
-    }
-    
+
     private void reMasseglist(ListView<Label> listview, String idCat) throws SQLException, IOException, URISyntaxException {
-    //<editor-fold defaultstate="collapsed" desc="statment">
-    ObservableList<Label> Item = FXCollections.observableArrayList();
-    int x = 1;
-    classDBChat.setRs(getClassDB().getStat().executeQuery("SELECT * FROM manegarprogrammer.view_chat where " + Chat.getID_chat() + "='" + idCat + "' order by " + Chat.getID() + " asc;"));
-    while (classDBChat.getRs().next()) {
-    //<editor-fold defaultstate="collapsed" desc="statment">
-    if (x == 1) {
-    String name = classDBChat.getRs().getString("user_Name_dest");
-    imgUserChar.setImage(classDBChat.getImage("Imge_Dest", imgUserChar));
-    String id = classDBChat.getRs().getString(Chat.getID_DestChat());
-    if (id.equals(getViId())) {
-    name = classDBChat.getRs().getString("user_Name_sours");
-    imgUserChar.setImage(classDBChat.getImage("Imge_sourse", imgUserChar));
-    id = classDBChat.getRs().getString(Chat.getID_SenderChat());
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        ObservableList<Label> Item = FXCollections.observableArrayList();
+        int x = 1;
+        classDBChat.setRs(getClassDB().getStat().executeQuery("SELECT * FROM view_chat where " + Chat.getID_chat() + "='" + idCat + "' order by " + Chat.getID() + " asc;"));
+        while (classDBChat.getRs().next()) {
+            //<editor-fold defaultstate="collapsed" desc="statment">
+            if (x == 1) {
+                String name = classDBChat.getRs().getString("user_Name_dest");
+                imgUserChar.setImage(new Image(getClass().getClassLoader().getResource("/drawble/User.jpg").toURI().toString(), 18, 18, true, true));
+                String id = classDBChat.getRs().getString(Chat.getID_DestChat());
+                if (id.equals(getID_SEISSION())) {
+                    name = classDBChat.getRs().getString("user_Name_sours");
+                    id = classDBChat.getRs().getString(Chat.getID_SenderChat());
+                }
+                laUserActiveDest.setText(name);
+                laUserActiveDest.setId(id);
+            }
+            //</editor-fold>
+            x++;
+            VBox con = new VBox();
+            boolean cond = classDBChat.getRs().getString(Chat.getID_Sender()).equals(getID_SEISSION());
+            String idMass = classDBChat.getRs().getString(Chat.getID());
+            String name = getClassDB().getRs().getString("First_Name");
+            Label laMas = new Label(classDBChat.getRs().getString(Chat.getTextSender()), new Label((classDBChat.getRs().getString(Chat.getID_Sender()).equals(getID_SEISSION())) ? "أنا : " : " : " + name));
+            laMas.setPrefWidth(245);
+            con.getChildren().add(0, laMas);
+            Button bot = new Button(null, new ImageView(new Image(getClass().getClassLoader().getResource("/drawble/rabsh.jpg").toURI().toString(), 10, 10, true, true)));
+            bot.setPrefSize(10, 10);
+            if (!cond) {
+                bot.setVisible(false);
+            }
+            Label laMoriInfo = new Label(classDBChat.getRs().getString(Chat.getDateSend()), bot);
+            laMoriInfo.setVisible(false);
+            laMoriInfo.setFont(new Font(8));
+            laMoriInfo.setGraphicTextGap(140);
+            laMoriInfo.setContentDisplay(ContentDisplay.RIGHT);
+            laMoriInfo.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+            laMoriInfo.setPadding(new Insets(5, 0, 0, 0));
+            if (!cond) {
+                con.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+                laMoriInfo.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+            }
+
+            laMas.setOnMouseClicked((MouseEvent event) -> {
+                //<editor-fold defaultstate="collapsed" desc="statment">
+                try {
+                    if (!con.getChildren().contains(laMoriInfo)) {
+                        con.getChildren().add(1, laMoriInfo);
+                        laMoriInfo.setVisible(true);
+                        if (!cond) {
+                            classDBChat.setPst(classDBChat.getConn().prepareStatement("update   " + Chat.getNameTable() + " set readChat='1' where " + Chat.getID() + "='" + idMass + "';"));
+                            classDBChat.getPst().execute();
+                        }
+                    }
+                } catch (SQLException ex) {
+
+                }
+                //</editor-fold>
+            });
+            con.setOnMouseExited((MouseEvent event) -> {
+                //<editor-fold defaultstate="collapsed" desc="statment">
+                if (con.getChildren().contains(laMoriInfo)) {
+                    laMoriInfo.setVisible(false);
+                    con.getChildren().remove(laMoriInfo);
+                }
+                //</editor-fold>
+            });
+            bot.setOnAction((ActionEvent event) -> {
+                //<editor-fold defaultstate="collapsed" desc="statment">
+                try {
+                    classDBChat.setPst(classDBChat.getConn().prepareStatement("delete from " + Chat.getNameTable() + " where " + Chat.getID() + "='" + idMass + "';"));
+                    classDBChat.getPst().execute();
+                    botRefeshMasseg.fire();
+                } catch (SQLException ex) {
+
+                }
+                //</editor-fold>
+            });
+            Item.add(getClassTools().List(null, con, idMass, NodeOrientation.INHERIT, Pos.CENTER));
+        }
+        listview.setItems(Item);
+        //</editor-fold>
     }
-    laUserActiveDest.setText(name);
-    laUserActiveDest.setId(id);
-    }
-    //</editor-fold>
-    x++;
-    VBox con = new VBox();
-    boolean cond = classDBChat.getRs().getString(Chat.getID_Sender()).equals(getViId());
-    String idMass = classDBChat.getRs().getString(Chat.getID());
-    String name = getClassDB().getRs().getString("First_Name_ar");
-    Label laMas = new Label(classDBChat.getRs().getString(Chat.getTextSender()), new Label((classDBChat.getRs().getString(Chat.getID_Sender()).equals(getViId())) ? "أنا : " : " : " + name));
-    laMas.setPrefWidth(245);
-    con.getChildren().add(0, laMas);
-    Button bot = new Button(null, new ImageView(new Image(getClass().getClassLoader().getResource("Image/rabsh.png").toURI().toString(), 10, 10, true, true)));
-    bot.setPrefSize(10, 10);
-    if (!cond) {
-    bot.setVisible(false);
-    }
-    Label laMoriInfo = new Label(classDBChat.getRs().getString(Chat.getDateSend()), bot);
-    laMoriInfo.setVisible(false);
-    laMoriInfo.setFont(new Font(8));
-    laMoriInfo.setGraphicTextGap(140);
-    laMoriInfo.setContentDisplay(ContentDisplay.RIGHT);
-    laMoriInfo.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-    laMoriInfo.setPadding(new Insets(5, 0, 0, 0));
-    if (!cond) {
-    con.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-    laMoriInfo.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-    }
-    
-    laMas.setOnMouseClicked((MouseEvent event) -> {
-    //<editor-fold defaultstate="collapsed" desc="statment">
-    try {
-    if (!con.getChildren().contains(laMoriInfo)) {
-    con.getChildren().add(1, laMoriInfo);
-    laMoriInfo.setVisible(true);
-    if (!cond) {
-    classDBChat.setPst(classDBChat.getConn().prepareStatement("update   " + Chat.getNameTable() + " set readChat='1' where " + Chat.getID() + "='" + idMass + "';"));
-    classDBChat.getPst().execute();
-    }
-    }
-    } catch (SQLException ex) {
-    
-    }
-    //</editor-fold>
-    });
-    con.setOnMouseExited((MouseEvent event) -> {
-    //<editor-fold defaultstate="collapsed" desc="statment">
-    if (con.getChildren().contains(laMoriInfo)) {
-    laMoriInfo.setVisible(false);
-    con.getChildren().remove(laMoriInfo);
-    }
-    //</editor-fold>
-    });
-    bot.setOnAction((ActionEvent event) -> {
-    //<editor-fold defaultstate="collapsed" desc="statment">
-    try {
-    classDBChat.setPst(classDBChat.getConn().prepareStatement("delete from " + Chat.getNameTable() + " where " + Chat.getID() + "='" + idMass + "';"));
-    classDBChat.getPst().execute();
-    botRefeshMasseg.fire();
-    } catch (SQLException ex) {
-    
-    }
-    //</editor-fold>
-    });
-    Item.add(getClassTools().setList(null, con, idMass, NodeOrientation.INHERIT, Pos.CENTER));
-    }
-    listview.setItems(Item);
-    //</editor-fold>
-    }*/
+
     @FXML
     void OnActionBotSendMassegebotSendMassege(ActionEvent event) {
 

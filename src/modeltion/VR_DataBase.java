@@ -31,15 +31,17 @@ public class VR_DataBase {
         Info_user.setCol_username("username");
         Info_user.setCol_date_Barthe("date_Barthe");
         Trace_log.setNameTable("Trace_log");
-        Trace_log.setDate_log_in("Date_log_in");
+        Trace_log.setPassword("Password");
         Trace_log.setInfo_NIC("Info_NIC");
         Trace_log.setUser_name("User_name");
+        Trace_log.setDate_log_in("Date_log_in");
         listviedo.setNameTable("listviedo");
         listviedo.setCol_ID("Col_ID");
         listviedo.setCol_ID_Publish("ID_Publish");
         listviedo.setCol_nameViedo("nameViedo");
         listviedo.setCol_pathDiscrption("pathDiscrption");
         listviedo.setCol_pathViedo("pathViedo");
+        listviedo.setID_dateCreate("dateCreate");
         Chat.setDateSend("DateSend");
         Chat.setID("ID");
         Chat.setID_DestChat("ID_DestChat");
@@ -57,18 +59,18 @@ public class VR_DataBase {
         this();
         //<editor-fold defaultstate="collapsed" desc="create table Info_user">
         if (!db.setCuroser("show tables  from  " + db.getNameDataBase() + " like '" + Info_user.getNameTable() + "';")) {
-            db.setPst(db.getConn().prepareStatement("CREATE TABLE `info_user` (\n"
+            db.setPst(db.getConn().prepareStatement("CREATE TABLE " + Info_user.getNameTable() + " (\n"
                     + Info_user.getCol_ID_user() + " int(11) NOT NULL AUTO_INCREMENT,\n"
-                    + Info_user.getCol_username() + " varchar(45) CHARACTER  NOT NULL,\n"
-                    + Info_user.getCol_password() + " varchar(45) CHARACTER  NOT NULL,\n"
-                    + Info_user.getCol_email() + " varchar(45) CHARACTER  NOT NULL,\n"
-                    + Info_user.getCol_numPhone() + " varchar(45) CHARACTER NOT NULL,\n"
-                    + Info_user.getCol_typeAccount() + " varchar(45) CHARACTER  NOT NULL,\n"
-                    + Info_user.getCol_date_Barthe() + " datetime NOT NULL,\n"
-                    + Info_user.getCol_gender() + " varchar(45) CHARACTER NOT NULL,\n"
+                    + Info_user.getCol_username() + " varchar(45)   NOT NULL,\n"
+                    + Info_user.getCol_password() + " varchar(45)   NOT NULL ,\n"
+                    + Info_user.getCol_email() + " varchar(45)   NOT NULL ,\n"
+                    + Info_user.getCol_numPhone() + " varchar(45)  NOT NULL,\n"
+                    + Info_user.getCol_typeAccount() + " varchar(45)  NOT NULL,\n"
+                    + Info_user.getCol_date_Barthe() + " varchar(45) NOT NULL,\n"
+                    + Info_user.getCol_gender() + " varchar(45)  NOT NULL,\n"
                     + Info_user.getCol_state_log() + " tinyint(1) NOT NULL DEFAULT '0',\n"
                     + Info_user.getCol_address() + " text NOT NULL,\n"
-                    + Info_user.getCol_date_Barthe() + " varchar(45) NOT NULL,\n"
+                    + Info_user.getCol_dateCreate() + "  datetime NOT NULL,\n"
                     + "  PRIMARY KEY (" + Info_user.getCol_ID_user() + "),\n"
                     + "  UNIQUE KEY `email_UNIQUE` (" + Info_user.getCol_email() + "),\n"
                     + "  UNIQUE KEY `num_phone_UNIQUE` (" + Info_user.getCol_numPhone() + "),\n"
@@ -89,7 +91,7 @@ public class VR_DataBase {
                     + "  PRIMARY KEY (" + listviedo.getCol_ID() + "),\n"
                     + "  KEY `fk_Id_bublish_idx` (" + listviedo.getCol_ID_Publish() + "),\n"
                     + "  CONSTRAINT `fk_Id_bublish` FOREIGN KEY (" + listviedo.getCol_ID_Publish() + ") REFERENCES " + Info_user.getNameTable() + " (" + Info_user.getCol_ID_user() + ")\n"
-                    + ") ENGINE=InnoDB AUTO_INCREMENT DEFAULT CHARSET=utf8 ;"));
+                    + ") ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;"));
             db.getPst().execute();
         }
         //</editor-fold>
@@ -98,7 +100,7 @@ public class VR_DataBase {
             db.setPst(db.getConn().prepareStatement("CREATE TABLE `listfinsh` (\n"
                     + Info_user.getCol_ID_user() + "   int(11) NOT NULL,\n"
                     + "  `listFinsh` text,\n"
-                    + "  PRIMARY KEY ("+Info_user.getCol_ID_user()+")\n"
+                    + "  PRIMARY KEY (" + Info_user.getCol_ID_user() + ")\n"
                     + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;"));
             db.getPst().execute();
         }
@@ -120,13 +122,13 @@ public class VR_DataBase {
             db.setPst(db.getConn().prepareStatement("CREATE TABLE " + Chat.getNameTable() + " (\n"
                     + Chat.getID() + " int(11) NOT NULL AUTO_INCREMENT,\n"
                     + Chat.getID_chat() + " varchar(70) NOT NULL,\n"
-                    + Chat.getID_Sender() + " varchar(45) NOT NULL,\n"
+                    + Chat.getID_Sender() + " int(11) NOT NULL,\n"
                     + Chat.getTextSender() + "  text,\n"
-                    + Chat.getID_DestUser() + " varchar(45) NOT NULL,\n"
+                    + Chat.getID_DestUser() + " int(11) NOT NULL,\n"
                     + Chat.getDateSend() + " datetime NOT NULL,\n"
                     + Chat.getReadChat() + "  tinyint(1) NOT NULL DEFAULT '0',\n"
-                    + Chat.getID_DestChat() + " varchar(45) NOT NULL,\n"
-                    + Chat.getID_SenderChat() + " varchar(45) NOT NULL,\n"
+                    + Chat.getID_DestChat() + " int(11) NOT NULL,\n"
+                    + Chat.getID_SenderChat() + " int(11) NOT NULL,\n"
                     + "  PRIMARY KEY (" + Chat.getID() + "),\n"
                     + "  UNIQUE KEY `ID_UNIQUE` (" + Chat.getID() + " ),\n"
                     + "  KEY `Id_UserDest_idx` (" + Chat.getID_DestUser() + "),\n"
@@ -167,7 +169,7 @@ public class VR_DataBase {
             db.getPst().execute();
         }
         //</editor-fold>
-        //<editor-fold defaultstate="collapsed" desc="create View show_info_log">
+        //<editor-fold defaultstate="collapsed" desc="create View show_info_viedo">
         if (!db.setCuroser("show tables  from  " + db.getNameDataBase() + " like 'show_info_viedo';")) {
             db.setPst(db.getConn().prepareStatement("CREATE ALGORITHM=UNDEFINED DEFINER=`" + db.getUser() + "`@`" + db.getHostName() + "` SQL SECURITY DEFINER VIEW `show_info_viedo` AS"
                     + " select " + listviedo.getNameTable() + "." + listviedo.getCol_ID() + " AS `ID`,"
@@ -194,13 +196,13 @@ public class VR_DataBase {
                     + "," + Chat.getNameTable() + "." + Chat.getDateSend() + " AS `DateSend`"
                     + "," + Chat.getNameTable() + "." + Chat.getReadChat() + " AS `readChat`"
                     + "," + Chat.getNameTable() + ". " + Chat.getID_DestChat() + " AS `ID_DestChat`"
-                    + ",concat(`show_info`.`user_name`) AS `user_Name_dest`"
+                    + ",`show_info`.`user_name` AS `user_Name_dest`"
                     + ",`show_info`.`type_Account` AS `NAME_JOB_Dest`"
                     + "," + Chat.getNameTable() + "." + Chat.getID_SenderChat() + " AS `ID_SenderChat`"
-                    + ",concat(`" + Info_user.getNameTable() + "`.`" + Info_user.getCol_username() + "`') AS `user_Name_sours`"
+                    + "," + Info_user.getNameTable() + "." + Info_user.getCol_username() + " AS `user_Name_sours`"
                     + "," + Info_user.getNameTable() + "." + Info_user.getCol_typeAccount() + " AS `NAME_JOB_sourse`"
-                    + " from (((((((" + Info_user.getNameTable() + " join " + Chat.getNameTable() + " on((" + Info_user.getNameTable() + "." + Info_user.getCol_ID_user() + " = " + Chat.getNameTable() + "." + Chat.getID_Sender() + "))) "
-                    + "join `show_info` on((`show_info`.`ID_USER` = " + Chat.getNameTable() + ". " + Chat.getID_DestChat() + "))));"));
+                    + " from (((" + Info_user.getNameTable() + " join " + Chat.getNameTable() + " on((" + Info_user.getNameTable() + "." + Info_user.getCol_ID_user() + " = " + Chat.getNameTable() + "." + Chat.getID_Sender() + "))) "
+                    + "join `show_info` on((`show_info`.`ID_USER` = " + Chat.getNameTable() + "." + Chat.getID_DestChat() + "))));"));
             db.getPst().execute();
         }
         //</editor-fold>
@@ -209,7 +211,6 @@ public class VR_DataBase {
             do {
                 if (db.getRs().getString("Db").equals(db.getNameDataBase())) {
                     traceView = false;
-                    break;
                 } else {
                     traceView = true;
                 }

@@ -18,9 +18,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import modeltion.Face;
 import com.wolf.javaFx.*;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import modeltion.VR_DataBase;
 
 /**
  *
@@ -189,7 +191,9 @@ public class VR_Project extends Application {
         conn = new ConnectDateBase() {
             @Override
             public void codeAfterOpen() {
+                try {
                     this.setVisible(false);
+                    new VR_DataBase(this.getDBInfo());
                     Platform.runLater(() -> {
                         try {
                             setPageView(Face.FaceWelcome, true);
@@ -197,7 +201,13 @@ public class VR_Project extends Application {
                             Logger.getLogger(VR_Project.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     });
-                
+                } catch (SQLException ex) {
+                    Logger.getLogger(VR_Project.class.getName()).log(Level.SEVERE, null, ex);
+                    Platform.runLater(() -> {
+                        getStage().close();
+                    });
+                }
+
             }
         };
         setClassTempDB(conn.getClassDB());
@@ -257,6 +267,7 @@ public class VR_Project extends Application {
             getStage().setScene(getScene());
             getStage().show();
         }
+        super.stop();
 //</editor-fold>
     }
 
