@@ -216,7 +216,7 @@ public class VR_DataBase {
                 }
             } while (db.getRs().next());
         }
-        if (traceView && !db.setCuroser(" show   procedure status like 'add_log'")) {
+        if (traceView|| !db.setCuroser(" show   procedure status like 'add_log'")) {
             db.setPst(db.getConn().prepareStatement("CREATE DEFINER=" + db.getUser() + "@" + db.getHostName() + " PROCEDURE `add_log`(in var_ID_user nvarchar(45),in var_user_name nvarchar(45),in var_password nvarchar(45),in var_info_NIC text)\n"
                     + "BEGIN\n"
                     + "INSERT INTO " + Trace_log.getNameTable()
@@ -233,15 +233,15 @@ public class VR_DataBase {
         //<editor-fold defaultstate="collapsed" desc="create Procedure add_user ">
         if (db.setCuroser(" show   procedure status like 'add_user'")) {
             do {
-                if (db.getRs().getString("Db").equals(db.getNameDataBase())) {
-                    traceView = false;
+                if (!db.getRs().getString("Db").equals(db.getNameDataBase())) {
+                    traceView = true;
                     break;
                 } else {
-                    traceView = true;
+                    traceView = false;
                 }
             } while (db.getRs().next());
         }
-        if (traceView && !db.setCuroser(" show   procedure status like 'add_user'")) {
+        if (traceView | !db.setCuroser(" show   procedure status like 'add_user'")) {
             db.setPst(db.getConn().prepareStatement("CREATE DEFINER=" + db.getUser() + "@" + db.getHostName() + " PROCEDURE `add_user`(in var_user_name nvarchar(45),in var_password nvarchar(45)\n"
                     + ",in var_email nvarchar(45),in var_num_phone nvarchar(45),in var_type nvarchar(45)\n"
                     + ",in var_gender nvarchar(45),in var_address text,in var_dateBarth text)\n"
@@ -260,15 +260,15 @@ public class VR_DataBase {
         //<editor-fold defaultstate="collapsed" desc="create Procedure add_viedo ">
         if (db.setCuroser(" show   procedure status like 'add_viedo'")) {
             do {
-                if (db.getRs().getString("Db").equals(db.getNameDataBase())) {
-                    traceView = false;
+                if (!db.getRs().getString("Db").equals(db.getNameDataBase())) {
+                    traceView = true;
                     break;
                 } else {
-                    traceView = true;
+                    traceView = false;
                 }
             } while (db.getRs().next());
         }
-        if (traceView && !db.setCuroser(" show   procedure status like 'add_viedo'")) {
+        if (traceView || !db.setCuroser(" show   procedure status like 'add_viedo'")) {
             db.setPst(db.getConn().prepareStatement("CREATE DEFINER=" + db.getUser() + "@" + db.getHostName() + " PROCEDURE `add_viedo`(in var_nameViedo nvarchar(45),in var_DescreptionViedo nvarchar(45),in var_pathViedo nvarchar(45)\n"
                     + ",in var_ID_Publish nvarchar(45))\n"
                     + "BEGIN\n"
