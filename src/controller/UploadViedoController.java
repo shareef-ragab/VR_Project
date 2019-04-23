@@ -101,7 +101,9 @@ public class UploadViedoController implements Initializable {
             getClassDB().getPst().setString(2, text_path_discrption.getText());
             getClassDB().getPst().setString(3, text_path_viedo.getText());
             getClassDB().getPst().setString(4, getID_SEISSION());
-            getClassDB().getPst().execute();
+            if (getClassDB().getPst().execute()) {
+                getClassTools().showMasseg(Alert.AlertType.INFORMATION, getResLang().getString("Massega.show.text.finsh_save"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"));
+            }
         } catch (Exception ex) {
             getClassTools().showMasseg(Alert.AlertType.WARNING, ex.getMessage(), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"));
         }
