@@ -5,11 +5,16 @@
  */
 package controller;
 
+import com.wolf.javaFx.DateBase;
 import static controller.VR_Project.*;
 import java.io.IOException;
+import static java.lang.Thread.sleep;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +29,7 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
@@ -31,15 +37,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import com.wolf.javaFx.DateBase;
-import static java.lang.Thread.sleep;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.scene.control.MultipleSelectionModel;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import modeltion.VR_DataBase.*;
 
@@ -54,6 +54,18 @@ public class WorkbenchController implements Initializable {
     private static DateBase classDBChat = new DateBase();
     private static String id_chat;
     private static int count_ActiveUser = 0;
+    /**
+     * @return the count_ActiveUser
+     */
+    public static int getCount_ActiveUser() {
+        return count_ActiveUser;
+    }
+    /**
+     * @param aCount_ActiveUser the count_ActiveUser to set
+     */
+    public static void setCount_ActiveUser(int aCount_ActiveUser) {
+        count_ActiveUser = aCount_ActiveUser;
+    }
 
     @FXML
     private AnchorPane paFaceWorkBench;
@@ -396,18 +408,5 @@ public class WorkbenchController implements Initializable {
         classDBChat = new DateBase();
     }
 
-    /**
-     * @return the count_ActiveUser
-     */
-    public static int getCount_ActiveUser() {
-        return count_ActiveUser;
-    }
-
-    /**
-     * @param aCount_ActiveUser the count_ActiveUser to set
-     */
-    public static void setCount_ActiveUser(int aCount_ActiveUser) {
-        count_ActiveUser = aCount_ActiveUser;
-    }
 
 }
