@@ -34,8 +34,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import com.wolf.javaFx.DateBase;
+import static java.lang.Thread.sleep;
 import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import modeltion.VR_DataBase.*;
 
 /**
@@ -47,6 +52,8 @@ public class WorkbenchController implements Initializable {
 
     //<editor-fold defaultstate="collapsed" desc="varible">
     private static DateBase classDBChat = new DateBase();
+    private static String id_chat;
+    private static int count_ActiveUser = 0;
 
     @FXML
     private AnchorPane paFaceWorkBench;
@@ -55,28 +62,19 @@ public class WorkbenchController implements Initializable {
     private Accordion viewPlag;
 
     @FXML
-    private Label laUserName, laUserAge, laDateBarth, laGender, laId_User, laEmail, laAddress, laPhoneNum;
+    private Label laData, laUserName, laUserAge, laDateBarth, laGender, laId_User, laEmail, laAddress, laPhoneNum;
 
     @FXML
     private Hyperlink linekRePassword;
 
     @FXML
-    private TitledPane titActive;
+    private TitledPane titActive, titListChat, titChat;
 
     @FXML
-    private ListView<?> listIcon;
+    private ListView<Label> listIcon, listChat, listViewMassege;
 
     @FXML
     private Button botRefresh, botRefreshListMasse, botSendMassegebotSendMassege, botSerch, botRefeshMasseg;
-
-    @FXML
-    private TitledPane titListChat;
-
-    @FXML
-    private ListView<?> listChat;
-
-    @FXML
-    private TitledPane titChat;
 
     @FXML
     private Label laUserActiveDest;
@@ -88,10 +86,50 @@ public class WorkbenchController implements Initializable {
     private TextField thSendMasseg, thSearch;
 
     @FXML
-    private ListView<?> listViewMassege;
+    private Text laTime;
 
     @FXML
     private BorderPane paFace;
+    //<editor-fold defaultstate="collapsed" desc="thread">
+    private final Runnable runnableTime = () -> {
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        while (true) {
+            try {
+                laTime.setText("الوقت : " + getClassTools().getTime());
+                laData.setText("التاريخ : " + getClassTools().getDate());
+                //setClassDB(new DataBase(DataBase.getLocal(), DataBase.getUrl(), DataBase.getUser(), DataBase.getPassword()));
+                sleep(600);
+            } catch (IllegalStateException | InterruptedException ex) {
+                Logger.getLogger(VR_Project.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(VR_Project.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+//</editor-fold>
+    };
+
+    private final Runnable runnablListMassege = () -> {
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        while (true) {
+            try {
+                classDBChat = new DateBase(getClassDB().getLocal(), getClassDB().getUrl(), getClassDB().getUser(), getClassDB().getPassword());
+                if (classDBChat.setCuroser("SELECT count(" + Chat.getReadChat() + ") as 'countMasseg' FROM " + Chat.getNameTable() + " where " + Chat.getReadChat() + "='0' and " + Chat.getID_chat() + "='" + id_chat + "';")) {
+                    int count = Integer.parseInt(classDBChat.getRs().getString("countMasseg"));
+                    if (getCount_ActiveUser() != count) {
+                        setCount_ActiveUser(count);
+                        botRefeshMasseg.fire();
+                    }
+                }
+                sleep(1000);
+            } catch (IllegalStateException | InterruptedException ex) {
+
+            } catch (Exception ex) {
+
+            }
+        }
+//</editor-fold>
+    };
+//</editor-fold>
 //</editor-fold>
 
     private void reListChat(ListView<Label> listview) throws SQLException, ClassNotFoundException, IOException {
@@ -296,7 +334,21 @@ public class WorkbenchController implements Initializable {
 
     @FXML
     void onMouseClickedListChat(MouseEvent event) {
-
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        try {
+            MultipleSelectionModel<Label> selectItem = listChat.getSelectionModel();
+            if (selectItem.isSelected(selectItem.getSelectedIndex())) {
+                id_chat = selectItem.getSelectedItem().getId();
+                viewPlag.setExpandedPane(titChat);
+                reMasseglist(listViewMassege, id_chat);
+                classDBChat.setPst(classDBChat.getConn().prepareStatement("update   " + Chat.getNameTable() + " set readChat='1' where " + Chat.getID_chat() + "='" + id_chat + "' and " + Chat.getID_Sender() + "='" + laUserActiveDest.getId() + "';"));
+                classDBChat.getPst().execute();
+            }
+            new Thread(runnablListMassege).start();
+        } catch (URISyntaxException | IOException | SQLException ex) {
+            Logger.getLogger(VR_Project.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//</editor-fold>
     }
 
     @FXML
@@ -342,6 +394,20 @@ public class WorkbenchController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         classDBChat = new DateBase();
+    }
+
+    /**
+     * @return the count_ActiveUser
+     */
+    public static int getCount_ActiveUser() {
+        return count_ActiveUser;
+    }
+
+    /**
+     * @param aCount_ActiveUser the count_ActiveUser to set
+     */
+    public static void setCount_ActiveUser(int aCount_ActiveUser) {
+        count_ActiveUser = aCount_ActiveUser;
     }
 
 }
