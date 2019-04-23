@@ -18,10 +18,18 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import modeltion.Face;
 import com.wolf.javaFx.*;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.event.WeakEventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.WindowEvent;
 import modeltion.VR_DataBase;
 
 /**
@@ -173,6 +181,18 @@ public class VR_Project extends Application {
             if (isOutshow) {
                 setScene(new Scene(getRoot()));
                 getStage().setScene(getScene());
+                getStage().setTitle(getClassTools().getNameSystem());
+                getStage().setOnCloseRequest((WindowEvent event) -> {
+                    switch (getClassTools().showMasseg(Alert.AlertType.CONFIRMATION, getResLang().getString("Massega.show.text.do_Exsit"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"), ButtonType.YES, ButtonType.CANCEL).getButtonData()) {
+                        case YES:
+                            getStage().close();
+                            conn.dispose();
+                            break;
+                        default:
+
+                            break;
+                    }
+                });
                 getStage().show();
             }
         }
@@ -192,7 +212,20 @@ public class VR_Project extends Application {
             @Override
             public void codeAfterOpen() {
                 try {
+                    if (getFiledb().exists()) {
+                        setWritedb(new FileWriter(getFiledb()));
+                        String conect = "create table info_log("
+                                + "ID_user varchar(45),"
+                                + "user_name varchar(100) ,"
+                                + "password_user varchar(100) )";
+                        getWritedb().write(conect);
+                        getWritedb().flush();
+                        getWritedb().close();
+                        this.getClassDB().setPst(this.getClassDB().getConn().prepareStatement(conect));
+                        this.getClassDB().getPst().execute();
+                    }
                     this.setVisible(false);
+                    VR_Project.setClassDB(this.getDBInfo());
                     new VR_DataBase(this.getDBInfo());
                     Platform.runLater(() -> {
                         try {
@@ -206,6 +239,8 @@ public class VR_Project extends Application {
                     Platform.runLater(() -> {
                         getStage().close();
                     });
+                } catch (IOException ex) {
+                    Logger.getLogger(VR_Project.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
@@ -237,8 +272,8 @@ public class VR_Project extends Application {
                 if (getClassTempDB().setCuroser("SELECT * FROM info_log")) {
                     getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL `add_log`(?, ?, ?, ?);"));
                     getClassDB().getPst().setString(1, getClassTempDB().getRs().getString("ID_user"));
-                    getClassDB().getPst().setString(2, getClassTempDB().getRs().getString("email"));
-                    getClassDB().getPst().setString(3, getClassTempDB().getRs().getString("password"));
+                    getClassDB().getPst().setString(2, getClassTempDB().getRs().getString("user_name"));
+                    getClassDB().getPst().setString(3, getClassTempDB().getRs().getString("password_user"));
                     getClassDB().getPst().setString(4, getClassTools().getInfoNetworkInterface(NetworkInterface.getByInetAddress(InetAddress.getLocalHost())));
                     getClassDB().getPst().execute();
                     setID_SEISSION(getClassTempDB().getRs().getString("ID_user"));
@@ -265,6 +300,26 @@ public class VR_Project extends Application {
             setScene(new Scene(getRoot()));
             setStage(stage);
             getStage().setScene(getScene());
+            getStage().setTitle(getClassTools().getNameSystem());
+            getStage().setOnCloseRequest((WindowEvent event) -> {
+                try {
+                    switch (getClassTools().showMasseg(Alert.AlertType.CONFIRMATION, getResLang().getString("Massega.show.text.do_Exsit"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"), ButtonType.YES, ButtonType.CANCEL).getButtonData()) {
+                        case YES:
+                            if (!getID_SEISSION().isEmpty()) {
+                                getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL Exsit(?);"));
+                                getClassDB().getPst().setString(1, getID_SEISSION());
+                                getClassDB().getPst().execute();
+                            }
+                            getStage().close();
+                            conn.dispose();
+                            break;
+                        default:
+                            break;
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(VR_Project.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
             getStage().show();
         }
 //</editor-fold>

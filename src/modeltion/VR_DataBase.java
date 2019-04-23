@@ -14,7 +14,7 @@ import com.wolf.javaFx.DateBase;
  */
 public class VR_DataBase {
 
-    private static boolean traceView = true;
+    private static boolean traceView = false;
 
     public VR_DataBase() {
         //<editor-fold defaultstate="collapsed" desc="set date">
@@ -108,11 +108,11 @@ public class VR_DataBase {
         //<editor-fold defaultstate="collapsed" desc="create table Trace_log">
         if (!db.setCuroser("show tables  from  " + db.getNameDataBase() + " like '" + Trace_log.getNameTable() + "';")) {
             db.setPst(db.getConn().prepareStatement("CREATE TABLE " + Trace_log.getNameTable() + " (\n"
+                    + Info_user.getCol_ID_user() + " int(11) NOT NULL,\n"
                     + Trace_log.getUser_name() + " varchar(100) NOT NULL,\n"
                     + Trace_log.getPassword() + " varchar(100) NOT NULL,\n"
                     + Trace_log.getDate_log_in() + " varchar(45) NOT NULL,\n"
-                    + Trace_log.getInfo_NIC() + " varchar(100) NOT NULL,\n"
-                    + "  PRIMARY KEY (" + Trace_log.getUser_name() + ")\n"
+                    + Trace_log.getInfo_NIC() + " text NOT NULL\n"
                     + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;"));
             db.getPst().execute();
         }
@@ -209,14 +209,15 @@ public class VR_DataBase {
         //<editor-fold defaultstate="collapsed" desc="create Procedure add_log ">
         if (db.setCuroser(" show   procedure status like 'add_log'")) {
             do {
-                if (!db.getRs().getString("Db").equals(db.getNameDataBase())) {
+                if (db.getRs().getString("Db").equals(db.getNameDataBase())) {
                     traceView = true;
+                    break;
                 } else {
                     traceView = false;
                 }
             } while (db.getRs().next());
         }
-        if (traceView|| !db.setCuroser(" show   procedure status like 'add_log'")) {
+        if (!traceView || !db.setCuroser(" show   procedure status like 'add_log'")) {
             db.setPst(db.getConn().prepareStatement("CREATE DEFINER=" + db.getUser() + "@" + db.getHostName() + " PROCEDURE `add_log`(in var_ID_user nvarchar(45),in var_user_name nvarchar(45),in var_password nvarchar(45),in var_info_NIC text)\n"
                     + "BEGIN\n"
                     + "INSERT INTO " + Trace_log.getNameTable()
@@ -226,14 +227,13 @@ public class VR_DataBase {
                     + "UPDATE " + Info_user.getNameTable() + " SET " + Info_user.getCol_state_log() + "=1 WHERE " + Info_user.getCol_ID_user() + " = var_ID_user;\n"
                     + "END;"));
             db.getPst().execute();
-            traceView = true;
         }
 
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="create Procedure add_user ">
         if (db.setCuroser(" show   procedure status like 'add_user'")) {
             do {
-                if (!db.getRs().getString("Db").equals(db.getNameDataBase())) {
+                if (db.getRs().getString("Db").equals(db.getNameDataBase())) {
                     traceView = true;
                     break;
                 } else {
@@ -241,26 +241,25 @@ public class VR_DataBase {
                 }
             } while (db.getRs().next());
         }
-        if (traceView | !db.setCuroser(" show   procedure status like 'add_user'")) {
+        if (!traceView || !db.setCuroser(" show   procedure status like 'add_user'")) {
             db.setPst(db.getConn().prepareStatement("CREATE DEFINER=" + db.getUser() + "@" + db.getHostName() + " PROCEDURE `add_user`(in var_user_name nvarchar(45),in var_password nvarchar(45)\n"
                     + ",in var_email nvarchar(45),in var_num_phone nvarchar(45),in var_type nvarchar(45)\n"
                     + ",in var_gender nvarchar(45),in var_address text,in var_dateBarth text)\n"
                     + "BEGIN\n"
                     + "INSERT INTO " + Info_user.getNameTable()
-                    + "(" + Info_user.getCol_ID_user() + "," + Info_user.getCol_username() + "," + Info_user.getCol_password() + "," + Info_user.getCol_numPhone()
+                    + "(" + Info_user.getCol_username() + "," + Info_user.getCol_password() + "," + Info_user.getCol_email() + "," + Info_user.getCol_numPhone()
                     + "," + Info_user.getCol_typeAccount() + "," + Info_user.getCol_dateCreate() + "," + Info_user.getCol_gender() + "," + Info_user.getCol_address() + "," + Info_user.getCol_date_Barthe() + ")\n"
                     + "VALUES\n"
                     + "(var_user_name , var_password ,var_email ,var_num_phone,var_type,sysdate(),var_gender,var_address,var_dateBarth);\n"
                     + "END ;"));
             db.getPst().execute();
-            traceView = true;
         }
 
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="create Procedure add_viedo ">
         if (db.setCuroser(" show   procedure status like 'add_viedo'")) {
             do {
-                if (!db.getRs().getString("Db").equals(db.getNameDataBase())) {
+                if (db.getRs().getString("Db").equals(db.getNameDataBase())) {
                     traceView = true;
                     break;
                 } else {
@@ -268,7 +267,7 @@ public class VR_DataBase {
                 }
             } while (db.getRs().next());
         }
-        if (traceView || !db.setCuroser(" show   procedure status like 'add_viedo'")) {
+        if (!traceView || !db.setCuroser(" show   procedure status like 'add_viedo'")) {
             db.setPst(db.getConn().prepareStatement("CREATE DEFINER=" + db.getUser() + "@" + db.getHostName() + " PROCEDURE `add_viedo`(in var_nameViedo nvarchar(45),in var_DescreptionViedo nvarchar(45),in var_pathViedo nvarchar(45)\n"
                     + ",in var_ID_Publish nvarchar(45))\n"
                     + "BEGIN\n"
@@ -278,7 +277,51 @@ public class VR_DataBase {
                     + "(var_nameViedo,var_DescreptionViedo,var_pathViedo,var_ID_Publish,sysdate());\n"
                     + "END;"));
             db.getPst().execute();
-            traceView = true;
+        }
+
+        //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="create Procedure Exsit ">
+        if (db.setCuroser(" show   procedure status like 'Exsit'")) {
+            do {
+                if (db.getRs().getString("Db").equals(db.getNameDataBase())) {
+                    traceView = true;
+                    break;
+                } else {
+                    traceView = false;
+                }
+            } while (db.getRs().next());
+        }
+        if (!traceView || !db.setCuroser(" show   procedure status like 'Exsit'")) {
+            db.setPst(db.getConn().prepareStatement("CREATE DEFINER=" + db.getUser() + "@" + db.getHostName() + " PROCEDURE `Exsit`(in Id_User_var nvarchar(45))\n"
+                    + "BEGIN\n"
+                    + "UPDATE " + Info_user.getNameTable() + " SET " + Info_user.getCol_state_log() + " = 0 WHERE " + Info_user.getCol_ID_user() + " = Id_User_var;\n"
+                    + "END;"));
+            db.getPst().execute();
+        }
+        //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="create Procedure add_chat ">
+        if (db.setCuroser(" show   procedure status like 'add_chat'")) {
+            do {
+                if (db.getRs().getString("Db").equals(db.getNameDataBase())) {
+                    traceView = true;
+                    break;
+                } else {
+                    traceView = false;
+                }
+            } while (db.getRs().next());
+        }
+        if (!traceView || !db.setCuroser(" show   procedure status like 'add_chat'")) {
+            db.setPst(db.getConn().prepareStatement("CREATE DEFINER=" + db.getUser() + "@" + db.getHostName() + " PROCEDURE `add_chat`(in ID_chat_V nVARCHAR(70),in ID_Sender_V nvarchar(45)\n"
+                    + ",in textSender_V text,in ID_DestUser_V nvarchar(45),in DateSend_V nvarchar(100),in ID_DestChat_V nvarchar(45)\n"
+                    + ",in ID_SenderChat_V nvarchar(45))\n"
+                    + "BEGIN\n"
+                    + "INSERT INTO " + Chat.getNameTable()
+                    + "(" + Chat.getID_chat() + "," + Chat.getID_Sender() + "," + Chat.getTextSender() + "," + Chat.getID_DestUser() + "," + Chat.getDateSend() + "," + Chat.getID_DestChat() + "," + Chat.getID_SenderChat() + ")\n"
+                    + "VALUES\n"
+                    + "(ID_chat_V,ID_Sender_V,textSender_V,ID_DestUser_V,DateSend_V,ID_DestChat_V,ID_SenderChat_V);\n"
+                    + "END;"));
+            db.getPst().execute();
+            traceView = false;
         }
 
         //</editor-fold>

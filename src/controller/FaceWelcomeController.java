@@ -71,14 +71,17 @@ public class FaceWelcomeController implements Initializable {
     private void onActionBtn_register(ActionEvent event) {
         //<editor-fold defaultstate="collapsed" desc="statment">
         try {
-            getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL `add_user`(?, ?, ?, ? ,?, ?);"));
+            getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL `add_user`(?, ?, ?, ? ,?, ?,?,?);"));
             getClassDB().getPst().setString(1, text_user_regster.getText());
             getClassDB().getPst().setString(2, text_password_regster.getText());
             getClassDB().getPst().setString(3, text_email.getText());
             getClassDB().getPst().setString(4, text_NumPhone.getText());
             getClassTools().select(radi_techer, redi_student, getClassDB().getPst(), 5);
             getClassTools().select(radi_Male, radio_Female, getClassDB().getPst(), 6);
+            getClassDB().getPst().setString(7, text_adress.getText());
+            getClassDB().getPst().setString(8, date_DateBerth.getEditor().getText());
             getClassDB().getPst().execute();
+            getClassTools().showMasseg(Alert.AlertType.INFORMATION, getResLang().getString("Massega.show.text.finsh_save"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"));
         } catch (SQLException ex) {
             Logger.getLogger(FaceWelcomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -103,13 +106,13 @@ public class FaceWelcomeController implements Initializable {
                         getClassDB().getPst().setString(4, getClassTools().getInfoNetworkInterface(NetworkInterface.getByInetAddress(InetAddress.getLocalHost())));
                         getClassDB().getPst().execute();
                         if (check_Remmber.isSelected()) {
-                            getClassTempDB().setPst(getClassTempDB().getConn().prepareStatement("INSERT INTO info_log (ID_user,email,password)VALUES(?,?,?) "));
+                            getClassTempDB().setPst(getClassTempDB().getConn().prepareStatement("INSERT INTO info_log (ID_user ,user_name,password_user)VALUES(?,?,?) "));
                             getClassTempDB().getPst().setString(1, getID_SEISSION());
                             getClassTempDB().getPst().setString(2, enUserName);
                             getClassTempDB().getPst().setString(3, enPassword);
                             getClassTempDB().getPst().execute();
                         }
-                        setPageView(Face.PageCenter, true);
+                        setPageView(Face.workbench, true);
                     } else {
                         count_fail++;
                         switch (count_fail) {
@@ -124,7 +127,7 @@ public class FaceWelcomeController implements Initializable {
                                 text_password.setText(null);
                                 break;
                             default:
-                                getClassTools().showMasseg(Alert.AlertType.INFORMATION, getResLang().getString("Massega.show.text.error_password") + " " + getResLang().getString("Massega.show.text.try_agin") + " " + getResLang().getString("Massega.show.text.goBy"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"));
+                                getClassTools().showMasseg(Alert.AlertType.INFORMATION, getResLang().getString("Massega.show.text.error_password") +" " + getResLang().getString("Massega.show.text.goBy"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"));
                                 System.exit(0);
                                 break;
                         }
