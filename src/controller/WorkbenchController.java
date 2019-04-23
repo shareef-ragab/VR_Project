@@ -280,7 +280,17 @@ public class WorkbenchController implements Initializable {
     }
 
     @FXML
+    void onActionShowViedo(ActionEvent event) {
+
+    }
+
+    @FXML
     void onActionbotRefresh(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionuploadviedo(ActionEvent event) {
 
     }
 

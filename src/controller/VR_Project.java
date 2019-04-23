@@ -277,7 +277,7 @@ public class VR_Project extends Application {
                     getClassDB().getPst().setString(4, getClassTools().getInfoNetworkInterface(NetworkInterface.getByInetAddress(InetAddress.getLocalHost())));
                     getClassDB().getPst().execute();
                     setID_SEISSION(getClassTempDB().getRs().getString("ID_user"));
-                    setPageView(Face.uploadViedo, true);
+                    setPageView(Face.workbench, true);
                 }
                 break;
             case ConnectDateBase:
