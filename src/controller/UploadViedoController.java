@@ -94,8 +94,9 @@ public class UploadViedoController implements Initializable {
                     new File((String) in.getUserData() + File.separator + new File(in.getText()).getName()).renameTo(new File((String) in.getUserData() + File.separator + text_nameViedo.getText()));
                 }
             } else {
-                getClassTools().showMasseg(Alert.AlertType.INFORMATION, getResLang().getString("Massega.show.text.name_error_wreate"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"));
+                throw new  Exception(getResLang().getString("Massega.show.text.name_error_wreate"));
             }
+            
         } catch (Exception ex) {
             getClassTools().showMasseg(Alert.AlertType.WARNING, ex.getMessage(), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"));
         }

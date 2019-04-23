@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PageCenterController">
+    <right>
+        <WebView fx:id="view_Deiscreption" nodeOrientation="RIGHT_TO_LEFT" prefWidth="354.0" BorderPane.alignment="CENTER" />
+    </right>
+    <left>
+        <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="454.0" BorderPane.alignment="CENTER">
+            <children>
+                <MediaView fx:id="showViedo" fitHeight="400.0" fitWidth="500.0" layoutX="110.0" layoutY="33.0" nodeOrientation="INHERIT" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                <ButtonBar buttonOrder="" layoutX="38.0" layoutY="546.0" prefHeight="40.0" prefWidth="394.0">
+                    <buttons>
+                        <Button fx:id="btn_Prev" onAction="#onActionBtn_Prev">
+                            <graphic>
+                                <ImageView fitHeight="19.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" />
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btn_seekPrev" mnemonicParsing="false" onAction="#onActionBtnSeelPrev">
+                            <graphic>
+                                <ImageView fitHeight="19.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" />
+                            </graphic>
+                        </Button>
+                        <ToggleButton fx:id="togle_run" mnemonicParsing="false" onAction="#onActionTogle_Run">
+                            <graphic>
+                                <ImageView fx:id="img_togleRun" fitHeight="19.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../drawble/playbutton.png" />
+                           </image></ImageView>
+                            </graphic>
+                        </ToggleButton>
+                        <Button fx:id="btn_seeknext" mnemonicParsing="false" onAction="#onActionBtn_seekNext">
+                            <graphic>
+                                <ImageView fitHeight="19.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" />
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btn_nextViedo" mnemonicParsing="false" onAction="#onActionBtn_nextViedo">
+                            <graphic>
+                                <ImageView fitHeight="19.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" />
+                            </graphic>
+                        </Button>
+                    </buttons>
+                </ButtonBar>
+                <Slider fx:id="spVolViedo" layoutX="6.0" layoutY="400.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="14.0" prefWidth="488.0" showTickMarks="true" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="405.0" />
+                <Slider fx:id="spSoundViedo" layoutX="14.0" layoutY="458.0" orientation="VERTICAL" prefHeight="88.0" prefWidth="14.0" />
+                <ImageView fitHeight="17.0" fitWidth="21.0" layoutX="11.0" layoutY="558.0" pickOnBounds="true" preserveRatio="true" />
+                <Label fx:id="laNameViedo" layoutX="66.0" layoutY="415.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="132.0" prefWidth="439.0" textAlignment="JUSTIFY" wrapText="true" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="415.0">
+                    <padding>
+                        <Insets left="5.0" right="5.0" />
+                    </padding>
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </left>
+</BorderPane>
