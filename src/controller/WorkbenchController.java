@@ -15,9 +15,11 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -41,6 +43,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import modeltion.Face;
+import modeltion.VR_DataBase;
 import modeltion.VR_DataBase.*;
 
 /**
@@ -54,12 +58,14 @@ public class WorkbenchController implements Initializable {
     private static DateBase classDBChat = new DateBase();
     private static String id_chat;
     private static int count_ActiveUser = 0;
+
     /**
      * @return the count_ActiveUser
      */
     public static int getCount_ActiveUser() {
         return count_ActiveUser;
     }
+
     /**
      * @param aCount_ActiveUser the count_ActiveUser to set
      */
@@ -74,7 +80,7 @@ public class WorkbenchController implements Initializable {
     private Accordion viewPlag;
 
     @FXML
-    private Label laData, laUserName, laUserAge, laDateBarth, laGender, laId_User, laEmail, laAddress, laPhoneNum;
+    private Label laUserName, laUserAge, laDateBarth, laGender, laId_User, laEmail, laAddress, laPhoneNum;
 
     @FXML
     private Hyperlink linekRePassword;
@@ -86,7 +92,7 @@ public class WorkbenchController implements Initializable {
     private ListView<Label> listIcon, listChat, listViewMassege;
 
     @FXML
-    private Button botRefresh, botRefreshListMasse, botSendMassegebotSendMassege, botSerch, botRefeshMasseg;
+    private Button botRefresh, botRefreshListMasse, botSendMassegebotSendMassege, botSerch, botRefeshMasseg, butTecher;
 
     @FXML
     private Label laUserActiveDest;
@@ -98,7 +104,7 @@ public class WorkbenchController implements Initializable {
     private TextField thSendMasseg, thSearch;
 
     @FXML
-    private Text laTime;
+    private Text laData, laTime;
 
     @FXML
     private BorderPane paFace;
@@ -194,23 +200,24 @@ public class WorkbenchController implements Initializable {
     private void reListImage(ListView<Label> listview) throws SQLException, URISyntaxException, IOException {
         //<editor-fold defaultstate="collapsed" desc="statment">
         ObservableList<Label> Item = FXCollections.observableArrayList();
-        getClassDB().setRs(getClassDB().getStat().executeQuery("select  distinct Full_Name," + Info_user.getCol_ID_user() + " from show_info where " + Info_user.getCol_state_log() + "='1';"));
-        while (getClassDB().getRs().next()) {
-            getClassTools().setInput(getClass().getResourceAsStream("/drawble/User.jpg"));
-            HBox con = new HBox();
-            String name = getClassDB().getRs().getString("Full_Name");
-
-            Label laImage = new Label(name, new ImageView(new Image(getClassTools().getInput(), 18, 18, true, true)));
-            laImage.setPrefWidth(200);
-            con.getChildren().add(0, laImage);
-            String id = getClassDB().getRs().getString(Info_user.getCol_ID_user());
-            classDBChat.setCuroser("SELECT count(" + Chat.getReadChat() + ") as'NotRead' FROM " + Chat.getNameTable() + " where " + Chat.getReadChat() + "=0  and " + Chat.getID_SenderChat() + "='" + id + "' and " + Chat.getID_DestChat() + "='" + getID_SEISSION() + "';");
-            Label laIcon = new Label((classDBChat.getRs().getString("NotRead").equals("0") ? " " : classDBChat.getRs().getString("NotRead")), new ImageView(new Image(getClass().getClassLoader().getResource("com/zeroSystem/javefx/Drwable/notfiction.png").toURI().toString(), 18, 18, true, true)));
-            laIcon.setContentDisplay(ContentDisplay.RIGHT);
-            con.getChildren().add(1, laIcon);
-            Item.add(getClassTools().List("", con, id, NodeOrientation.INHERIT, Pos.CENTER));
+        if (getClassDB().setCuroser("select  distinct user_name,ID_USER from show_info where state_log='1';")) {
+            do {
+                getClassTools().setInput(getClass().getResourceAsStream("/drawble/User.jpg"));
+                HBox con = new HBox();
+                String name = getClassDB().getRs().getString("user_name");
+                Label laImage = new Label(name, new ImageView(new Image(getClassTools().getInput(), 18, 18, true, true)));
+                laImage.setPrefWidth(200);
+                con.getChildren().add(0, laImage);
+                String id = getClassDB().getRs().getString(Info_user.getCol_ID_user());
+                if (classDBChat.setCuroser("SELECT count(" + Chat.getReadChat() + ") as'NotRead' FROM " + Chat.getNameTable() + " where " + Chat.getReadChat() + "=0  and " + Chat.getID_SenderChat() + "='" + id + "' and " + Chat.getID_DestChat() + "='" + getID_SEISSION() + "';")) {
+                    Label laIcon = new Label((classDBChat.getRs().getString("NotRead").equals("0") ? " " : classDBChat.getRs().getString("NotRead")), new ImageView(new Image(getClass().getClassLoader().getResource("drawble/refresh_Icon.png").toURI().toString(), 18, 18, true, true)));
+                    laIcon.setContentDisplay(ContentDisplay.RIGHT);
+                    con.getChildren().add(1, laIcon);
+                }
+                Item.add(getClassTools().List("", con, id, NodeOrientation.INHERIT, Pos.CENTER));
+            } while (getClassDB().getRs().next());
+            listview.setItems(Item);
         }
-        listview.setItems(Item);
         //</editor-fold>
     }
 
@@ -331,7 +338,18 @@ public class WorkbenchController implements Initializable {
 
     @FXML
     void onActionShowViedo(ActionEvent event) {
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        try {
 
+            setPageView(Face.PageCenter, false);
+            if (getScene() != null) {
+                paFace.setCenter(getRoot());
+                getStage().setFullScreen(true);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(WorkbenchController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//</editor-fold>
     }
 
     @FXML
@@ -341,7 +359,16 @@ public class WorkbenchController implements Initializable {
 
     @FXML
     void onActionuploadviedo(ActionEvent event) {
-
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        try {
+            setPageView(Face.uploadViedo, false);
+            if (getScene() != null) {
+                paFace.setCenter(getRoot());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(WorkbenchController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//</editor-fold>
     }
 
     @FXML
@@ -361,6 +388,20 @@ public class WorkbenchController implements Initializable {
             Logger.getLogger(VR_Project.class.getName()).log(Level.SEVERE, null, ex);
         }
 //</editor-fold>
+    }
+
+    @FXML
+    void onActionLog_out(ActionEvent event) {
+        try {
+            getStage().onCloseRequestProperty();
+            getClassTempDB().setPst(getClassTempDB().getConn().prepareStatement("DELETE FROM info_log"));
+            getClassTempDB().getPst().execute();
+            getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL Exsit(?);"));
+            getClassDB().getPst().setString(1, getID_SEISSION());
+            getClassDB().getPst().execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(WorkbenchController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -404,9 +445,39 @@ public class WorkbenchController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        classDBChat = new DateBase();
-    }
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        try {
+            new VR_DataBase();
+            if (!getID_SEISSION().isEmpty() || getID_SEISSION() != null) {
+                classDBChat = new DateBase(getClassDB().getLocal(), getClassDB().getUrl(), getClassDB().getUser(), getClassDB().getPassword());
+                //<editor-fold defaultstate="collapsed" desc="showInfoJob">
+                if (getClassDB().setCuroser("SELECT * FROM show_info where ID_USER='" + getID_SEISSION() + "' ;")) {
+                    laId_User.setText(getClassDB().getRs().getString("ID_USER"));
+                    laAddress.setText(getClassDB().getRs().getString("address_user"));
+                    laDateBarth.setText(getClassDB().getRs().getString("dateBarth"));
+                    laEmail.setText(getClassDB().getRs().getString("email"));
+                    laGender.setText(getClassDB().getRs().getString("gender"));
+                    laPhoneNum.setText(getClassDB().getRs().getString("num_phone"));
+                    laUserName.setText(getClassDB().getRs().getString("user_name"));
+                    //laUserAge.setText(getClassDB().getRs().getString("age"));
+                    if (!getClassDB().getRs().getString("type_Account").equals("مدرس")) {
+                        butTecher.setDisable(true);
+                    }
+                    reListChat(listChat);
+                    reListImage(listIcon);
+                    Platform.runLater(() -> {
+                        new Thread(runnableTime).start();
+                    });
+                }
 
+//</editor-fold>
+            } else {
+                System.exit(0);
+            }
+        } catch (ClassNotFoundException | SQLException | IOException | URISyntaxException | NullPointerException ex) {
+            Logger.getLogger(WorkbenchController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//</editor-fold>
+    }
 
 }

@@ -127,7 +127,7 @@ public class FaceWelcomeController implements Initializable {
                                 text_password.setText(null);
                                 break;
                             default:
-                                getClassTools().showMasseg(Alert.AlertType.INFORMATION, getResLang().getString("Massega.show.text.error_password") +" " + getResLang().getString("Massega.show.text.goBy"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"));
+                                getClassTools().showMasseg(Alert.AlertType.INFORMATION, getResLang().getString("Massega.show.text.error_password") + " " + getResLang().getString("Massega.show.text.goBy"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"));
                                 System.exit(0);
                                 break;
                         }

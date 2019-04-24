@@ -153,6 +153,8 @@ public class VR_DataBase {
                     + "," + Info_user.getCol_typeAccount() + " AS `type_Account`"
                     + "," + Info_user.getCol_gender() + " AS `gender`,"
                     + Info_user.getCol_date_Barthe() + " AS `dateBarth`,"
+                    + Info_user.getCol_address() + " AS `address`,"
+                    + Info_user.getCol_state_log() + " AS `state_log`,"
                     + "(YEAR(SYSDATE()) - YEAR(CAST(" + Info_user.getCol_date_Barthe() + " AS DATE))) AS `age` "
                     + "from " + Info_user.getNameTable() + ";"));
             db.getPst().execute();
@@ -268,7 +270,7 @@ public class VR_DataBase {
             } while (db.getRs().next());
         }
         if (!traceView || !db.setCuroser(" show   procedure status like 'add_viedo'")) {
-            db.setPst(db.getConn().prepareStatement("CREATE DEFINER=" + db.getUser() + "@" + db.getHostName() + " PROCEDURE `add_viedo`(in var_nameViedo nvarchar(45),in var_DescreptionViedo nvarchar(45),in var_pathViedo nvarchar(45)\n"
+            db.setPst(db.getConn().prepareStatement("CREATE DEFINER=" + db.getUser() + "@" + db.getHostName() + " PROCEDURE `add_viedo`(in var_nameViedo nvarchar(45),in var_DescreptionViedo text,in var_pathViedo text\n"
                     + ",in var_ID_Publish nvarchar(45))\n"
                     + "BEGIN\n"
                     + "INSERT INTO " + listviedo.getNameTable()

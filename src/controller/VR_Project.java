@@ -6,30 +6,27 @@
 package controller;
 
 import com.wolf.java.ConnectDateBase;
+import com.wolf.javaFx.*;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
-import modeltion.Face;
-import com.wolf.javaFx.*;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.event.WeakEventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import modeltion.Face;
 import modeltion.VR_DataBase;
 
 /**
@@ -187,9 +184,10 @@ public class VR_Project extends Application {
                         case YES:
                             getStage().close();
                             conn.dispose();
+                            System.exit(0);
                             break;
                         default:
-
+                            event.consume();
                             break;
                     }
                 });
@@ -203,7 +201,7 @@ public class VR_Project extends Application {
     public void init() throws Exception {
         //<editor-fold defaultstate="collapsed" desc="statment">
         setResLang(ResourceBundle.getBundle("lang.VR_porject", Locale.ROOT));
-        classTools = new Tools(getResLang().getString("FaceWelcome.label.class_room"));
+        setClassTools(new Tools(getResLang().getString("FaceWelcome.label.class_room")));;
         PATHPARENT = getClassTools().getPath(getClassTools().getNameSystem(), "VR_Project");
         setClassVR_Project(this);
         classDB = new DateBase();
@@ -302,22 +300,15 @@ public class VR_Project extends Application {
             getStage().setScene(getScene());
             getStage().setTitle(getClassTools().getNameSystem());
             getStage().setOnCloseRequest((WindowEvent event) -> {
-                try {
-                    switch (getClassTools().showMasseg(Alert.AlertType.CONFIRMATION, getResLang().getString("Massega.show.text.do_Exsit"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"), ButtonType.YES, ButtonType.CANCEL).getButtonData()) {
-                        case YES:
-                            if (!getID_SEISSION().isEmpty()) {
-                                getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL Exsit(?);"));
-                                getClassDB().getPst().setString(1, getID_SEISSION());
-                                getClassDB().getPst().execute();
-                            }
-                            getStage().close();
-                            conn.dispose();
-                            break;
-                        default:
-                            break;
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(VR_Project.class.getName()).log(Level.SEVERE, null, ex);
+                switch (getClassTools().showMasseg(Alert.AlertType.CONFIRMATION, getResLang().getString("Massega.show.text.do_Exsit"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"), ButtonType.YES, ButtonType.CANCEL).getButtonData()) {
+                    case YES:
+                        getStage().close();
+                        conn.dispose();
+                        System.exit(0);
+                        break;
+                    default:
+                        event.consume();
+                        break;
                 }
             });
             getStage().show();

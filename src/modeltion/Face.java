@@ -10,7 +10,7 @@ package modeltion;
  * @author shareef_ragab
  */
 public enum Face {
-    FaceWelcome, PageCenter, ConnectDateBase, workbench,uploadViedo;
+    FaceWelcome, PageCenter, ConnectDateBase, workbench, uploadViedo;
 
     public static Face getFaceWelcome() {
         return FaceWelcome;

@@ -45,25 +45,25 @@ public class PageCenterController implements Initializable {
     private Duration duration;
     private MediaPlayer.Status status;
     private int sleedVideo;
-    
+
     @FXML
     private ImageView img_togleRun;
-    
+
     @FXML
     private WebView view_Deiscreption;
-    
+
     @FXML
     private MediaView showViedo;
-    
+
     @FXML
     private Button btn_Prev, btn_seekPrev, btn_seeknext, btn_nextViedo;
-    
+
     @FXML
     private ToggleButton togle_run;
-    
+
     @FXML
     private Slider spVolViedo, spSoundViedo;
-    
+
     @FXML
     private Label laNameViedo;
 //</editor-fold>
@@ -77,7 +77,7 @@ public class PageCenterController implements Initializable {
         }
 //</editor-fold>
     }
-    
+
     @FXML
     void onActionBtn_Prev(ActionEvent event) {
         //<editor-fold defaultstate="collapsed" desc="statment">
@@ -87,7 +87,7 @@ public class PageCenterController implements Initializable {
         }
 //</editor-fold>
     }
-    
+
     @FXML
     void onActionBtn_nextViedo(ActionEvent event) {
         //<editor-fold defaultstate="collapsed" desc="statment">
@@ -97,18 +97,18 @@ public class PageCenterController implements Initializable {
         }
 //</editor-fold>
     }
-    
+
     @FXML
     void onActionBtn_seekNext(ActionEvent event) {
         //<editor-fold defaultstate="collapsed" desc="statment">
         status = mediaPlayer.getStatus();
         if (status == MediaPlayer.Status.PLAYING || status == MediaPlayer.Status.READY) {
-            
+
             mediaPlayer.seek(mediaPlayer.getCurrentTime().add(Duration.millis(500)));
         }
 //</editor-fold>
     }
-    
+
     @FXML
     void onActionTogle_Run(ActionEvent event) {
         //<editor-fold defaultstate="collapsed" desc="statment">
@@ -131,7 +131,7 @@ public class PageCenterController implements Initializable {
 //</editor-fold>
 
     }
-    
+
     protected void updateValues() {
         if (spVolViedo != null && spSoundViedo != null && duration != null) {
             Platform.runLater(() -> {
@@ -146,16 +146,19 @@ public class PageCenterController implements Initializable {
             });
         }
     }
-    
+
     public void runMedi(int sleedVideo) {
         //<editor-fold defaultstate="collapsed" desc="statment">
+        if (mediaPlayer != null) {
+            mediaPlayer.dispose();
+        }
         mediaPlayer = new MediaPlayer(new Media(new File(viedoStudy.get(sleedVideo).getPathVeido()).toURI().toString()));
         showViedo.setMediaPlayer(mediaPlayer);
         view_Deiscreption.getEngine().load(new File(viedoStudy.get(sleedVideo).getPathDiscrption()).toURI().toString());
         laNameViedo.setText(viedoStudy.get(0).getNameVeido() + "\n" + viedoStudy.get(sleedVideo).getNameAuther());
 //</editor-fold>
     }
-    
+
     @FXML
     void initialize() {
         //<editor-fold defaultstate="collapsed" desc="statment">
@@ -232,5 +235,5 @@ public class PageCenterController implements Initializable {
         }
 //</editor-fold>
     }
-    
+
 }

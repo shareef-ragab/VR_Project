@@ -37,9 +37,10 @@
                         <ToggleButton fx:id="togle_run" mnemonicParsing="false" onAction="#onActionTogle_Run">
                             <graphic>
                                 <ImageView fx:id="img_togleRun" fitHeight="19.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../drawble/playbutton.png" />
-                           </image></ImageView>
+                                    <image>
+                                        <Image url="@../drawble/playbutton.png" />
+                                    </image>
+                                </ImageView>
                             </graphic>
                         </ToggleButton>
                         <Button fx:id="btn_seeknext" mnemonicParsing="false" onAction="#onActionBtn_seekNext">
