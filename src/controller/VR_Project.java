@@ -50,6 +50,10 @@ public class VR_Project extends Application {
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="set & get">
 
+    public static ConnectDateBase getConn() {
+        return conn;
+    }
+
     public static String getID_SEISSION() {
         return ID_SEISSION;
     }
@@ -179,6 +183,7 @@ public class VR_Project extends Application {
                 setScene(new Scene(getRoot()));
                 getStage().setScene(getScene());
                 getStage().setTitle(getClassTools().getNameSystem());
+                getStage().centerOnScreen();
                 getStage().setOnCloseRequest((WindowEvent event) -> {
                     switch (getClassTools().showMasseg(Alert.AlertType.CONFIRMATION, getResLang().getString("Massega.show.text.do_Exsit"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"), ButtonType.YES, ButtonType.CANCEL).getButtonData()) {
                         case YES:
@@ -299,6 +304,7 @@ public class VR_Project extends Application {
             setStage(stage);
             getStage().setScene(getScene());
             getStage().setTitle(getClassTools().getNameSystem());
+            getStage().centerOnScreen();
             getStage().setOnCloseRequest((WindowEvent event) -> {
                 switch (getClassTools().showMasseg(Alert.AlertType.CONFIRMATION, getResLang().getString("Massega.show.text.do_Exsit"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"), ButtonType.YES, ButtonType.CANCEL).getButtonData()) {
                     case YES:

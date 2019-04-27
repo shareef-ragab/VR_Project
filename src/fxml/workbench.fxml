@@ -44,7 +44,7 @@
                     </BorderPane.margin>
                 </HBox>
             </top>
-         <center>
+            <center>
                 <Accordion fx:id="viewPlag" prefHeight="448.0" prefWidth="285.0" BorderPane.alignment="CENTER">
                     <panes>
                         <TitledPane animated="false" prefHeight="459.0" prefWidth="285.0" text="%Worlbench.TitledPian.title.info_pers">
@@ -333,55 +333,55 @@
                                 </BorderPane>
                             </content>
                         </TitledPane>
-                  <TitledPane prefHeight="200.0" prefWidth="200.0" text="%Worlbench.TitledPian.title.listMobilaty">
-                     <content>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <GridPane layoutX="23.6" layoutY="69.6" prefHeight="129.0" prefWidth="254.0" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints maxHeight="222.0" minHeight="10.0" prefHeight="92.00000190734863" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="214.0" minHeight="10.0" prefHeight="84.99999809265137" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="214.0" minHeight="10.0" prefHeight="84.99999809265137" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <AnchorPane prefHeight="211.0" prefWidth="263.0">
-                                       <children>
-                                          <Button layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#onActionShowViedo" prefHeight="25.0" prefWidth="252.0" text="%Worlbench.Button.text.show_Study" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="15.0" />
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane prefHeight="209.0" prefWidth="263.0" GridPane.rowIndex="1">
-                                       <children>
-                                          <Button fx:id="butTecher" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#onActionuploadviedo" prefHeight="25.0" prefWidth="252.0" text="%Worlbench.Button.text.upload_Study" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="15.0" />
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-                                       <children>
-                                          <Button layoutX="101.0" layoutY="1.0" mnemonicParsing="false" onAction="#onActionLog_out" text="%Worlbench.Button.text.log_out" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="15.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </children>
-                              </GridPane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </TitledPane>
+                        <TitledPane prefHeight="200.0" prefWidth="200.0" text="%Worlbench.TitledPian.title.listMobilaty">
+                            <content>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <GridPane layoutX="23.6" layoutY="69.6" prefHeight="129.0" prefWidth="254.0" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints maxHeight="222.0" minHeight="10.0" prefHeight="92.00000190734863" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="214.0" minHeight="10.0" prefHeight="84.99999809265137" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="214.0" minHeight="10.0" prefHeight="84.99999809265137" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <AnchorPane prefHeight="211.0" prefWidth="263.0">
+                                                    <children>
+                                                        <Button layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#onActionShowViedo" prefHeight="25.0" prefWidth="252.0" text="%Worlbench.Button.text.show_Study" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="15.0" />
+                                                    </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="209.0" prefWidth="263.0" GridPane.rowIndex="1">
+                                                    <children>
+                                                        <Button fx:id="butTecher" layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#onActionuploadviedo" prefHeight="25.0" prefWidth="252.0" text="%Worlbench.Button.text.upload_Study" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="15.0" />
+                                                    </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                                    <children>
+                                                        <Button layoutX="101.0" layoutY="1.0" mnemonicParsing="false" onAction="#onActionLog_out" text="%Worlbench.Button.text.log_out" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="15.0" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </children>
+                                        </GridPane>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </TitledPane>
                     </panes>
                     <BorderPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </BorderPane.margin>
                 </Accordion>
-         </center>
-         <bottom>
-            <HBox alignment="CENTER" prefHeight="43.0" prefWidth="305.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Text fx:id="laTime" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="146.13671875" />
-                  <Text fx:id="laData" layoutX="89.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="146.13671875" />
-               </children>
-            </HBox>
-         </bottom>
+            </center>
+            <bottom>
+                <HBox alignment="CENTER" prefHeight="43.0" prefWidth="305.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Text fx:id="laTime" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="146.13671875" />
+                        <Text fx:id="laData" layoutX="89.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="146.13671875" />
+                    </children>
+                </HBox>
+            </bottom>
         </BorderPane>
         <BorderPane fx:id="paFace" layoutY="24.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="709.0" prefWidth="1050.0" styleClass="mainFxmlClass" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="313.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
         <MenuBar prefHeight="25.0" prefWidth="1363.0">
