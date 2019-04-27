@@ -19,14 +19,15 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -45,7 +46,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import modeltion.Face;
 import modeltion.VR_DataBase;
-import modeltion.VR_DataBase.*;
+import modeltion.VR_DataBase.Chat;
+import modeltion.VR_DataBase.Info_user;
 
 /**
  * FXML Controller class
@@ -130,19 +132,25 @@ public class WorkbenchController implements Initializable {
         //<editor-fold defaultstate="collapsed" desc="statment">
         while (true) {
             try {
-                classDBChat = new DateBase(getClassDB().getLocal(), getClassDB().getUrl(), getClassDB().getUser(), getClassDB().getPassword());
-                if (classDBChat.setCuroser("SELECT count(" + Chat.getReadChat() + ") as 'countMasseg' FROM " + Chat.getNameTable() + " where " + Chat.getReadChat() + "='0' and " + Chat.getID_chat() + "='" + id_chat + "';")) {
-                    int count = Integer.parseInt(classDBChat.getRs().getString("countMasseg"));
-                    if (getCount_ActiveUser() != count) {
-                        setCount_ActiveUser(count);
-                        botRefeshMasseg.fire();
+                synchronized (classDBChat) {
+                    classDBChat = new DateBase(getClassDB().getLocal(), getClassDB().getUrl(), getClassDB().getUser(), getClassDB().getPassword());
+                    if (classDBChat.setCuroser("SELECT count(" + Chat.getReadChat() + ") as 'countMasseg' FROM " + Chat.getNameTable() + " where " + Chat.getReadChat() + "='0' and " + Chat.getID_chat() + "='" + id_chat + "';")) {
+                        int count = Integer.parseInt(classDBChat.getRs().getString("countMasseg"));
+                        if (getCount_ActiveUser() != count) {
+                            setCount_ActiveUser(count);
+                            synchronized (botRefeshMasseg) {
+                                synchronized (listViewMassege) {
+                                    botRefeshMasseg.fire();
+                                }
+                            }
+                        }
                     }
                 }
                 sleep(1000);
             } catch (IllegalStateException | InterruptedException ex) {
-
+                Logger.getLogger(WorkbenchController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
-
+                Logger.getLogger(WorkbenchController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 //</editor-fold>
@@ -150,7 +158,7 @@ public class WorkbenchController implements Initializable {
 //</editor-fold>
 //</editor-fold>
 
-    private void reListChat(ListView<Label> listview) throws SQLException, ClassNotFoundException, IOException {
+    private synchronized void reListChat(ListView<Label> listview) throws SQLException, ClassNotFoundException, IOException {
         //<editor-fold defaultstate="collapsed" desc="statment">
         ObservableList<Label> ItemLiset = FXCollections.observableArrayList();
         if (getClassDB().setCuroser("SELECT distinct " + Chat.getID_chat() + " FROM " + Chat.getNameTable() + "  where " + Chat.getID_chat() + " like '" + getID_SEISSION() + "_%' or " + Chat.getID_chat() + " like '%_" + getID_SEISSION() + "'  order by " + Chat.getDateSend() + " desc  ;")) {
@@ -158,12 +166,12 @@ public class WorkbenchController implements Initializable {
                 String idCh = getClassDB().getRs().getString(Chat.getID_chat());
                 classDBChat.setCuroser("SELECT * FROM view_chat where " + Chat.getID_chat() + "='" + idCh + "' ;");
                 String nameSend = "أنت";
-                String nameChat = classDBChat.getRs().getString("user_Name_ar_dest");
+                String nameChat = classDBChat.getRs().getString("user_Name_dest");
                 getClassTools().setInput(getClass().getResourceAsStream("/drawble/User.jpg"));
                 ImageView img = new ImageView(new Image(getClassTools().getInput(), 18, 18, true, true));
                 String nameJob = classDBChat.getRs().getString("NAME_JOB_Dest");
                 if (classDBChat.getRs().getString("ID_DestChat").equals(getID_SEISSION())) {
-                    nameChat = classDBChat.getRs().getString("user_Name_ar_sours");
+                    nameChat = classDBChat.getRs().getString("user_Name_sours");
                     getClassTools().setInput(getClass().getResourceAsStream("/drawble/User.jpg"));
                     img = new ImageView(new Image(getClassTools().getInput(), 18, 18, true, true));
                     nameJob = classDBChat.getRs().getString("NAME_JOB_sourse");
@@ -197,7 +205,7 @@ public class WorkbenchController implements Initializable {
         //</editor-fold>
     }
 
-    private void reListImage(ListView<Label> listview) throws SQLException, URISyntaxException, IOException {
+    private synchronized void reListImage(ListView<Label> listview) throws SQLException, URISyntaxException, IOException {
         //<editor-fold defaultstate="collapsed" desc="statment">
         ObservableList<Label> Item = FXCollections.observableArrayList();
         if (getClassDB().setCuroser("select  distinct user_name,ID_USER from show_info where state_log='1';")) {
@@ -221,99 +229,164 @@ public class WorkbenchController implements Initializable {
         //</editor-fold>
     }
 
-    private void reMasseglist(ListView<Label> listview, String idCat) throws SQLException, IOException, URISyntaxException {
+    private synchronized void reMasseglist(ListView<Label> listview, String idCat) throws SQLException, IOException, URISyntaxException {
         //<editor-fold defaultstate="collapsed" desc="statment">
         ObservableList<Label> Item = FXCollections.observableArrayList();
         int x = 1;
-        classDBChat.setRs(getClassDB().getStat().executeQuery("SELECT * FROM view_chat where " + Chat.getID_chat() + "='" + idCat + "' order by " + Chat.getID() + " asc;"));
-        while (classDBChat.getRs().next()) {
-            //<editor-fold defaultstate="collapsed" desc="statment">
-            if (x == 1) {
-                String name = classDBChat.getRs().getString("user_Name_dest");
-                imgUserChar.setImage(new Image(getClass().getClassLoader().getResource("/drawble/User.jpg").toURI().toString(), 18, 18, true, true));
-                String id = classDBChat.getRs().getString(Chat.getID_DestChat());
-                if (id.equals(getID_SEISSION())) {
-                    name = classDBChat.getRs().getString("user_Name_sours");
-                    id = classDBChat.getRs().getString(Chat.getID_SenderChat());
-                }
-                laUserActiveDest.setText(name);
-                laUserActiveDest.setId(id);
-            }
-            //</editor-fold>
-            x++;
-            VBox con = new VBox();
-            boolean cond = classDBChat.getRs().getString(Chat.getID_Sender()).equals(getID_SEISSION());
-            String idMass = classDBChat.getRs().getString(Chat.getID());
-            String name = getClassDB().getRs().getString("First_Name");
-            Label laMas = new Label(classDBChat.getRs().getString(Chat.getTextSender()), new Label((classDBChat.getRs().getString(Chat.getID_Sender()).equals(getID_SEISSION())) ? "أنا : " : " : " + name));
-            laMas.setPrefWidth(245);
-            con.getChildren().add(0, laMas);
-            Button bot = new Button(null, new ImageView(new Image(getClass().getClassLoader().getResource("/drawble/trash.png").toURI().toString(), 10, 10, true, true)));
-            bot.setPrefSize(10, 10);
-            if (!cond) {
-                bot.setVisible(false);
-            }
-            Label laMoriInfo = new Label(classDBChat.getRs().getString(Chat.getDateSend()), bot);
-            laMoriInfo.setVisible(false);
-            laMoriInfo.setFont(new Font(8));
-            laMoriInfo.setGraphicTextGap(140);
-            laMoriInfo.setContentDisplay(ContentDisplay.RIGHT);
-            laMoriInfo.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-            laMoriInfo.setPadding(new Insets(5, 0, 0, 0));
-            if (!cond) {
-                con.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-                laMoriInfo.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-            }
-
-            laMas.setOnMouseClicked((MouseEvent event) -> {
-                //<editor-fold defaultstate="collapsed" desc="statment">
-                try {
-                    if (!con.getChildren().contains(laMoriInfo)) {
-                        con.getChildren().add(1, laMoriInfo);
-                        laMoriInfo.setVisible(true);
-                        if (!cond) {
-                            classDBChat.setPst(classDBChat.getConn().prepareStatement("update   " + Chat.getNameTable() + " set readChat='1' where " + Chat.getID() + "='" + idMass + "';"));
-                            classDBChat.getPst().execute();
+        synchronized (classDBChat) {
+            if (classDBChat.setCuroser("SELECT * FROM view_chat where " + Chat.getID_chat() + "='" + idCat + "' order by " + Chat.getID() + " asc;")) {
+                do {
+                    //<editor-fold defaultstate="collapsed" desc="statment">
+                    if (x == 1) {
+                        String name = classDBChat.getRs().getString("user_Name_dest");
+                        imgUserChar.setImage(new Image(getClass().getClassLoader().getResource("drawble/User.jpg").toURI().toString(), 18, 18, true, true));
+                        String id = classDBChat.getRs().getString(Chat.getID_DestChat());
+                        if (id.equals(getID_SEISSION())) {
+                            name = classDBChat.getRs().getString("user_Name_sours");
+                            id = classDBChat.getRs().getString(Chat.getID_SenderChat());
                         }
+                        laUserActiveDest.setText(name);
+                        laUserActiveDest.setId(id);
                     }
-                } catch (SQLException ex) {
-
-                }
-                //</editor-fold>
-            });
-            con.setOnMouseExited((MouseEvent event) -> {
-                //<editor-fold defaultstate="collapsed" desc="statment">
-                if (con.getChildren().contains(laMoriInfo)) {
+                    //</editor-fold>
+                    x++;
+                    VBox con = new VBox();
+                    boolean cond = classDBChat.getRs().getString(Chat.getID_Sender()).equals(getID_SEISSION());
+                    String idMass = classDBChat.getRs().getString(Chat.getID());
+                    String name = classDBChat.getRs().getString("First_Name");
+                    Label laMas = new Label(classDBChat.getRs().getString(Chat.getTextSender()), new Label((classDBChat.getRs().getString(Chat.getID_Sender()).equals(getID_SEISSION())) ? "أنا : " : " : " + name));
+                    laMas.setPrefWidth(245);
+                    con.getChildren().add(0, laMas);
+                    Button bot = new Button(null, new ImageView(new Image(getClass().getClassLoader().getResource("drawble/trash.png").toURI().toString(), 10, 10, true, true)));
+                    bot.setPrefSize(10, 10);
+                    if (!cond) {
+                        bot.setVisible(false);
+                    }
+                    Label laMoriInfo = new Label(classDBChat.getRs().getString(Chat.getDateSend()), bot);
                     laMoriInfo.setVisible(false);
-                    con.getChildren().remove(laMoriInfo);
-                }
-                //</editor-fold>
-            });
-            bot.setOnAction((ActionEvent event) -> {
-                //<editor-fold defaultstate="collapsed" desc="statment">
-                try {
-                    classDBChat.setPst(classDBChat.getConn().prepareStatement("delete from " + Chat.getNameTable() + " where " + Chat.getID() + "='" + idMass + "';"));
-                    classDBChat.getPst().execute();
-                    botRefeshMasseg.fire();
-                } catch (SQLException ex) {
+                    laMoriInfo.setFont(new Font(8));
+                    laMoriInfo.setGraphicTextGap(140);
+                    laMoriInfo.setContentDisplay(ContentDisplay.RIGHT);
+                    laMoriInfo.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+                    laMoriInfo.setPadding(new Insets(5, 0, 0, 0));
+                    if (!cond) {
+                        con.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+                        laMoriInfo.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+                    }
 
-                }
-                //</editor-fold>
-            });
-            Item.add(getClassTools().List(null, con, idMass, NodeOrientation.INHERIT, Pos.CENTER));
+                    laMas.setOnMouseClicked((MouseEvent event) -> {
+                        //<editor-fold defaultstate="collapsed" desc="statment">
+                        try {
+                            if (!con.getChildren().contains(laMoriInfo)) {
+                                con.getChildren().add(1, laMoriInfo);
+                                laMoriInfo.setVisible(true);
+                                if (!cond) {
+                                    classDBChat.setPst(classDBChat.getConn().prepareStatement("update   " + Chat.getNameTable() + " set readChat='1' where " + Chat.getID() + "='" + idMass + "';"));
+                                    classDBChat.getPst().execute();
+                                }
+                            }
+                        } catch (SQLException ex) {
+
+                        }
+                        //</editor-fold>
+                    });
+                    con.setOnMouseExited((MouseEvent event) -> {
+                        //<editor-fold defaultstate="collapsed" desc="statment">
+                        if (con.getChildren().contains(laMoriInfo)) {
+                            laMoriInfo.setVisible(false);
+                            con.getChildren().remove(laMoriInfo);
+                        }
+                        //</editor-fold>
+                    });
+                    bot.setOnAction((ActionEvent event) -> {
+                        //<editor-fold defaultstate="collapsed" desc="statment">
+                        try {
+                            classDBChat.setPst(classDBChat.getConn().prepareStatement("delete from " + Chat.getNameTable() + " where " + Chat.getID() + "='" + idMass + "';"));
+                            classDBChat.getPst().execute();
+                            botRefeshMasseg.fire();
+                        } catch (SQLException ex) {
+
+                        }
+                        //</editor-fold>
+                    });
+                    Item.add(getClassTools().List(null, con, idMass, NodeOrientation.INHERIT, Pos.CENTER));
+                } while (classDBChat.getRs().next());
+                listview.setItems(Item);
+            }
         }
-        listview.setItems(Item);
         //</editor-fold>
     }
 
     @FXML
     void OnActionBotSendMassegebotSendMassege(ActionEvent event) {
-
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        try {
+            synchronized (listViewMassege) {
+                if (!thSendMasseg.getText().isEmpty() && id_chat != null) {
+                    getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL add_chat(?, ?, ?, ?, ?, ?, ?);"));
+                    getClassDB().getPst().setString(1, id_chat);
+                    getClassDB().getPst().setString(2, getID_SEISSION());
+                    getClassDB().getPst().setString(3, thSendMasseg.getText());
+                    getClassDB().getPst().setString(4, laUserActiveDest.getId());
+                    getClassDB().getPst().setString(5, getClassTools().getDate() + " " + getClassTools().getTime());
+                    if (getClassDB().setCuroser("SELECT distinct " + Chat.getID_chat() + "," + Chat.getID_DestChat() + "," + Chat.getID_SenderChat() + "  FROM " + Chat.getNameTable() + " where " + Chat.getID_chat() + "='" + id_chat + "';")) {
+                        getClassDB().getPst().setString(6, getClassDB().getRs().getString(Chat.getID_DestChat()));
+                        getClassDB().getPst().setString(7, getClassDB().getRs().getString(Chat.getID_SenderChat()));
+                    } else {
+                        getClassDB().getPst().setString(6, getID_SEISSION());
+                        getClassDB().getPst().setString(7, laUserActiveDest.getId());
+                    }
+                    getClassDB().getPst().execute();
+                    thSendMasseg.clear();
+                    reMasseglist(listViewMassege, id_chat);
+                } else {
+                    getClassTools().showMasseg(Alert.AlertType.INFORMATION, getResLang().getString("massege_not_send"), getResLang().getString("wariing"), getResLang().getString("massege"));
+                }
+            }
+        } catch (IOException | SQLException | URISyntaxException ex) {
+            Logger.getLogger(WorkbenchController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(WorkbenchController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//</editor-fold>
     }
 
     @FXML
     void OnMouseClickedListUserActive(MouseEvent event) {
-
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        try {
+            String id_UserChat;
+            if (listIcon.getSelectionModel().isSelected(listIcon.getSelectionModel().getSelectedIndex())) {
+                switch (getClassTools().showMasseg(Alert.AlertType.CONFIRMATION, getResLang().getString("Massega.show.text.star_masseg"), getResLang().getString("Massega.header.request"), getResLang().getString("Massega.titel.massege"), ButtonType.YES, ButtonType.NO).getButtonData()) {
+                    case YES:
+                        id_UserChat = listIcon.getSelectionModel().getSelectedItem().getId();
+                        if (getClassDB().setCuroser("select * from " + Chat.getNameTable() + " where " + Chat.getID_chat() + "='" + getID_SEISSION() + "_" + id_UserChat + "';") || getClassDB().setCuroser("select * from " + Chat.getNameTable() + " where " + Chat.getID_chat() + "='" + id_UserChat + "_" + getID_SEISSION() + "';")) {
+                            viewPlag.setExpandedPane(titListChat);
+                            id_chat = getClassDB().getRs().getString(Chat.getID_chat());
+                            MultipleSelectionModel<Label> select = listChat.getSelectionModel();
+                            for (int i = 0; i < listChat.getItems().size(); i++) {
+                                select.select(i);
+                                if (select.getSelectedItem().getId().equals(id_chat)) {
+                                    break;
+                                }
+                            }
+                        } else {
+                            laUserActiveDest.setText(listIcon.getSelectionModel().getSelectedItem().getText());
+                            viewPlag.setExpandedPane(titChat);
+                            id_chat = getID_SEISSION() + "_" + id_UserChat;
+                            laUserActiveDest.setId(id_UserChat);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(WorkbenchController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(WorkbenchController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//</editor-fold>
     }
 
     @FXML
@@ -323,12 +396,26 @@ public class WorkbenchController implements Initializable {
 
     @FXML
     void onActionBotRefreshListMasse(ActionEvent event) {
-
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        try {
+            synchronized (listViewMassege) {
+                reMasseglist(listViewMassege, id_chat);
+            }
+        } catch (URISyntaxException | IOException | SQLException ex) {
+            Logger.getLogger(WorkbenchController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//</editor-fold>
     }
 
     @FXML
     void onActionBotRefreshMasseg(ActionEvent event) {
-
+        //<editor-fold defaultstate="collapsed" desc="statment">
+        try {
+            reMasseglist(listViewMassege, id_chat);
+        } catch (URISyntaxException | IOException | SQLException ex) {
+            Logger.getLogger(WorkbenchController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//</editor-fold>
     }
 
     @FXML
@@ -340,7 +427,6 @@ public class WorkbenchController implements Initializable {
     void onActionShowViedo(ActionEvent event) {
         //<editor-fold defaultstate="collapsed" desc="statment">
         try {
-
             setPageView(Face.PageCenter, false);
             if (getScene() != null) {
                 paFace.setCenter(getRoot());
@@ -392,16 +478,28 @@ public class WorkbenchController implements Initializable {
 
     @FXML
     void onActionLog_out(ActionEvent event) {
+        //<editor-fold defaultstate="collapsed" desc="statment">
         try {
-            getStage().onCloseRequestProperty();
-            getClassTempDB().setPst(getClassTempDB().getConn().prepareStatement("DELETE FROM info_log"));
-            getClassTempDB().getPst().execute();
-            getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL Exsit(?);"));
-            getClassDB().getPst().setString(1, getID_SEISSION());
-            getClassDB().getPst().execute();
+            switch (getClassTools().showMasseg(Alert.AlertType.CONFIRMATION, getResLang().getString("Massega.show.text.do_Exsit"), getResLang().getString("Massega.header.info"), getResLang().getString("Massega.titel.massege"), ButtonType.YES, ButtonType.CANCEL).getButtonData()) {
+                case YES:
+                    getClassTempDB().setPst(getClassTempDB().getConn().prepareStatement("DELETE FROM info_log"));
+                    getClassTempDB().getPst().execute();
+                    getClassDB().setPst(getClassDB().getConn().prepareStatement("CALL Exsit(?);"));
+                    getClassDB().getPst().setString(1, getID_SEISSION());
+                    getClassDB().getPst().execute();
+                    getStage().close();
+                    getConn().dispose();
+                    System.exit(0);
+                    break;
+                default:
+                    event.consume();
+                    break;
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(WorkbenchController.class.getName()).log(Level.SEVERE, null, ex);
         }
+//</editor-fold>
     }
 
     @FXML
