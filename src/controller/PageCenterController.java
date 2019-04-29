@@ -45,25 +45,25 @@ public class PageCenterController implements Initializable {
     private Duration duration;
     private MediaPlayer.Status status;
     private int sleedVideo;
-
+    
     @FXML
     private ImageView img_togleRun;
-
+    
     @FXML
     private WebView view_Deiscreption;
-
+    
     @FXML
     private MediaView showViedo;
-
+    
     @FXML
     private Button btn_Prev, btn_seekPrev, btn_seeknext, btn_nextViedo;
-
+    
     @FXML
     private ToggleButton togle_run;
-
+    
     @FXML
     private Slider spVolViedo, spSoundViedo;
-
+    
     @FXML
     private Label laNameViedo;
 //</editor-fold>
@@ -77,7 +77,7 @@ public class PageCenterController implements Initializable {
         }
 //</editor-fold>
     }
-
+    
     @FXML
     void onActionBtn_Prev(ActionEvent event) {
         //<editor-fold defaultstate="collapsed" desc="statment">
@@ -87,7 +87,7 @@ public class PageCenterController implements Initializable {
         }
 //</editor-fold>
     }
-
+    
     @FXML
     void onActionBtn_nextViedo(ActionEvent event) {
         //<editor-fold defaultstate="collapsed" desc="statment">
@@ -97,18 +97,18 @@ public class PageCenterController implements Initializable {
         }
 //</editor-fold>
     }
-
+    
     @FXML
     void onActionBtn_seekNext(ActionEvent event) {
         //<editor-fold defaultstate="collapsed" desc="statment">
         status = mediaPlayer.getStatus();
         if (status == MediaPlayer.Status.PLAYING || status == MediaPlayer.Status.READY) {
-
+            
             mediaPlayer.seek(mediaPlayer.getCurrentTime().add(Duration.millis(500)));
         }
 //</editor-fold>
     }
-
+    
     @FXML
     void onActionTogle_Run(ActionEvent event) {
         //<editor-fold defaultstate="collapsed" desc="statment">
@@ -131,8 +131,9 @@ public class PageCenterController implements Initializable {
 //</editor-fold>
 
     }
-
+    
     protected void updateValues() {
+        //<editor-fold defaultstate="collapsed" desc="statment">
         if (spVolViedo != null && spSoundViedo != null && duration != null) {
             Platform.runLater(() -> {
                 Duration currentTime = mediaPlayer.getCurrentTime();
@@ -145,8 +146,9 @@ public class PageCenterController implements Initializable {
                 }
             });
         }
+//</editor-fold>
     }
-
+    
     public void runMedi(int sleedVideo) {
         //<editor-fold defaultstate="collapsed" desc="statment">
         if (mediaPlayer != null) {
@@ -156,9 +158,35 @@ public class PageCenterController implements Initializable {
         showViedo.setMediaPlayer(mediaPlayer);
         view_Deiscreption.getEngine().load(new File(viedoStudy.get(sleedVideo).getPathDiscrption()).toURI().toString());
         laNameViedo.setText(viedoStudy.get(0).getNameVeido() + "\n" + viedoStudy.get(sleedVideo).getNameAuther());
+        
+        mediaPlayer.currentTimeProperty().addListener((ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) -> {
+            updateValues();
+        });
+        mediaPlayer.setOnPlaying(() -> {
+            if (stopRequested) {
+                mediaPlayer.pause();
+                stopRequested = false;
+            } else {
+                img_togleRun.setImage(new Image(getClass().getResourceAsStream("/drawble/pausebutton.png")));
+            }
+        });
+        mediaPlayer.setOnPaused(() -> {
+            img_togleRun.setImage(new Image(getClass().getResourceAsStream("/drawble/playbutton.png")));
+        });
+        mediaPlayer.setOnReady(() -> {
+            duration = mediaPlayer.getMedia().getDuration();
+            updateValues();
+        });
+        spSoundViedo.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            if (spSoundViedo.isValueChanging()) {
+                mediaPlayer.setVolume(newValue.doubleValue() / 100.0);
+            }
+        });
+        img_togleRun.setImage(new Image(getClass().getResourceAsStream("/drawble/playbutton.png")));
+        togle_run.setSelected(false);
 //</editor-fold>
     }
-
+    
     @FXML
     void initialize() {
         //<editor-fold defaultstate="collapsed" desc="statment">
@@ -207,33 +235,11 @@ public class PageCenterController implements Initializable {
                 } while (getClassDB().getRs().next());
             }
             runMedi(sleedVideo);
-            mediaPlayer.currentTimeProperty().addListener((ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) -> {
-                updateValues();
-            });
-            mediaPlayer.setOnPlaying(() -> {
-                if (stopRequested) {
-                    mediaPlayer.pause();
-                    stopRequested = false;
-                } else {
-                    img_togleRun.setImage(new Image(getClass().getResourceAsStream("/drawble/pausebutton.png")));
-                }
-            });
-            mediaPlayer.setOnPaused(() -> {
-                img_togleRun.setImage(new Image(getClass().getResourceAsStream("/drawble/playbutton.png")));
-            });
-            mediaPlayer.setOnReady(() -> {
-                duration = mediaPlayer.getMedia().getDuration();
-                updateValues();
-            });
-            spSoundViedo.valueProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-                if (spSoundViedo.isValueChanging()) {
-                    mediaPlayer.setVolume(newValue.doubleValue() / 100.0);
-                }
-            });
+            
         } catch (SQLException ex) {
             Logger.getLogger(PageCenterController.class.getName()).log(Level.SEVERE, null, ex);
         }
 //</editor-fold>
     }
-
+    
 }
