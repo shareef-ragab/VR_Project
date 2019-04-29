@@ -4,8 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/project%20me/VR_Project/src/controller/VR_Project.java</file>
-            <file>file:/E:/project%20me/VR_Project/src/modeltion/VR_DataBase.java</file>
             <file>file:/E:/project%20me/VR_Project/src/controller/WorkbenchController.java</file>
+            <file>file:/E:/project%20me/VR_Project/src/controller/PageCenterController.java</file>
         </group>
     </open-files>
 </project-private>
