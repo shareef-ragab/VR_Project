@@ -313,7 +313,6 @@ public class WorkbenchController implements Initializable {
                 }
             }
         }
-        //</editor-fold>
     }
 
     @FXML
@@ -418,7 +417,6 @@ public class WorkbenchController implements Initializable {
                 }
             });
         }
-
 //</editor-fold>
     }
 
